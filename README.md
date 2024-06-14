@@ -1,49 +1,66 @@
 UNIVERSIDAD TECNOLÓGICA NACIONAL 
+
 FACULTAD REGIONAL GENERAL PACHECO
+
 Tecnicatura Universitaria en 
 Programación
+
 LABORATORIO IV 
+
 TRABAJO PRÁCTICO INTEGRADOR
-Página 2 de 10
+
+
 Se pide crear un sistema de gestión para un banco en donde existirán dos 
 tipos de usuarios: administrador del banco y clientes.
+
 Usuario banco
 • ABML de clientes. Tener en cuenta que a cada cliente se le asignará 
 un usuario y contraseña para poder acceder a la web del banco. El 
 administrador podrá cambiar la contraseña, pero nunca se podrá 
 modificar el usuario de ese cliente.
+
 • ABML de cuentas y asignación de cuenta a cliente. Una cuenta debe 
 pertenecer a un solo cliente. Se le podrá asignar un máximo de 3 
 cuentas a un cliente. Al crear la cuenta se le asignará un monto inicial 
 fijo de $10.000.
+
 • Autorización de préstamos. El administrador podrá autorizar o 
 rechazar los préstamos solicitados por el cliente. Si se aprueba el 
 préstamo entonces se le asignará al cliente el monto pedido. Tener 
 en cuenta que se deberán generar las cuotas para que luego pague 
 el cliente.
+
 • Incluir informe/reportes estadísticos para el administrador.
 Usuario cliente
+
 • El cliente podrá seleccionar una cuenta y observar el historial de los 
 movimientos realizados en esa cuenta.
+
 • Transferencias a otros clientes: Un cliente podrá transferir dinero 
 entre sus propias cuentas o a cuentas de otros clientes utilizando el 
 CBU. Se podrá realizarla transferencia mientras el usuario cuente con 
 dinero disponible. Si no posee dinero no podrá transferir.
+
 • Pedido de préstamo. El cliente podrá pedir un préstamo de cierto 
 dinero al banco, seleccionar la cantidad de cuotas en las que quiere
 NOTA: Para realizar el Trabajo Práctico Integrador deberá utilizar JAVA. 
 Se deberán incluir lossiguientestemas: JDBC / JSP / SERVLETS / SESSION
-Página 3 de 10
 abonarlo y elegir la cuenta en donde se le depositará el pago del 
 préstamo. El banco recibirá el pedido y autorizará o no dicho 
 préstamo.
+
 • El cliente tendrá un menú de pago de préstamos en donde figure las 
 cuotas que debe pagar, podrá pagar seleccionando la cuota y cuenta 
 de donde se descontará dicho gasto. Cada vez que se pague una 
 cuota se guardará la fecha en la cual se pagó la misma.
+
 • El cliente podrá visualizarsu información personal. No podrá cambiar 
 los datos, solo los visualizará.
+
+
 Observaciones
+
+
 Asumiremos que no se generan intereses por el pago fuera de término de 
 la cuota de un préstamo, la cuota es fija. También asumiremos que toda la 
 funcionalidad pertenece a un mismo banco (en la tabla usuario de la base 
@@ -52,34 +69,41 @@ pueda acceder a la aplicación). No es necesario hacer un ABML de tipo de
 cuentas posibles y tipos de movimientos, los mismos deben estar cargados 
 previamente en la base de datos. Las cuentas no pueden quedar con saldos 
 negativos.
+
 Tipos de cuentas posibles:
 • Caja de ahorro.
 • Cuenta corriente.
+
 Tipos de movimientos posibles:
 • Alta de cuenta. El alta de una cuenta genera un movimiento de 
 dinero positivo en la cuenta origen.
+
 • Alta de un préstamo. El alta de un préstamo genera un movimiento 
 de dinero positivo en la cuenta origen.
+
 • Pago de préstamo. El pago de un préstamo genera un movimiento de 
 dinero negativo en la cuenta origen.
+
 • Transferencia. Una transferencia genera dos movimientos, un 
 movimiento negativo en la cuenta de origen (extracción de dinero) y 
 un movimiento positivo en la cuenta destino (depósito de dinero)
-Página 4 de 10
+
 En cuanto a los datos, mínimamente cada tabla tiene lossiguientes datos:
 • Por cada movimiento se tiene una fecha, detalle o concepto, importe 
 y tipo de movimiento.
+
 • Un cliente tiene un DNI, CUIL, nombre, apellido, sexo, nacionalidad, 
 fecha de nacimiento, dirección, localidad, provincia, correo 
 electrónico, teléfonos, un usuario y contraseña para acceder a la 
 página.
+
 • Una cuenta tiene un cliente asignado, fecha de creación, tipo de 
 cuenta, un número de cuenta, CBU y un saldo.
 • Un préstamo tiene un cliente asignado, una fecha, el importe que 
 deberá pagar el cliente (con intereses), el importe pedido por el 
 cliente, un plazo de pago en meses, el monto que deberá pagar por 
 mes y cuotas.
-Página 5 de 10
+
 1) Se debe participar en el foro del TP integrador. Los alumnos que no 
 participen en el foro serán considerados que no participaron de la tarea 
 y por ende desaprobaran la misma. También se evaluará el contenido 
@@ -112,53 +136,59 @@ descripción_movimiento.
 desde los JSP se tiene que llamar al SERVLET y el SERVLET llama al 
 negocio. Por último, el negocio llama al DAO. El SERVLET es el 
 “controlador” de nuestras aplicaciones web.
+
+
 PARA PODER APROBAR EL TP INTEGRADOR DEBE CUMPLIR LAS 
 SIGUIENTES PAUTAS:
-Página 6 de 10
-11) En los descolgables deben aparecer también las descripciones y
+
+
+12) En los descolgables deben aparecer también las descripciones y
 no solo sus identificadores.
-12) Manejar bajas lógicas y no físicas.
-13) Trabajar con VALORES CON DECIMALES.
-14) No guardar campos vacíos en la base de datos. Para eso usar 
+13) Manejar bajas lógicas y no físicas.
+14) Trabajar con VALORES CON DECIMALES.
+15) No guardar campos vacíos en la base de datos. Para eso usar 
 validaciones. Ejemplo: validación de números, de textos, correo 
 electrónico, etc. validar que si se hace clic sobre el botón y no hay nada 
 cargado entonces no se guarde ese registro en la base de datos.
-15) Al modificar, se podrán modificar todos los campos de la tabla, 
+16) Al modificar, se podrán modificar todos los campos de la tabla, 
 obviamente no se modificará el campo clave. Se deben cargar 
 automáticamente todos los campos que se le va a permitir modificar al 
 usuario, luego este cambia solo el dato que necesita. Al modificar un solo 
 campo de la base de datos, no se deben borrar los demás campos, solo 
 se deberá actualizar el campo que el usuario esté cambiando.
-16) Utilizar mensajes de confirmación. Ejemplo: ¿Está seguro que desea 
+17) Utilizar mensajes de confirmación. Ejemplo: ¿Está seguro que desea 
 eliminar el registro?
-17) Al dar de alta un usuario pedir la clave dos veces y usar
+18) Al dar de alta un usuario pedir la clave dos veces y usar
 asteriscos para no mostrarla.
-18) Tener cuidado con los repetidos en la base de datos, por ejemplo: 
+19) Tener cuidado con los repetidos en la base de datos, por ejemplo: 
 no podría haber dos personas con el mismo DNI en la base de datos.
-19) Luego de realizar un cambio sobre un registro por ejemplo al 
+20) Luego de realizar un cambio sobre un registro por ejemplo al 
 agregar, limpiar todos los controles. Es decir, se deberá borrar la
 información que acaba de ingresar el usuario.
-20) Incluir reportes/estadísticas con parámetros. NO ES LO MISMO UN 
+21) Incluir reportes/estadísticas con parámetros. NO ES LO MISMO UN 
 LISTADO QUE UN REPORTE, UN REPORTE ES INFORMACIÓN QUE SE 
 OBTIENE A PARTIR DE LOS DATOS QUE SE ENCUENTRAN EN LA BASE DE
 DATOS. Ejemplo: Seleccionar fecha de inicio y fecha de fin, y obtener el 
 monto total de egreso e ingreso en la empresa. Los parámetros en este 
 caso sería la selección de fechas.
-21) Utilizar descolgables en los casos que sea necesario. Ejemplo: para 
+22) Utilizar descolgables en los casos que sea necesario. Ejemplo: para 
 provincia, localidades, géneros, etc. Si se modifica dentro de una grilla y 
 tienen campos que aplican para ser descolgables, entonces utilizar dicho 
 control.
-22) En el caso de dar de alta un usuario, un usuario común NO
+23) En el caso de dar de alta un usuario, un usuario común NO
 PUEDE DAR DE ALTA UN ADMINISTRADOR.
-Página 7 de 10
-23) Cambiar el nombre de las columnas de las grillas y dejar uno
+
+24) Cambiar el nombre de las columnas de las grillas y dejar uno
 apropiado. Usar para ello la instrucción AS del lenguaje SQL. Ejemplo: 
 “Select p_nombre AS nombre from Persona.
-24) Antes de rendir, se deberá cargar la base de datos con varios 
+25) Antes de rendir, se deberá cargar la base de datos con varios 
 registros con información válida para la prueba. Mínimamente 15 
 registros por tabla para poder probar búsquedas y filtros.
-Página 8 de 10
+
+
 ENTREGAS OBLIGATORIAS TP INTEGRADOR
+
+
 Habrá dos entregas del TP integrador. Es necesario aprobar la primera 
 entrega, para poder presentarse a la segunda. Cada entrega tendrá su 
 recuperatorio. Si se desaprueba el recuperatorio se desaprueba el TP 
