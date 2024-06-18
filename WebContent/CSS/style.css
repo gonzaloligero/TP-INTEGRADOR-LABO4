@@ -1,6 +1,26 @@
+body{
+	background-color: #d2dfdf;
+}
 .bg-azul {
     background-color: #057EA3; /* Define tu color personalizado aquí */
 }
 .btn:hover{
     background-color: #219ebc;
+}
+label {
+	font-weight: bold;
+}
+.btn-admin{
+	height: 90px;
+	font-size: 30px;
+	font-weight: bold;
+	text-align: center;
+	background-color: #100934;
+	display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+.btn-admin:hover{
+	background-color: #554d81;
 }
