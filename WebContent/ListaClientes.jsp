@@ -43,27 +43,16 @@
                 </tr>
             </thead>
             <tbody>
-                <%-- Itera sobre la lista de clientes y muestra cada uno --%>
-                <% Cliente cliente = new Cliente(); %>
-                <% for (int i = 0; i<8; i++) { %>
-                	<%  cliente.setIDUsuario(1122); 
-                		cliente.setNombre("Larry");
-                		cliente.setApellido(" Capote");
-                		cliente.setDNI(11122233);
-                		cliente.setCUIL("20-111222233-0");
-                		cliente.setNacionalidad("Extraterrestre");
-                		cliente.setEmail("larry@demarte.com");
-                		
-                	%>
+                <% 
+                    ArrayList<Cliente> listaClientes = (ArrayList<Cliente>) request.getAttribute("listaClientes");
+                    if (listaClientes != null) {
+                        for (Cliente cliente : listaClientes) { 
+                %>
                     <tr>
-                        <td><%= cliente.getIDUsuario() %></td>
                         <td><%= cliente.getNombre() %> <%= cliente.getApellido() %></td>
                         <td><%= cliente.getDNI() %></td>
                         <td><%= cliente.getCUIL() %></td>
                         <td><%= cliente.getNacionalidad() %></td>
-                        <td><%= 11/05/2000 %></td>
-                        <td><%= cliente.getEmail() %></td>
-                        <td><%= 1122334455 %></td>
                         <td>
                             <button class="btn btn-danger">
                                 <i class="bi bi-trash"></i>
@@ -73,7 +62,16 @@
                             </button>
                         </td>
                     </tr>
-                <% } %>
+                <% 
+                        } 
+                    } else { 
+                %>
+                    <tr>
+                        <td colspan="9">No hay clientes disponibles</td>
+                    </tr>
+                <% 
+                    } 
+                %>
             </tbody>
         </table>
     </div>
@@ -81,4 +79,3 @@
     <jsp:include page="Componentes/Footer.jsp"></jsp:include>
 </body>
 </html>
-
