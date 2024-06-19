@@ -24,3 +24,42 @@ label {
 .btn-admin:hover{
 	background-color: #554d81;
 }
+
+.navbar{
+	
+	  z-index: 1000
+	
+}
+
+.sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background: #000;
+            color: #fff;
+            transition: all 0.3s;
+            z-index: 999;
+            padding-top: 60px;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 10px 15px;
+            border-bottom: 1px solid #555;
+        }
+        .sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+        }
+        .sidebar ul li a:hover {
+            background-color: #555;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
