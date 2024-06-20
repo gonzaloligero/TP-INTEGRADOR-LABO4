@@ -11,7 +11,8 @@
         </ul>
         <ul class="navbar-nav ms-auto">
             <li class="nav-item me-3">
-                <a class="btn bg-azul fw-bold" href="MenuAdministrador.jsp"> <i class="bi bi-person fs-4"></i> Login</a>
+                <a class="btn bg-azul fw-bold" href="MenuAdministrador.jsp"> <i class="bi bi-person fs-4"></i> Admin</a>
+                <a class="btn bg-azul fw-bold" href=""> <i class="bi bi-person fs-4"></i> Cliente</a>
             </li>
         </ul>
     </div>
