@@ -28,6 +28,9 @@
             <h1 class="mb-5">LISTA DE CLIENTES</h1>
         </div>
         
+        <div>
+        	<a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3" href="AltaCliente.jsp">  Agregar</a>
+        </div>
         <table id="table_id" class="table table-striped  display text-center">
             <thead>
                 <tr>
@@ -44,7 +47,7 @@
             </thead>
             <tbody>
                 <% 
-                    ArrayList<Cliente> listaClientes = (ArrayList<Cliente>) request.getAttribute("listaClientes");
+                    ArrayList<Cliente> listaClientes = Cliente.listaClientes();//(ArrayList<Cliente>) request.getAttribute("listaClientes");
                     if (listaClientes != null) {
                         for (Cliente cliente : listaClientes) { 
                 %>
@@ -54,12 +57,8 @@
                         <td><%= cliente.getCUIL() %></td>
                         <td><%= cliente.getNacionalidad() %></td>
                         <td>
-                            <button class="btn btn-danger">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                            <button class="btn btn-success">
-                                <i class="bi bi-pencil-square"></i>
-                            </button>
+                            <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                            <button class="btn btn-success"><i class="bi bi-pencil-square"></i></button>
                         </td>
                     </tr>
                 <% 
