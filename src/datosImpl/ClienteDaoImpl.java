@@ -39,6 +39,36 @@ public class ClienteDaoImpl implements ClienteDao{
 		}
 		return lista;
 	}
+
+
+	@Override
+	public Cliente obtenerUsuarioLogin(String email, String contrasenia) {
+		
+		cn = new Conexion();
+		cn.Open();
+		Cliente cliente = new Cliente();
+
+		try {
+		    ResultSet rs = cn.query("SELECT c.Nombre, c.Apellido, c.IDUsuario, u.TipoUsuario " + 
+		                            "FROM CLIENTES c " + 
+		                            "JOIN USUARIOS u ON c.IDUsuario = u.IDUsuario " + 
+		                            "WHERE c.Email = '"+email+"' AND u.Contraseña = '"+contrasenia+"';");
+		    if (rs.next()) {
+		        cliente = new Cliente();
+		        
+		        cliente.setNombre(rs.getString("Nombre"));
+		        cliente.setApellido(rs.getString("Apellido"));
+		        cliente.setIDUsuario(rs.getInt("IDUsuario"));
+		        cliente.setUserType(rs.getInt("TipoUsuario"));
+		    }
+		} catch (Exception e) {    
+		    System.out.println(e.getMessage());    
+		} finally {
+		    cn.close();
+		}
+
+		return cliente;
+	}
 	
 	
 }

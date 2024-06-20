@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import datosImpl.ClienteDaoImpl;
+import entidad.Cliente;
+
 /**
  * Servlet implementation class ServletLogin
  */
@@ -31,24 +34,35 @@ public class ServletLogin extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		ClienteDaoImpl x = new ClienteDaoImpl();
+		Cliente cliente = new Cliente();
+		
 		if(request.getParameter("btnIniciarSesion")!=null)
 		{
+			
 			request.getSession().removeAttribute("email");
+			request.getSession().removeAttribute("contrasenia");
 			//En htttpSession obtengo todas las variables session creadas
 			HttpSession session = request.getSession();
 			
-			String valor="";
-			if(request.getParameter("email")!=null)
+			String datoEmail="";
+			String datoContrasenia="";
+			if(request.getParameter("email")!=null && request.getParameter("contrasenia")!=null)
 			{
-				valor=request.getParameter("email");
+				
+				datoEmail = request.getParameter("email");
+				datoContrasenia = request.getParameter("contrasenia");
+				cliente = x.obtenerUsuarioLogin(datoEmail,datoContrasenia);
+										
 			}
 			
 			//Mediate el setAttribute creo la variable session
-			session.setAttribute("sessionLogin", valor);
+			session.setAttribute("sessionLogin", cliente);
 			//Redirijo a otro jsp
 			
-			
-			RequestDispatcher miDispacher = request.getRequestDispatcher("/Login.jsp"); // Es el archivo JSP al que le vamos a enviar la informacion
+			System.out.println(request.getParameter("email"));
+			System.out.println(request.getParameter("contrasenia"));
+			RequestDispatcher miDispacher = request.getRequestDispatcher("/Home.jsp"); // Es el archivo JSP al que le vamos a enviar la informacion
 		    miDispacher.forward(request, response);
 		}
 		doGet(request, response);

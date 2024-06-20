@@ -44,5 +44,6 @@ public class ClienteNegImpl implements ClienteNegocio{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 	
 }

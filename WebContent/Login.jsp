@@ -9,7 +9,14 @@
 	<title>Insert title here</title>
 	
 	<style>
+	
+	    * {
+	      padding: 0;
+	      margin: 0;
+	      box-sizing: border-box;
+	    }
 		body {
+		
 		    background-color: white;	
 			min-height: 100vh;
 			display: grid;
@@ -116,7 +123,7 @@
 	     </div>	    	    
 		 <h2>Inicia sesión</h2>
 		 
-		 <form class="formularioLogin" method=post action="servletLogin">
+		 <form class="formularioLogin" method=post action="ServletLogin">
 		     <div class="form-control">
 		       <label for="email" class=""> Email: </label> 
 		       <input   type="email" name="email" placeholder="Ingrese su email..." required >
