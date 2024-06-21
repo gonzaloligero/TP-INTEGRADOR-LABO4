@@ -10,10 +10,21 @@
             </li>
         </ul>
         <ul class="navbar-nav ms-auto">
-            <li class="nav-item me-3">
-                <a class="btn bg-azul fw-bold" href="MenuAdministrador.jsp"> <i class="bi bi-person fs-4"></i> Admin</a>
-                <a class="btn bg-azul fw-bold" href=""> <i class="bi bi-person fs-4"></i> Cliente</a>
-            </li>
-        </ul>
+                    <% if (session.getAttribute("sessionLogin") == null) { %>
+                        <!-- Si no hay usuario en sesión (no logueado) -->
+                       
+                        <li class="nav-item me-3">
+                            <a class="btn bg-azul fw-bold" href="Login.jsp"> <i class="bi bi-person fs-4"></i> Ingresar</a>
+                        </li>
+                    <% } else { %>
+                        <!-- Si hay usuario en sesión (logueado) -->
+                        <li class="nav-item me-3">
+                            <a class="btn bg-azul fw-bold" href=""> <i class="bi bi-person fs-4"></i> Cliente</a>
+                        </li>
+                        <li class="nav-item me-3">
+                            <a class="btn bg-azul fw-bold" href="MenuAdministrador.jsp"> <i class="bi bi-person fs-4"></i> Admin</a>            
+                        </li>
+                    <% } %>
+                </ul>
     </div>
 </nav>

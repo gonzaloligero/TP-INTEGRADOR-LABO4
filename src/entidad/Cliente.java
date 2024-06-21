@@ -15,7 +15,8 @@ public class Cliente extends Usuario {
 	private Direccion Direccion;
 	private String Email;
 	private int IDUsuario;
-	private String Telefono;
+	private int IDTelefono;
+	private String NumeroTelefonico;
 	private boolean Estado;
 	
 public Cliente() {
@@ -26,7 +27,8 @@ public Cliente() {
 	this.Sexo = "";
 	this.Nacionalidad = "";
 	this.FechaNacimiento = Date.valueOf("2020-02-01");
-	this.Telefono = "";
+	this.IDTelefono = 0;
+	this.NumeroTelefonico = "";
 	this.Direccion = new Direccion();
 	this.Direccion.setCalle("");
 	this.Direccion.setCodigoPostal("");
@@ -51,7 +53,8 @@ public Cliente(int dni, String cuil, String nombre, String apellido, String sexo
 	this.Direccion.setID(0);
 	this.Direccion.setNumero(0);
 	this.Email = email;
-	this.Telefono = "";
+	this.IDTelefono = 0;
+	this.NumeroTelefonico = "";
 	this.IDUsuario = usuario;
 	setUserType(2);	
 }
@@ -64,12 +67,21 @@ public void setDNI(int dNI) {
 	DNI = dNI;
 }
 
-public void setTelefono(String telefono) {
-	this.Telefono = telefono;
+
+public String getNumeroTelefonico() {
+	return NumeroTelefonico;
 }
 
-public String getTelefono() {
-	return this.Telefono;
+public void setNumeroTelefonico(String numeroTelefonico) {
+	NumeroTelefonico = numeroTelefonico;
+}
+
+public void setTelefono(int telefono) {
+	this.IDTelefono = telefono;
+}
+
+public int getTelefono() {
+	return this.IDTelefono;
 }
 
 public String getCUIL() {
@@ -160,7 +172,7 @@ public void setDireccion(String calle, int numero, String codigoPostal) {
 public String toString() {
 	return "Cliente [DNI=" + DNI + ", CUIL=" + CUIL + ", Nombre=" + Nombre + ", Apellido=" + Apellido + ", Sexo=" + Sexo
 			+ ", Nacionalidad=" + Nacionalidad + ", FechaNacimiento=" + FechaNacimiento + ", Direccion=" + Direccion
-			+ ", Email=" + Email + ", IDUsuario=" + IDUsuario + ", Telefono=" + Telefono + ", Estado=" + Estado + "]";
+			+ ", Email=" + Email + ", IDUsuario=" + IDUsuario + ", Telefono=" + IDTelefono + ", Estado=" + Estado + "]";
 }
 
 

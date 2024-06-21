@@ -23,26 +23,44 @@ public class ClienteNegImpl implements ClienteNegocio{
 
 	@Override
 	public Cliente obtenerUnCliente(int IDUsuario) {
+<<<<<<< HEAD
 		// TODO Auto-generated method stub
 		return null;
+=======
+		return clienteDao.obtenerUnCliente(IDUsuario);
+>>>>>>> origin/main
 	}
 
 	@Override
 	public boolean insertarCliente(Cliente cliente) {
+<<<<<<< HEAD
 		// TODO Auto-generated method stub
 		return false;
+=======
+		return clienteDao.insertarCliente(cliente);
+>>>>>>> origin/main
 	}
 
 	@Override
 	public boolean editarCliente(Cliente cliente) {
+<<<<<<< HEAD
 		// TODO Auto-generated method stub
 		return false;
+=======
+		return clienteDao.editarCliente(cliente);
+>>>>>>> origin/main
 	}
 
 	@Override
 	public boolean bajaLogicaCliente(int IDUsuario) {
+<<<<<<< HEAD
 		// TODO Auto-generated method stub
 		return false;
 	}
+=======
+		return clienteDao.bajaLogicaCliente(IDUsuario);
+	}
+
+>>>>>>> origin/main
 	
 }
