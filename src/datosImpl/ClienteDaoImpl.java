@@ -11,6 +11,9 @@ public class ClienteDaoImpl implements ClienteDao{
 	
 	public ArrayList<Cliente> obtenerClientes(){
 		
+		
+		
+		
 		cn = new Conexion();
 		cn.Open();
 		ArrayList<Cliente> lista = new ArrayList<Cliente>();
