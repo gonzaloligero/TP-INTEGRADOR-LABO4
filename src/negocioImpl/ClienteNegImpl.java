@@ -23,26 +23,22 @@ public class ClienteNegImpl implements ClienteNegocio{
 
 	@Override
 	public Cliente obtenerUnCliente(int IDUsuario) {
-		// TODO Auto-generated method stub
-		return null;
+		return clienteDao.obtenerUnCliente(IDUsuario);
 	}
 
 	@Override
 	public boolean insertarCliente(Cliente cliente) {
-		// TODO Auto-generated method stub
-		return false;
+		return clienteDao.insertarCliente(cliente);
 	}
 
 	@Override
 	public boolean editarCliente(Cliente cliente) {
-		// TODO Auto-generated method stub
-		return false;
+		return clienteDao.editarCliente(cliente);
 	}
 
 	@Override
 	public boolean bajaLogicaCliente(int IDUsuario) {
-		// TODO Auto-generated method stub
-		return false;
+		return clienteDao.bajaLogicaCliente(IDUsuario);
 	}
 
 	
