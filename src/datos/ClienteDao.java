@@ -2,6 +2,7 @@ package datos;
 import java.util.ArrayList;
 
 import entidad.Cliente;
+import entidad.Direccion;
 
 public interface ClienteDao {
 
@@ -11,7 +12,8 @@ public interface ClienteDao {
 	public boolean insertarCliente(Cliente cliente);
 	public boolean editarCliente(Cliente cliente);
 	public boolean bajaLogicaCliente(int IDUsuario);
-	
+	public ArrayList<Direccion>obtenerProvincias();
+	public ArrayList<Direccion>obtenerLocalidades();
 	
 }
 

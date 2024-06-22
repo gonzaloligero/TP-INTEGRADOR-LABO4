@@ -3,12 +3,14 @@ import java.util.ArrayList;
 
 import datos.ClienteDao;
 import entidad.Cliente;
+import entidad.Direccion;
 import datosImpl.ClienteDaoImpl;
 import negocio.ClienteNegocio;
 
 public class ClienteNegImpl implements ClienteNegocio{
 	
 	private ClienteDao clienteDao = new ClienteDaoImpl();
+
 	
 	public ClienteNegImpl(ClienteDao clDao) {
 		this.clienteDao = clDao;
@@ -54,6 +56,15 @@ public class ClienteNegImpl implements ClienteNegocio{
 		return clienteDao.bajaLogicaCliente(IDUsuario);
 	}
 
+	@Override
+	public ArrayList<Direccion> listarProvincias() {
+		return(ArrayList<Direccion>) clienteDao.obtenerProvincias();
+	}
+	
+	@Override
+	public ArrayList<Direccion> listarLocalidades() {
+		return(ArrayList<Direccion>) clienteDao.obtenerLocalidades();
+	}
 
 	
 }

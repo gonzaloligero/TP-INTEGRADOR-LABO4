@@ -23,9 +23,11 @@ public class ClienteDaoImpl implements ClienteDao{
 		ArrayList<Cliente> lista = new ArrayList<Cliente>();
 		
 		try {
-			ResultSet rs= cn.query("SELECT c.Nombre, c.Apellido, c.DNI, c.CUIL, c.Sexo, c.Nacionalidad, c.FechaNacimiento, d.Calle AS Calle, d.Numero AS Numero, d.CodigoPostal AS CodigoPostal FROM CLIENTES AS c INNER JOIN DIRECCIONES AS d ON d.IDDireccion = c.IDDireccion");
+			ResultSet rs= cn.query("SELECT l.Nombre, p.Nombre, u.Usuario, u.Contraseña, t.NumeroTelefonico, c.Nombre, c.Apellido, c.DNI, c.CUIL, c.Sexo, c.Nacionalidad, c.FechaNacimiento, c.Email, d.Calle AS Calle, d.Numero AS Numero, d.CodigoPostal AS CodigoPostal FROM CLIENTES AS c INNER JOIN DIRECCIONES AS d ON d.IDDireccion = c.IDDireccion INNER JOIN USUARIOS AS u ON u.IDUsuario = c.IDUsuario INNER JOIN TELEFONOS AS T ON T.DNICliente = c.DNI INNER JOIN LOCALIDADES AS l ON l.IDLocalidad = d.IDLocalidad INNER JOIN PROVINCIAS AS p ON p.IDProvincia = l.IDProvincia");
 			while(rs.next()) {
 				Cliente regCliente = new Cliente();
+				regCliente.setUser(rs.getString("u.Usuario"));
+				regCliente.setPassword(rs.getString("u.Contraseña"));
 				regCliente.setNombre(rs.getString("c.Nombre"));
 				regCliente.setApellido(rs.getString("c.Apellido"));
 				regCliente.setDNI(rs.getInt("c.DNI"));
@@ -33,10 +35,14 @@ public class ClienteDaoImpl implements ClienteDao{
 				regCliente.setSexo(rs.getString("c.Sexo"));
 				regCliente.setNacionalidad(rs.getString("c.Nacionalidad"));
 				regCliente.setFechaNacimiento(rs.getDate("c.FechaNacimiento"));
+				regCliente.setEmail(rs.getString("c.Email"));
+				regCliente.setNumeroTelefonico(rs.getString("t.NumeroTelefonico"));
 				String calle = rs.getString("d.Calle");
                 int numero = rs.getInt("d.Numero");
                 String codigoPostal = rs.getString("d.CodigoPostal");
-                regCliente.setDireccion(calle, numero, codigoPostal);
+                String localidad = rs.getString("l.Nombre");
+                String provincia = rs.getString("p.Nombre");
+                regCliente.setDireccion(calle, numero, codigoPostal, localidad, provincia);    
 				lista.add(regCliente);
 			}
 		}catch (Exception e){	
@@ -85,7 +91,9 @@ public class ClienteDaoImpl implements ClienteDao{
 		Cliente cliente = new Cliente();
 
 		try {
-		    ResultSet rs = cn.query("SELECT c.Nombre, c.Apellido, c.DNI, c.CUIL, c.Sexo, c.Nacionalidad, c.FechaNacimiento, c.IDUsuario, d.Calle AS Calle, d.Numero AS Numero, d.CodigoPostal AS CodigoPostal FROM CLIENTES AS c INNER JOIN DIRECCIONES AS d ON d.IDDireccion = c.IDDireccion WHERE IDUsuario = '" + IDUsuario + "' ");
+			
+
+		    ResultSet rs = cn.query("SELECT l.Nombre, p.Nombre, u.Usuario, u.Contraseña, t.NumeroTelefonico, c.Nombre, c.Apellido, c.DNI, c.CUIL, c.Sexo, c.Nacionalidad, c.FechaNacimiento, c.Email, d.Calle AS Calle, d.Numero AS Numero, d.CodigoPostal AS CodigoPostal FROM CLIENTES AS c INNER JOIN DIRECCIONES AS d ON d.IDDireccion = c.IDDireccion INNER JOIN USUARIOS AS u ON u.IDUsuario = c.IDUsuario INNER JOIN TELEFONOS AS T ON T.DNICliente = c.DNI INNER JOIN LOCALIDADES AS l ON l.IDLocalidad = d.IDLocalidad INNER JOIN PROVINCIAS AS p ON p.IDProvincia = l.IDProvincia WHERE IDUsuario = '" + IDUsuario + "' ");
 		    if (rs.next()) {
 		        cliente = new Cliente();
 		        
@@ -98,7 +106,9 @@ public class ClienteDaoImpl implements ClienteDao{
 		        String calle = rs.getString("d.Calle");
                 int numero = rs.getInt("d.Numero");
                 String codigoPostal = rs.getString("d.CodigoPostal");
-                cliente.setDireccion(calle, numero, codigoPostal);
+                String localidad = rs.getString("l.Nombre");
+                String provincia = rs.getString("p.Nombre");
+                cliente.setDireccion(calle, numero, codigoPostal, localidad, provincia);
                 cliente.setEmail(rs.getString("Email"));
 		        cliente.setIDUsuario(rs.getInt("c.IDUsuario"));
 		        cliente.setUserType(2);
@@ -209,6 +219,52 @@ public class ClienteDaoImpl implements ClienteDao{
 			cn.close();
 		}
 		return clienteDesactivado;
+	}
+
+
+	@Override
+	public ArrayList<Direccion> obtenerProvincias() {
+
+		
+		cn = new Conexion();
+		cn.Open();
+		ArrayList<Direccion> lista = new ArrayList<Direccion>();
+		
+		try {
+			ResultSet rs= cn.query("SELECT Nombre FROM PROVINCIAS");
+			while(rs.next()) {
+				Direccion regDireccion = new Direccion();
+				regDireccion.setProvincia(rs.getString("Nombre"));   
+				lista.add(regDireccion);
+			}
+		}catch (Exception e){	
+				System.out.println(e.getMessage());	
+		}finally {
+			cn.close();
+		}
+		return lista;
+	}
+
+
+	@Override
+	public ArrayList<Direccion> obtenerLocalidades() {
+		cn = new Conexion();
+		cn.Open();
+		ArrayList<Direccion> lista = new ArrayList<Direccion>();
+		
+		try {
+			ResultSet rs= cn.query("SELECT l.Nombre FROM LOCALIDADES AS l INNER JOIN PROVINCIAS AS p ON l.IDProvincia = p.IDProvincia");
+			while(rs.next()) {
+				Direccion regDireccion = new Direccion();
+				regDireccion.setLocalidad(rs.getString("l.Nombre"));   
+				lista.add(regDireccion);
+			}
+		}catch (Exception e){	
+				System.out.println(e.getMessage());	
+		}finally {
+			cn.close();
+		}
+		return lista;
 	}
 	
 

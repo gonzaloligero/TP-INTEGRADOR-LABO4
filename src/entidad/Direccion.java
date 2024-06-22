@@ -3,9 +3,10 @@ package entidad;
 public class Direccion {
 
 	private int ID;
-	private int Localidad;
+	private String Localidad;
 	private String Calle;
 	private int Numero;
+	private String Provincia;
 	private String CodigoPostal;
 	
 public Direccion() {
@@ -13,15 +14,17 @@ public Direccion() {
 	this.Calle = "";
 	this.Numero = 0;
 	this.CodigoPostal = "";
-	this.Localidad = 0;
+	this.Localidad = "";
+	this.Provincia = "";
 }
 
-public Direccion(int id, String calle, int numero, String codPostal, int localidad) {
+public Direccion(int id, String calle, int numero, String codPostal, String localidad, String provincia) {
 	this.ID = id;
 	this.Calle = calle;
 	this.Numero = numero;
 	this.CodigoPostal = codPostal;
 	this.Localidad = localidad;
+	this.Provincia = provincia;
 }
 
 public int getID() {
@@ -33,11 +36,19 @@ public void setID(int iD) {
 }
 
 
-public int getLocalidad() {
+public String getProvincia() {
+	return Provincia;
+}
+
+public void setProvincia(String provincia) {
+	Provincia = provincia;
+}
+
+public String getLocalidad() {
 	return Localidad;
 }
 
-public void setLocalidad(int localidad) {
+public void setLocalidad(String localidad) {
 	Localidad = localidad;
 }
 

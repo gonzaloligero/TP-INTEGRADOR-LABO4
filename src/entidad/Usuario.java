@@ -23,11 +23,11 @@ public Usuario (String usuario, String contraseña, int tipoUsuario) {
 }
 
 public String getUser() {
-	return User;
+	return this.User;
 }
 
 public void setUser(String user) {
-	User = user;
+	this.User = user;
 }
 
 public String getPassword() {
