@@ -45,10 +45,10 @@ public class ServletClientes extends HttpServlet {
                     break;
 
                 case "eliminar":
-                    int idEliminar = Integer.parseInt(request.getParameter("id"));
-                    clienteNegocio.bajaLogicaCliente(idEliminar);
-                    response.sendRedirect("ServletClientes?action=listar");
-                    break;
+                	 ArrayList<Cliente> listaClientesBaja = clienteNegocio.listarClientes();
+                     request.setAttribute("listaClientes", listaClientesBaja);
+                     request.getRequestDispatcher("bajaCliente.jsp").forward(request, response);
+                     break;
                     
                 case "insertar":
                 	String nombre = request.getParameter("nombre");
@@ -130,6 +130,17 @@ public class ServletClientes extends HttpServlet {
             } else {
                 request.setAttribute("error", "No se pudo actualizar el cliente");
                 request.getRequestDispatcher("editarCliente.jsp").forward(request, response);
+            }
+            
+        } else if ("baja".equals(action)) {
+            int idBaja = Integer.parseInt(request.getParameter("id"));
+            boolean exito = clienteNegocio.bajaLogicaCliente(idBaja);
+
+            if (exito) {
+                response.sendRedirect("ServletClientes?action=listar");
+            } else {
+                request.setAttribute("error", "No se pudo dar de baja el cliente");
+                request.getRequestDispatcher("bajaCliente.jsp").forward(request, response);
             }
         } else {
             doGet(request, response);
