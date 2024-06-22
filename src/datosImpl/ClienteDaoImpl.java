@@ -23,10 +23,11 @@ public class ClienteDaoImpl implements ClienteDao{
 		ArrayList<Cliente> lista = new ArrayList<Cliente>();
 		
 		try {
-			ResultSet rs= cn.query("SELECT l.Nombre, p.Nombre, u.Usuario, u.Contraseña, t.NumeroTelefonico, c.Nombre, c.Apellido, c.DNI, c.CUIL, c.Sexo, c.Nacionalidad, c.FechaNacimiento, c.Email, d.Calle AS Calle, d.Numero AS Numero, d.CodigoPostal AS CodigoPostal FROM CLIENTES AS c INNER JOIN DIRECCIONES AS d ON d.IDDireccion = c.IDDireccion INNER JOIN USUARIOS AS u ON u.IDUsuario = c.IDUsuario INNER JOIN TELEFONOS AS T ON T.DNICliente = c.DNI INNER JOIN LOCALIDADES AS l ON l.IDLocalidad = d.IDLocalidad INNER JOIN PROVINCIAS AS p ON p.IDProvincia = l.IDProvincia");
+			ResultSet rs= cn.query("SELECT c.ESTADO, l.Nombre, p.Nombre, u.Usuario, u.Contraseña, t.NumeroTelefonico, c.Nombre, c.Apellido, c.DNI, c.CUIL, c.Sexo, c.Nacionalidad, c.FechaNacimiento, c.Email, d.Calle AS Calle, d.Numero AS Numero, d.CodigoPostal AS CodigoPostal FROM CLIENTES AS c INNER JOIN DIRECCIONES AS d ON d.IDDireccion = c.IDDireccion INNER JOIN USUARIOS AS u ON u.IDUsuario = c.IDUsuario INNER JOIN TELEFONOS AS T ON T.DNICliente = c.DNI INNER JOIN LOCALIDADES AS l ON l.IDLocalidad = d.IDLocalidad INNER JOIN PROVINCIAS AS p ON p.IDProvincia = l.IDProvincia");
 			while(rs.next()) {
 				Cliente regCliente = new Cliente();
 				regCliente.setUser(rs.getString("u.Usuario"));
+				regCliente.setEstado(rs.getBoolean("c.ESTADO"));
 				regCliente.setPassword(rs.getString("u.Contraseña"));
 				regCliente.setNombre(rs.getString("c.Nombre"));
 				regCliente.setApellido(rs.getString("c.Apellido"));
@@ -93,11 +94,12 @@ public class ClienteDaoImpl implements ClienteDao{
 		try {
 			
 
-		    ResultSet rs = cn.query("SELECT l.Nombre, p.Nombre, u.Usuario, u.Contraseña, t.NumeroTelefonico, c.Nombre, c.Apellido, c.DNI, c.CUIL, c.Sexo, c.Nacionalidad, c.FechaNacimiento, c.Email, d.Calle AS Calle, d.Numero AS Numero, d.CodigoPostal AS CodigoPostal FROM CLIENTES AS c INNER JOIN DIRECCIONES AS d ON d.IDDireccion = c.IDDireccion INNER JOIN USUARIOS AS u ON u.IDUsuario = c.IDUsuario INNER JOIN TELEFONOS AS T ON T.DNICliente = c.DNI INNER JOIN LOCALIDADES AS l ON l.IDLocalidad = d.IDLocalidad INNER JOIN PROVINCIAS AS p ON p.IDProvincia = l.IDProvincia WHERE IDUsuario = '" + IDUsuario + "' ");
+		    ResultSet rs = cn.query("SELECT c.ESTADO, l.Nombre, p.Nombre, u.Usuario, u.Contraseña, t.NumeroTelefonico, c.Nombre, c.Apellido, c.DNI, c.CUIL, c.Sexo, c.Nacionalidad, c.FechaNacimiento, c.Email, d.Calle AS Calle, d.Numero AS Numero, d.CodigoPostal AS CodigoPostal FROM CLIENTES AS c INNER JOIN DIRECCIONES AS d ON d.IDDireccion = c.IDDireccion INNER JOIN USUARIOS AS u ON u.IDUsuario = c.IDUsuario INNER JOIN TELEFONOS AS T ON T.DNICliente = c.DNI INNER JOIN LOCALIDADES AS l ON l.IDLocalidad = d.IDLocalidad INNER JOIN PROVINCIAS AS p ON p.IDProvincia = l.IDProvincia WHERE IDUsuario = '" + IDUsuario + "' ");
 		    if (rs.next()) {
 		        cliente = new Cliente();
 		        
 		        cliente.setDNI(rs.getInt("c.DNI"));
+		        cliente.setEstado(rs.getBoolean("c.ESTADO"));
 		        cliente.setCUIL(rs.getString("c.CUIL"));
 		        cliente.setNombre(rs.getString("c.Nombre"));
 		        cliente.setApellido(rs.getString("c.Apellido"));
@@ -200,12 +202,12 @@ public class ClienteDaoImpl implements ClienteDao{
 
 
 	@Override
-	public boolean bajaLogicaCliente(int IDUsuario) {
+	public boolean bajaLogicaCliente(String dni) {
 		boolean clienteDesactivado = false;
 		
 		cn = new Conexion();
 		cn.Open();		 
-		String query = "UPDATE CLIENTES SET ESTADO = FALSE WHERE IDUsuario="+IDUsuario;
+		String query = "UPDATE CLIENTES SET ESTADO = 0 WHERE DNI="+dni;
 		try
 		 {
 			clienteDesactivado=cn.execute(query);
@@ -265,6 +267,29 @@ public class ClienteDaoImpl implements ClienteDao{
 			cn.close();
 		}
 		return lista;
+	}
+
+
+	@Override
+	public boolean altaLogicaCliente(String DNI) {
+boolean clienteDesactivado = false;
+		
+		cn = new Conexion();
+		cn.Open();		 
+		String query = "UPDATE CLIENTES SET ESTADO = 1 WHERE DNI="+DNI;
+		try
+		 {
+			clienteDesactivado=cn.execute(query);
+		 }
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			cn.close();
+		}
+		return clienteDesactivado;
 	}
 	
 

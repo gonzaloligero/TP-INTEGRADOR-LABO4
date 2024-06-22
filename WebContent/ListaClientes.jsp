@@ -13,14 +13,10 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#table_id').DataTable();
-                       
         });
     </script>
 </head>
 <body>
-
-
-
     <jsp:include page="Componentes/NavBar.jsp"></jsp:include>
 
     <div class="container">
@@ -29,9 +25,9 @@
         </div>
         
         <div>
-            <a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3" href="AltaCliente.jsp">  Agregar</a>
+            <a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3" href="AltaCliente.jsp">Agregar</a>
         </div>
-        <table id="table_id" class="table table-striped  display text-center">
+        <table id="table_id" class="table table-striped display text-center">
             <thead>
                 <tr>
                     <th>Usuario</th>
@@ -52,9 +48,9 @@
             </thead>
             <tbody>
                 <% 
-                	ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
+                    ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
                     if (request.getAttribute("listaClientes") != null) {
-                    	listaClientes = (ArrayList<Cliente>)request.getAttribute("listaClientes");
+                        listaClientes = (ArrayList<Cliente>) request.getAttribute("listaClientes");
                         for (Cliente cliente : listaClientes) { 
                 %>
                     <tr>
@@ -72,6 +68,7 @@
                         <td><%= cliente.getDireccion().getLocalidad() %></td>
                         <td><%= cliente.getDireccion().getProvincia() %></td>
                         <td>
+
                             <a href="ServletClientes?action=eliminar&id=<%= cliente.getIDUsuario() %>" class="btn btn-danger"><i class="bi bi-trash"></i></a>
                             <a href="ServletClientes?action=editar&id=<%= cliente.getIDUsuario() %>" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
                         </td>
@@ -81,7 +78,7 @@
                     } else { 
                 %>
                     <tr>
-                        <td colspan="9">No hay clientes disponibles</td>
+                        <td colspan="14">No hay clientes disponibles</td>
                     </tr>
                 <% 
                     } 

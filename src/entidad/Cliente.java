@@ -37,11 +37,12 @@ public Cliente() {
 	this.Direccion.setNumero(0);
 	this.Email = "";
 	this.IDUsuario = 0;
+	this.Estado = true;
 	this.Direccion.setLocalidad("");
 	setUserType(2);
 }
 
-public Cliente(int dni, String localidad, String cuil, String nombre, String apellido, String sexo, String nacionalidad, Date fecha, String email, int usuario) {
+public Cliente(int dni, boolean estado, String localidad, String cuil, String nombre, String apellido, String sexo, String nacionalidad, Date fecha, String email, int usuario) {
 	super();
 	this.DNI = dni;
 	this.CUIL = cuil;
@@ -59,6 +60,7 @@ public Cliente(int dni, String localidad, String cuil, String nombre, String ape
 	this.IDTelefono = 0;
 	this.NumeroTelefonico = "";
 	this.IDUsuario = usuario;
+	this.Estado = estado;
 	this.Direccion.setLocalidad(localidad);
 	setUserType(2);	
 }

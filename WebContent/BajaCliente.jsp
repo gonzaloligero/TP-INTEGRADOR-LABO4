@@ -31,6 +31,7 @@
                     <th>DNI</th>
                     <th>Correo</th>
                     <th>Telefono</th>
+                    <th>Estado</th>
                     <th>Acción</th>
                 </tr>
             </thead>
@@ -47,12 +48,19 @@
                         <td><%= cliente.getDNI() %></td>
                         <td><%= cliente.getEmail() %></td>
                         <td><%= cliente.getNumeroTelefonico() %></td>
+                        <td><%= cliente.getEstado() == true ? "Activo" : "Inactivo" %></td>
                         <td>
-                            <form action="ServletClientes" method="post">
-                                <input type="hidden" name="action" value="baja">
-                                <input type="hidden" name="id" value="<%= cliente.getIDUsuario() %>">
-                                <button type="submit" class="btn btn-danger">Dar de Baja</button>
-                            </form>
+                            <form action="ServletClientes" method="get">
+    							<input type="hidden" name="action" value="eliminar">
+   								<input type="hidden" name="dni" value="<%= cliente.getDNI() %>">
+   								<% if (cliente.getEstado() == false) { %>	
+            					<button type="submit" class="btn btn-success">Dar de Alta</button>
+        							<% } else { %>			
+            					<button type="submit" class="btn btn-danger">Dar de Baja</button>
+        					<% } %>
+   								
+							</form>
+
                         </td>
                     </tr>
                 <% 

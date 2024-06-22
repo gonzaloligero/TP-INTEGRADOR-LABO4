@@ -11,7 +11,8 @@ public interface ClienteDao {
 	public Cliente obtenerUnCliente(int IDUsuario);
 	public boolean insertarCliente(Cliente cliente);
 	public boolean editarCliente(Cliente cliente);
-	public boolean bajaLogicaCliente(int IDUsuario);
+	public boolean bajaLogicaCliente(String DNI);
+	public boolean altaLogicaCliente(String DNI);
 	public ArrayList<Direccion>obtenerProvincias();
 	public ArrayList<Direccion>obtenerLocalidades();
 	

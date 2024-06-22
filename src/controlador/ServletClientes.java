@@ -33,22 +33,31 @@ public class ServletClientes extends HttpServlet {
                 case "listar":
                     ArrayList<Cliente> listaClientes = clienteNegocio.listarClientes();
                     request.setAttribute("listaClientes", listaClientes);
-                    request.getRequestDispatcher("ListaClientes.jsp").forward(request, response);
-                    
+                    request.getRequestDispatcher("ListaClientes.jsp").forward(request, response); 
                     break;
 
                 case "editar":
                     int idEditar = Integer.parseInt(request.getParameter("id"));
                     Cliente clienteEditar = clienteNegocio.obtenerUnCliente(idEditar);
                     request.setAttribute("cliente", clienteEditar);
-                    request.getRequestDispatcher("editarCliente.jsp").forward(request, response);
+                    request.getRequestDispatcher("ModificarCliente.jsp").forward(request, response);
                     break;
 
                 case "eliminar":
-                	 ArrayList<Cliente> listaClientesBaja = clienteNegocio.listarClientes();
-                     request.setAttribute("listaClientes", listaClientesBaja);
-                     request.getRequestDispatcher("bajaCliente.jsp").forward(request, response);
-                     break;
+                	String DNI = request.getParameter("dni");
+                    ArrayList<Cliente> listaClientesBaja = clienteNegocio.listarClientes();
+                    request.setAttribute("listaClientes", listaClientesBaja);
+                    request.getRequestDispatcher("BajaCliente.jsp").forward(request, response);
+                    clienteNegocio.bajaLogicaCliente(DNI);
+                    break;
+                    
+                case "alta":
+                	String dniAlta = request.getParameter("dni");
+                    ArrayList<Cliente> listaClientesAlta = clienteNegocio.listarClientes();
+                    request.setAttribute("listaClientes", listaClientesAlta);
+                    request.getRequestDispatcher("BajaCliente.jsp").forward(request, response);
+                    clienteNegocio.altaLogicaCliente(dniAlta);
+                	break;
                     
                 case "insertar":
                 	String nombre = request.getParameter("nombre");
@@ -133,7 +142,7 @@ public class ServletClientes extends HttpServlet {
             }
             
         } else if ("baja".equals(action)) {
-            int idBaja = Integer.parseInt(request.getParameter("id"));
+            String idBaja = request.getParameter("dni");
             boolean exito = clienteNegocio.bajaLogicaCliente(idBaja);
 
             if (exito) {

@@ -50,10 +50,10 @@ public class ClienteNegImpl implements ClienteNegocio{
 	}
 
 	@Override
-	public boolean bajaLogicaCliente(int IDUsuario) {
+	public boolean bajaLogicaCliente(String dni) {
 
 
-		return clienteDao.bajaLogicaCliente(IDUsuario);
+		return clienteDao.bajaLogicaCliente(dni);
 	}
 
 	@Override
@@ -64,6 +64,11 @@ public class ClienteNegImpl implements ClienteNegocio{
 	@Override
 	public ArrayList<Direccion> listarLocalidades() {
 		return(ArrayList<Direccion>) clienteDao.obtenerLocalidades();
+	}
+
+	@Override
+	public boolean altaLogicaCliente(String dni) {
+		return clienteDao.altaLogicaCliente(dni);
 	}
 
 	

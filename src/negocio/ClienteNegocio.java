@@ -10,7 +10,8 @@ public interface ClienteNegocio {
 	public Cliente obtenerUnCliente(int IDUsuario);
 	public boolean insertarCliente(Cliente cliente);
 	public boolean editarCliente(Cliente cliente);
-	public boolean bajaLogicaCliente(int IDUsuario);
+	public boolean bajaLogicaCliente(String dni);
+	public boolean altaLogicaCliente(String dni);
 	public ArrayList<Direccion> listarProvincias();
 	public ArrayList<Direccion> listarLocalidades();
 }
