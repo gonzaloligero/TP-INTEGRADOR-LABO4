@@ -4,7 +4,7 @@ import entidad.Direccion;
 import datos.ClienteDao;
 import java.util.ArrayList;
 
-import com.mysql.jdbc.PreparedStatement;
+import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
 
