@@ -8,7 +8,7 @@ public interface ClienteDao {
 
 	public ArrayList<Cliente> obtenerClientes();
 	public Cliente obtenerUsuarioLogin(String email, String contrasenia);
-	public Cliente obtenerUnCliente(int IDUsuario);
+	public Cliente obtenerUnCliente(String dni);
 	public boolean insertarCliente(Cliente cliente);
 	public boolean editarCliente(Cliente cliente);
 	public boolean bajaLogicaCliente(String DNI);

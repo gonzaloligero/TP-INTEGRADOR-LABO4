@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
+
 import negocio.ClienteNegocio;
 import negocioImpl.ClienteNegImpl;
 import entidad.Cliente;
@@ -37,10 +39,13 @@ public class ServletClientes extends HttpServlet {
                     break;
 
                 case "editar":
-                    int idEditar = Integer.parseInt(request.getParameter("id"));
-                    Cliente clienteEditar = clienteNegocio.obtenerUnCliente(idEditar);
+                    Cliente clienteEditar = new Cliente();
+                    clienteNegocio.editarCliente(clienteEditar);
+                    ArrayList<Cliente> listaDeClientes = clienteNegocio.listarClientes();
+                    request.setAttribute("listaClientes", listaDeClientes);
                     request.setAttribute("cliente", clienteEditar);
                     request.getRequestDispatcher("ModificarCliente.jsp").forward(request, response);
+ 
                     break;
 
                 case "eliminar":
@@ -70,7 +75,7 @@ public class ServletClientes extends HttpServlet {
                     String sexo = request.getParameter("sexo");
                     String calle = request.getParameter("calle");
                     String usuario = request.getParameter("usuario");
-                    String dni = request.getParameter("dni");
+                    String dni2 = request.getParameter("dni");
                     String nacionalidad = request.getParameter("nacionalidad");
                     String provincia = request.getParameter("provincia");
                     String numero = request.getParameter("numero");
@@ -80,8 +85,7 @@ public class ServletClientes extends HttpServlet {
                     clienteInsertar.setApellido(apellido);
                     clienteInsertar.setCUIL(cuil);
                  
-                    //SEGUIR ACÁ (GONZA)
-                    
+                   
                     
                 	
                 	clienteNegocio.insertarCliente(clienteInsertar);

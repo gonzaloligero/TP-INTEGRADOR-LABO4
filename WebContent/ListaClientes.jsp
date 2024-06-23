@@ -70,7 +70,7 @@
                         <td>
 
                             <a href="ServletClientes?action=eliminar&id=<%= cliente.getIDUsuario() %>" class="btn btn-danger"><i class="bi bi-trash"></i></a>
-                            <a href="ServletClientes?action=editar&id=<%= cliente.getIDUsuario() %>" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
+                            <a href="ServletClientes?action=editar&id=<%= cliente.getDNI() %>" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
                         </td>
                     </tr>
                 <% 

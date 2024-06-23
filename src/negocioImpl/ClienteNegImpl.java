@@ -24,11 +24,11 @@ public class ClienteNegImpl implements ClienteNegocio{
 	}
 
 	@Override
-	public Cliente obtenerUnCliente(int IDUsuario) {
+	public Cliente obtenerUnCliente(String dnicliente) {
 
 	
 
-		return clienteDao.obtenerUnCliente(IDUsuario);
+		return clienteDao.obtenerUnCliente(dnicliente);
 
 	}
 

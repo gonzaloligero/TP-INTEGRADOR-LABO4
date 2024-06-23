@@ -141,8 +141,13 @@
                 
                 
             </div>
-        </div>
+            <div class="container">
+   
+    <a href="ServletClientes?action=listar" class="btn btn-secondary">Volver</a>
+</div>
     </div>
+        </div>
+   
 
     <jsp:include page="Componentes/Footer.jsp"></jsp:include>
 

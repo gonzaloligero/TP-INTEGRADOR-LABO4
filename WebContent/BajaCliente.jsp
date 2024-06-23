@@ -6,22 +6,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Baja de clientes</title>
+    <title>Alta / Baja de Clientes</title>
 
     <jsp:include page="Componentes/head.jsp"></jsp:include>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#table_id').DataTable();
+    $(document).ready(function() {
+        $('#table_id').DataTable();
+            location.reload();
         });
-    </script>
+    });
+</script>
+
+
 </head>
 <body>
     <jsp:include page="Componentes/NavBar.jsp"></jsp:include>
 
     <div class="container">
         <div class="w-100 pt-2 text-center">
-            <h1 class="mb-5">Baja de Clientes</h1>
+            <h1 class="mb-5">Alta / Baja de Clientes</h1>
         </div>
         <table id="table_id" class="table table-striped display text-center">
             <thead>
@@ -51,11 +55,13 @@
                         <td><%= cliente.getEstado() == true ? "Activo" : "Inactivo" %></td>
                         <td>
                             <form action="ServletClientes" method="get">
-    							<input type="hidden" name="action" value="eliminar">
-   								<input type="hidden" name="dni" value="<%= cliente.getDNI() %>">
    								<% if (cliente.getEstado() == false) { %>	
+   								<input type="hidden" name="action" value="alta">
+   								<input type="hidden" name="dni" value="<%= cliente.getDNI() %>">
             					<button type="submit" class="btn btn-success">Dar de Alta</button>
-        							<% } else { %>			
+        							<% } else { %>	
+        						<input type="hidden" name="action" value="eliminar">
+   								<input type="hidden" name="dni" value="<%= cliente.getDNI() %>">			
             					<button type="submit" class="btn btn-danger">Dar de Baja</button>
         					<% } %>
    								
@@ -75,6 +81,9 @@
                 %>
             </tbody>
         </table>
+        <div class="container">
+    		<a href="ServletClientes?action=listar" class="btn btn-secondary">Volver</a>
+		</div>
     </div>
 
     <jsp:include page="Componentes/Footer.jsp"></jsp:include>

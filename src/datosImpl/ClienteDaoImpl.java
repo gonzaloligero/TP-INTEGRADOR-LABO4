@@ -86,7 +86,7 @@ public class ClienteDaoImpl implements ClienteDao{
 
 
 	@Override
-	public Cliente obtenerUnCliente(int IDUsuario) {
+	public Cliente obtenerUnCliente(String dni) {
 		cn = new Conexion();
 		cn.Open();
 		Cliente cliente = new Cliente();
@@ -94,7 +94,7 @@ public class ClienteDaoImpl implements ClienteDao{
 		try {
 			
 
-		    ResultSet rs = cn.query("SELECT c.ESTADO, l.Nombre, p.Nombre, u.Usuario, u.Contraseña, t.NumeroTelefonico, c.Nombre, c.Apellido, c.DNI, c.CUIL, c.Sexo, c.Nacionalidad, c.FechaNacimiento, c.Email, d.Calle AS Calle, d.Numero AS Numero, d.CodigoPostal AS CodigoPostal FROM CLIENTES AS c INNER JOIN DIRECCIONES AS d ON d.IDDireccion = c.IDDireccion INNER JOIN USUARIOS AS u ON u.IDUsuario = c.IDUsuario INNER JOIN TELEFONOS AS T ON T.DNICliente = c.DNI INNER JOIN LOCALIDADES AS l ON l.IDLocalidad = d.IDLocalidad INNER JOIN PROVINCIAS AS p ON p.IDProvincia = l.IDProvincia WHERE IDUsuario = '" + IDUsuario + "' ");
+		    ResultSet rs = cn.query("SELECT c.ESTADO, l.Nombre, p.Nombre, u.Usuario, u.Contraseña, t.NumeroTelefonico, c.Nombre, c.Apellido, c.DNI, c.CUIL, c.Sexo, c.Nacionalidad, c.FechaNacimiento, c.Email, d.Calle AS Calle, d.Numero AS Numero, d.CodigoPostal AS CodigoPostal FROM CLIENTES AS c INNER JOIN DIRECCIONES AS d ON d.IDDireccion = c.IDDireccion INNER JOIN USUARIOS AS u ON u.IDUsuario = c.IDUsuario INNER JOIN TELEFONOS AS T ON T.DNICliente = c.DNI INNER JOIN LOCALIDADES AS l ON l.IDLocalidad = d.IDLocalidad INNER JOIN PROVINCIAS AS p ON p.IDProvincia = l.IDProvincia WHERE DNI = " + dni);
 		    if (rs.next()) {
 		        cliente = new Cliente();
 		        
@@ -105,6 +105,8 @@ public class ClienteDaoImpl implements ClienteDao{
 		        cliente.setApellido(rs.getString("c.Apellido"));
 		        cliente.setSexo(rs.getString("c.Sexo"));
 		        cliente.setNacionalidad(rs.getString("c.Nacionalidad"));
+		        cliente.setFechaNacimiento(rs.getDate("c.FechaNacimiento"));
+		        cliente.setNumeroTelefonico(rs.getString("t.NumeroTelefonico"));
 		        String calle = rs.getString("d.Calle");
                 int numero = rs.getInt("d.Numero");
                 String codigoPostal = rs.getString("d.CodigoPostal");
@@ -182,8 +184,8 @@ public class ClienteDaoImpl implements ClienteDao{
 		cn = new Conexion();
 		cn.Open();	
 
-		String query = "UPDATE CLIENTES SET CUIL='" + cliente.getCUIL() + "', Nombre='" + cliente.getNombre() + "', Apellido='" + cliente.getApellido() + "', Sexo='" + cliente.getSexo() + "', Nacionalidad='" + cliente.getNacionalidad() + "', FechaNacimiento='" + cliente.getFechaNacimiento() + "', IDDireccion='" + cliente.getDireccion().getID() + "', Email='" + cliente.getEmail() + "', IDUsuario='" + cliente.getIDUsuario() + "' WHERE DNI='" + cliente.getDNI() + "'";
-
+		//String query = "UPDATE CLIENTES SET CUIL='" + cliente.getCUIL() + "', Nombre='" + cliente.getNombre() + "', Apellido='" + cliente.getApellido() + "', Sexo='" + cliente.getSexo() + "', Nacionalidad='" + cliente.getNacionalidad() + "', FechaNacimiento='" + cliente.getFechaNacimiento() + "', IDDireccion='" + cliente.getDireccion().getID() + "', Email='" + cliente.getEmail() + "', IDUsuario='" + cliente.getIDUsuario() + "' WHERE DNI='" + cliente.getDNI() + "'";
+		String query = "UPDATE CLIENTES SET Nombre='" + cliente.getNombre() + "',Apellido='"+cliente.getApellido()+ "' WHERE DNI='" + cliente.getDNI() + "'";
 		
 		try
 		 {
@@ -272,14 +274,14 @@ public class ClienteDaoImpl implements ClienteDao{
 
 	@Override
 	public boolean altaLogicaCliente(String DNI) {
-boolean clienteDesactivado = false;
+boolean clienteActivado = false;
 		
 		cn = new Conexion();
 		cn.Open();		 
 		String query = "UPDATE CLIENTES SET ESTADO = 1 WHERE DNI="+DNI;
 		try
 		 {
-			clienteDesactivado=cn.execute(query);
+			clienteActivado=cn.execute(query);
 		 }
 		catch(Exception e)
 		{
@@ -289,7 +291,7 @@ boolean clienteDesactivado = false;
 		{
 			cn.close();
 		}
-		return clienteDesactivado;
+		return clienteActivado;
 	}
 	
 
