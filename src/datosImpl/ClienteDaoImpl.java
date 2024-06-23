@@ -135,31 +135,133 @@ public class ClienteDaoImpl implements ClienteDao{
 		boolean clienteInsertado = false;
 		boolean telefonoInsertado = false;
 		boolean direccionInsertada = false;
-		
+		boolean usuarioInsertado = false;
 
+		cliente.getDNI();
+		/*cliente.getNombre();
+		cliente.getApellido();
+		cliente.getCUIL();
+		cliente.getEmail();
+		cliente.getNacionalidad();
+		cliente.getFechaNacimiento();
+		cliente.getSexo();
+		cliente.getDireccion();
+		cliente.getUser();
+		cliente.getPassword();
+		cliente.getNumeroTelefonico();*/
+		
 		try {
 			
 			if(cliente == null) {
 				System.out.println("Se ha detectado un error al querer insertar el cliente");
 				return false;
-			}
+			}	
 			
-			 if (cliente.getDNI() == 0 || cliente.getCUIL() == "" || cliente.getNombre() == "" || cliente.getApellido() == "" || 
+			 /*if (cliente.getDNI() == 0 || cliente.getCUIL() == "" || cliente.getNombre() == "" || cliente.getApellido() == "" || 
 			 cliente.getSexo() == "" || cliente.getNacionalidad() == "" || cliente.getFechaNacimiento() == null || 
-			 cliente.getEmail() == "" || cliente.getIDUsuario() == 0 || cliente.getTelefono() == 0 || 
-			 cliente.getDireccion().getID() == 0) {
+			 cliente.getEmail() == "" || cliente.getTelefono() == 0) {
 			 System.out.println("Se ha detectado un error al querer insertar el cliente: uno o más campos obligatorios están vacíos.");
 			 return false;
-			}
+			}*/
+			
+			 String queryUsuario = "INSERT INTO USUARIOS (Usuario, Contraseña, TipoUsuario, Estado) VALUES('" + cliente.getUser() + "', '" + cliente.getPassword() + "', 2, 1)";
+
+			 usuarioInsertado = cn.execute(queryUsuario);
 			 
-			 String queryCliente = "INSERT INTO CLIENTES (DNI, CUIL, Nombre, Apellido, Sexo, Nacionalidad, FechaNacimiento, IDDireccion, Email, IDUsuario) VALUES ('" + cliente.getDNI() + "', '" + cliente.getCUIL() + "', '" + cliente.getNombre() + "', '" + cliente.getApellido() + "', '" + cliente.getSexo() + "', '" + cliente.getNacionalidad() + "', '" + cliente.getFechaNacimiento() + "', '" + cliente.getDireccion().getID() + "', '" + cliente.getEmail() + "', '" + cliente.getIDUsuario() + "')";
-			 clienteInsertado = cn.execute(queryCliente);
-			 
-			 String queryTelefono = "INSERT INTO TELEFONOS(IDTelefono, DNICliente, NumeroTelefonico) VALUES('" + cliente.getTelefono() + "', '" + cliente.getDNI() + "', '" + cliente.getNumeroTelefonico() + "')";
+			 String queryTelefono = "INSERT INTO TELEFONOS(DNICliente, NumeroTelefonico) VALUES('" + cliente.getDNI() + "', '" + cliente.getNumeroTelefonico() + "')";
 			 telefonoInsertado = cn.execute(queryTelefono);
 			 
-			 String queryDireccion = "INSERT INTO DIRECCIONES (IDDireccion, IDLocalidad, Nombre, CodigoPostal, Calle, Numero) VALUES('" + cliente.getDireccion().getID() + "', '" + cliente.getDireccion().getLocalidad() + "', '" + cliente.getEmail() + "', '" + cliente.getDireccion().getCodigoPostal() + "', '" + cliente.getDireccion().getCalle() + "', '" + cliente.getDireccion().getNumero() + "')";
+			 String provincia = cliente.getDireccion().getProvincia();
+			 int provinciaNumero = 1;
+			 switch(provincia) {
+			     case "Buenos Aires":
+			         provinciaNumero = 1;
+			         break;
+			     case "Catamarca":
+			         provinciaNumero = 2;
+			         break;
+			     case "Chaco":
+			         provinciaNumero = 3;
+			         break;
+			     case "Chubut":
+			         provinciaNumero = 4;
+			         break;
+			     case "Córdoba":
+			         provinciaNumero = 5;
+			         break;
+			     case "Corrientes":
+			         provinciaNumero = 6;
+			         break;
+			     case "Entre Ríos":
+			         provinciaNumero = 7;
+			         break;
+			     case "Formosa":
+			         provinciaNumero = 8;
+			         break;
+			     case "Jujuy":
+			         provinciaNumero = 9;
+			         break;
+			     case "La Pampa":
+			         provinciaNumero = 10;
+			         break;
+			     case "La Rioja":
+			         provinciaNumero = 11;
+			         break;
+			     case "Mendoza":
+			         provinciaNumero = 12;
+			         break;
+			     case "Misiones":
+			         provinciaNumero = 13;
+			         break;
+			     case "Neuquén":
+			         provinciaNumero = 14;
+			         break;
+			     case "Río Negro":
+			         provinciaNumero = 15;
+			         break;
+			     case "Salta":
+			         provinciaNumero = 16;
+			         break;
+			     case "San Juan":
+			         provinciaNumero = 17;
+			         break;
+			     case "San Luis":
+			         provinciaNumero = 18;
+			         break;
+			     case "Santa Cruz":
+			         provinciaNumero = 19;
+			         break;
+			     case "Santa Fe":
+			         provinciaNumero = 20;
+			         break;
+			     case "Santiago del Estero":
+			         provinciaNumero = 21;
+			         break;
+			     case "Tierra del Fuego":
+			         provinciaNumero = 22;
+			         break;
+			     case "Tucumán":
+			         provinciaNumero = 23;
+			         break;
+			     case "Ciudad Autónoma de Buenos Aires":
+			         provinciaNumero = 24;
+			         break;
+			     case "CABA":
+			         provinciaNumero = 24;
+			         break;
+			 }
+		 
+			 cliente.getDireccion().getLocalidad();
+			 cliente.getDireccion().getCodigoPostal();
+			 cliente.getDireccion().getCalle();
+			 cliente.getDireccion().getNumero();
+			 
+			 
+			 String queryDireccion = "INSERT INTO DIRECCIONES (IDProvincia, Localidad, CodigoPostal, Calle, Numero) VALUES(" + provinciaNumero + ", '" + cliente.getDireccion().getLocalidad() + "', '" + cliente.getDireccion().getCodigoPostal() + "', '" + cliente.getDireccion().getCalle() + "', " + cliente.getDireccion().getNumero() + ")";			 
 			 direccionInsertada = cn.execute(queryDireccion);
+			 
+			 String queryCliente = "INSERT INTO CLIENTES (DNI, CUIL, Nombre, Apellido, Sexo, Nacionalidad, FechaNacimiento, IDDireccion, Email, IDUsuario) VALUES ('" + cliente.getDNI() + "', '" + cliente.getCUIL() + "', '" + cliente.getNombre() + "', '" + cliente.getApellido() + "', '" + cliente.getSexo() + "', '" + cliente.getNacionalidad() + "', '" + cliente.getFechaNacimiento() + "', (SELECT MAX(IDDireccion) FROM DIRECCIONES), '" + cliente.getEmail() + "', (SELECT MAX(IDUsuario) FROM USUARIOS))";
+			 clienteInsertado = cn.execute(queryCliente);
 			 
 		} catch (Exception e) {    
 		    System.out.println(e.getMessage());    
@@ -167,7 +269,7 @@ public class ClienteDaoImpl implements ClienteDao{
 		    cn.close();
 		}
 
-		if(clienteInsertado == true && telefonoInsertado == true && direccionInsertada == true) {
+		if(usuarioInsertado == true && telefonoInsertado == true && direccionInsertada == true) {
 			return true;
 		}else {
 			return false;

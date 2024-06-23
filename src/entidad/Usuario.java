@@ -31,11 +31,11 @@ public void setUser(String user) {
 }
 
 public String getPassword() {
-	return Password;
+	return this.Password;
 }
 
 public void setPassword(String password) {
-	Password = password;
+	this.Password = password;
 }
 
 public int getUserType() {
