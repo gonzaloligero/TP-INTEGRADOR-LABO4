@@ -3,7 +3,7 @@ package entidad;
 public class Usuario {
 	
 	private static int IDCounter = 1;
-	private final int ID;
+	private int ID;
 	private String User;
 	private String Password;
 	private int UserType;; 
@@ -26,16 +26,20 @@ public String getUser() {
 	return this.User;
 }
 
+public void setID(int ID) {
+	this.ID = ID;
+}
+
 public void setUser(String user) {
 	this.User = user;
 }
 
 public String getPassword() {
-	return this.Password;
+	return Password;
 }
 
 public void setPassword(String password) {
-	this.Password = password;
+	Password = password;
 }
 
 public int getUserType() {
@@ -60,6 +64,10 @@ public int hashCode() {
 	result = prime * result + ((User == null) ? 0 : User.hashCode());
 	result = prime * result + UserType;
 	return result;
+}
+
+public boolean verificarContraseña(String contraseña) {
+    return this.Password.equals(contraseña);
 }
 
 @Override
@@ -87,6 +95,8 @@ public boolean equals(Object obj) {
 		return false;
 	return true;
 }
+
+
 	
 
 

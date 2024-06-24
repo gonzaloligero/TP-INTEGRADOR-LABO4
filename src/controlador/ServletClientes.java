@@ -3,6 +3,7 @@ package controlador;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -64,87 +65,34 @@ public class ServletClientes extends HttpServlet {
                     clienteNegocio.altaLogicaCliente(dniAlta);
                 	break;
                     
-                case "insertarGet":
-                    try {
-                       
-                        String nombre = request.getParameter("nombre");
-                        String apellido = request.getParameter("apellido");
-                        String cuil = request.getParameter("cuil");
-                        String fechaNacimiento = request.getParameter("fechaNacimiento");
-                        String localidad = request.getParameter("localidad");
-                        String codigoPostal = request.getParameter("codigoPostal");
-                        String correo = request.getParameter("correo");
-                        String sexo = request.getParameter("sexo");
-                        String calle = request.getParameter("calle");
-                        String usuario = request.getParameter("usuario");
-                        String dni2 = request.getParameter("dni");
-                        String nacionalidad = request.getParameter("nacionalidad");
-                        String provincia = request.getParameter("provincia");
-                        String numero = request.getParameter("numero");
-                        String contraseña = request.getParameter("contraseña");
-
-                       
-                        nombre = (nombre != null && !nombre.isEmpty()) ? nombre : "";
-                        apellido = (apellido != null && !apellido.isEmpty()) ? apellido : "";
-                        cuil = (cuil != null && !cuil.isEmpty()) ? cuil : "";
-                        fechaNacimiento = (fechaNacimiento != null && !fechaNacimiento.isEmpty()) ? fechaNacimiento : "1970-01-01";
-                        localidad = (localidad != null && !localidad.isEmpty()) ? localidad : "";
-                        codigoPostal = (codigoPostal != null && !codigoPostal.isEmpty()) ? codigoPostal : "";
-                        correo = (correo != null && !correo.isEmpty()) ? correo : "";
-                        sexo = (sexo != null && !sexo.isEmpty()) ? sexo : "M";
-                        calle = (calle != null && !calle.isEmpty()) ? calle : "";
-                        usuario = (usuario != null && !usuario.isEmpty()) ? usuario : "";
-                        dni2 = (dni2 != null && !dni2.isEmpty()) ? dni2 : "0";
-                        nacionalidad = (nacionalidad != null && !nacionalidad.isEmpty()) ? nacionalidad : "";
-                        provincia = (provincia != null && !provincia.isEmpty()) ? provincia : "";
-                        numero = (numero != null && !numero.isEmpty()) ? numero : "0";
-                        contraseña = (contraseña != null && !contraseña.isEmpty()) ? contraseña : "";
-
-                       
-                        int dniInt = Integer.parseInt(dni2);
-                        int numeroInt = Integer.parseInt(numero);
-
-                        
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        Date parsedDate = (Date) sdf.parse(fechaNacimiento);
-                        java.sql.Date fechaNacimientoSql = new java.sql.Date(parsedDate.getTime());
-
-                        
-                        Cliente clienteInsertar = new Cliente();
-                        clienteInsertar.setNombre(nombre);
-                        clienteInsertar.setApellido(apellido);
-                        clienteInsertar.setCUIL(cuil);
-                        clienteInsertar.setDNI(dniInt);
-                        clienteInsertar.setEmail(correo);
-                        clienteInsertar.setNacionalidad(nacionalidad);
-                        clienteInsertar.setFechaNacimiento(fechaNacimientoSql);
-                        clienteInsertar.setSexo(sexo);
-                        clienteInsertar.setDireccion(calle, numeroInt, codigoPostal, localidad, provincia);
-                        clienteInsertar.setUser(usuario);
-                        clienteInsertar.setPassword(contraseña);
-
-                       
-                        clienteNegocio.insertarCliente(clienteInsertar);
-
-                      
-                        response.sendRedirect("AltaCliente.jsp");
-                    } catch (NumberFormatException e) {
-                        
-                        e.printStackTrace();
-                        response.sendRedirect("error.jsp");
-                    } catch (ParseException e) {
-                       
-                        e.printStackTrace();
-                        response.sendRedirect("error.jsp");
-                    } catch (Exception e) {
-                        
-                        e.printStackTrace();
-                        response.sendRedirect("error.jsp");
-                    }
-                    break;
+                case "insertar":
+                	String nombre = request.getParameter("nombre");
+                    String apellido = request.getParameter("apellido");
+                    String cuil = request.getParameter("cuil");
+                    String fechaNacimiento = request.getParameter("fechaNacimiento");
+                    String localidad = request.getParameter("localidad");
+                    String codigoPostal = request.getParameter("codigoPostal");
+                    String correo = request.getParameter("correo");
+                    String sexo = request.getParameter("sexo");
+                    String calle = request.getParameter("calle");
+                    String usuario = request.getParameter("usuario");
+                    String dni2 = request.getParameter("dni");
+                    String nacionalidad = request.getParameter("nacionalidad");
+                    String provincia = request.getParameter("provincia");
+                    String numero = request.getParameter("numero");
+                    String contraseña = request.getParameter("contraseña");
+                    Cliente clienteInsertar = new Cliente();
+                    clienteInsertar.setNombre(nombre);
+                    clienteInsertar.setApellido(apellido);
+                    clienteInsertar.setCUIL(cuil);
+                 
+                   
+                    
+                	
+                	clienteNegocio.insertarCliente(clienteInsertar);
+                	response.sendRedirect("AltaCliente.jsp");
 
                 default:
-                    
                     response.sendRedirect("index.jsp");
                     break;
             }
@@ -156,87 +104,136 @@ public class ServletClientes extends HttpServlet {
         String action = request.getParameter("action");
         ClienteNegocio clienteNegocio = new ClienteNegImpl();
 
-        if (action != null) {
-            switch (action) {
-                case "insertar":
-                    try {
-                        String nombre = request.getParameter("nombre");
-                        String apellido = request.getParameter("apellido");
-                        String cuil = request.getParameter("cuil");
-                        String fechaNacimiento = request.getParameter("fechaNacimiento");
+        if ("actualizar".equals(action)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            String user = request.getParameter("user");
+            String password = request.getParameter("password");
+            String nombre = request.getParameter("nombre");
+            String apellido = request.getParameter("apellido");
+            String dni = request.getParameter("dni");
+            String cuil = request.getParameter("cuil");
+            String nacionalidad = request.getParameter("nacionalidad");
+            String sexo = request.getParameter("sexo");
+            
+            
+            String fechaNacStr = request.getParameter("fechaNacimiento");                  
+           
+            
+            //Date fechaNacimiento = Date.valueOf(request.getParameter("fechaNacimiento"));
+            String email = request.getParameter("email");
+            String numeroTelefonico = request.getParameter("numeroTelefonico");
+            String calle = request.getParameter("calle");
+            int numero = Integer.parseInt(request.getParameter("numero"));
+            String localidad = request.getParameter("localidad");
+            String provincia = request.getParameter("provincia");
 
-                        nombre = (nombre != null && !nombre.isEmpty()) ? nombre : "";
-                        apellido = (apellido != null && !apellido.isEmpty()) ? apellido : "";
-                        cuil = (cuil != null && !cuil.isEmpty()) ? cuil : "";
-                        fechaNacimiento = (fechaNacimiento != null && !fechaNacimiento.isEmpty()) ? fechaNacimiento : "1970-01-01";
-
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        java.util.Date parsedDate = sdf.parse(fechaNacimiento);
-                        java.sql.Date fechaNacimientoSql = new java.sql.Date(parsedDate.getTime());
-
-                        String localidad = request.getParameter("localidad");
-                        String codigoPostal = request.getParameter("codigoPostal");
-                        String correo = request.getParameter("correo");
-                        String sexo = request.getParameter("sexo");
-                        String calle = request.getParameter("calle");
-                        String usuario = request.getParameter("usuario");
-                        String dni2 = request.getParameter("dni");
-                        String nacionalidad = request.getParameter("nacionalidad");
-                        String provincia = request.getParameter("provincia");
-                        String numero = request.getParameter("numero");
-                        String contraseña = request.getParameter("contraseña");
-                        String telefono = request.getParameter("teléfono");
-
-                        localidad = (localidad != null && !localidad.isEmpty()) ? localidad : "";
-                        codigoPostal = (codigoPostal != null && !codigoPostal.isEmpty()) ? codigoPostal : "";
-                        correo = (correo != null && !correo.isEmpty()) ? correo : "";
-                        sexo = (sexo != null && !sexo.isEmpty()) ? sexo : "M";
-                        calle = (calle != null && !calle.isEmpty()) ? calle : "";
-                        usuario = (usuario != null && !usuario.isEmpty()) ? usuario : "";
-                        dni2 = (dni2 != null && !dni2.isEmpty()) ? dni2 : "0";
-                        nacionalidad = (nacionalidad != null && !nacionalidad.isEmpty()) ? nacionalidad : "";
-                        provincia = (provincia != null && !provincia.isEmpty()) ? provincia : "";
-                        numero = (numero != null && !numero.isEmpty()) ? numero : "0";
-                        contraseña = (contraseña != null && !contraseña.isEmpty()) ? contraseña : "";
-
-                        int dniInt = Integer.parseInt(dni2);
-                        int numeroInt = Integer.parseInt(numero);
-
-                        Cliente clienteInsertar = new Cliente();
-                        clienteInsertar.setNombre(nombre);
-                        clienteInsertar.setApellido(apellido);
-                        clienteInsertar.setCUIL(cuil);
-                        clienteInsertar.setNumeroTelefonico(telefono);
-                        clienteInsertar.setDNI(dniInt);
-                        clienteInsertar.setEmail(correo);
-                        clienteInsertar.setNacionalidad(nacionalidad);
-                        clienteInsertar.setFechaNacimiento(fechaNacimientoSql);
-                        clienteInsertar.setSexo(sexo);
-                        clienteInsertar.setDireccion(calle, numeroInt, codigoPostal, localidad, provincia);
-                        clienteInsertar.setUser(usuario);
-                        clienteInsertar.setPassword(contraseña);
-
-                        
-                        clienteNegocio.insertarCliente(clienteInsertar);
-
-                       
-                        response.sendRedirect("AltaCliente.jsp");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        response.sendRedirect("error.jsp");
-                    }
-                    return; 
-
-                default:
-                    response.sendRedirect("index.jsp");
-                    return; 
+            Cliente clienteActualizar = new Cliente();
+            clienteActualizar.setIDUsuario(id);
+            clienteActualizar.setUser(user);
+            clienteActualizar.setPassword(password);
+            clienteActualizar.setNombre(nombre);
+            clienteActualizar.setApellido(apellido);
+            clienteActualizar.setDNI(Integer.parseInt(dni));
+            clienteActualizar.setCUIL(cuil);
+            clienteActualizar.setNacionalidad(nacionalidad);
+            clienteActualizar.setSexo(sexo);
+            
+            try {
+                LocalDate localDate = LocalDate.parse(fechaNacStr);                           
+               clienteActualizar.setFechaNacimiento(java.sql.Date.valueOf(localDate));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } else {
-            response.sendRedirect("index.jsp");
+            
+            
+            
+            //clienteActualizar.setFechaNacimiento(fechaNacimiento);
+            clienteActualizar.setEmail(email);
+            clienteActualizar.setNumeroTelefonico(numeroTelefonico);
+            clienteActualizar.setDireccion(calle, numero, "", localidad, provincia);
+
+            boolean exito = clienteNegocio.editarCliente(clienteActualizar);
+
+            if (exito) {
+                response.sendRedirect("ServletClientes?action=listar");
+            } else {
+                request.setAttribute("error", "No se pudo actualizar el cliente");
+                request.getRequestDispatcher("editarCliente.jsp").forward(request, response);
+            }
+            
+        } else if ("baja".equals(action)) {
+            String idBaja = request.getParameter("dni");
+            boolean exito = clienteNegocio.bajaLogicaCliente(idBaja);
+
+            if (exito) {
+                response.sendRedirect("ServletClientes?action=listar");
+            } else {
+                request.setAttribute("error", "No se pudo dar de baja el cliente");
+                request.getRequestDispatcher("bajaCliente.jsp").forward(request, response);
+            }
+        } else if("alta".equals(action)) {
+            String nombre = request.getParameter("nombre");
+            String apellido = request.getParameter("apellido");
+            String cuil = request.getParameter("cuil");
+            String fechaNacimiento = request.getParameter("fechaNacimiento");
+            String localidad = request.getParameter("localidad");
+            String codigoPostal = request.getParameter("codigoPostal");
+            String correo = request.getParameter("correo");
+            String sexo = request.getParameter("sexo");
+            String calle = request.getParameter("calle");
+            String usuario = request.getParameter("usuario");
+            String dni2 = request.getParameter("dni");
+            String nacionalidad = request.getParameter("nacionalidad");
+            String provincia = request.getParameter("provincia");
+            String numero = request.getParameter("numero");
+            String contraseña = request.getParameter("contraseña");
+            String telefono = request.getParameter("teléfono");
+
+            localidad = (localidad != null && !localidad.isEmpty()) ? localidad : "";
+            codigoPostal = (codigoPostal != null && !codigoPostal.isEmpty()) ? codigoPostal : "";
+            correo = (correo != null && !correo.isEmpty()) ? correo : "";
+            sexo = (sexo != null && !sexo.isEmpty()) ? sexo : "M";
+            calle = (calle != null && !calle.isEmpty()) ? calle : "";
+            usuario = (usuario != null && !usuario.isEmpty()) ? usuario : "";
+            dni2 = (dni2 != null && !dni2.isEmpty()) ? dni2 : "0";
+            nacionalidad = (nacionalidad != null && !nacionalidad.isEmpty()) ? nacionalidad : "";
+            provincia = (provincia != null && !provincia.isEmpty()) ? provincia : "";
+            numero = (numero != null && !numero.isEmpty()) ? numero : "0";
+            contraseña = (contraseña != null && !contraseña.isEmpty()) ? contraseña : "";
+
+            int dniInt = Integer.parseInt(dni2);
+            int numeroInt = Integer.parseInt(numero);
+
+            Cliente clienteInsertar = new Cliente();
+            clienteInsertar.setNombre(nombre);
+            clienteInsertar.setApellido(apellido);
+            clienteInsertar.setCUIL(cuil);
+            clienteInsertar.setNumeroTelefonico(telefono);
+            clienteInsertar.setDNI(dniInt);
+            clienteInsertar.setEmail(correo);
+            clienteInsertar.setNacionalidad(nacionalidad);
+            
+            try {
+                LocalDate localDate = LocalDate.parse(fechaNacimiento);                           
+            clienteInsertar.setFechaNacimiento(java.sql.Date.valueOf(localDate));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            clienteInsertar.setSexo(sexo);
+            clienteInsertar.setDireccion(calle, numeroInt, codigoPostal, localidad, provincia);
+            clienteInsertar.setUser(usuario);
+            clienteInsertar.setPassword(contraseña);
+
+            
+            clienteNegocio.insertarCliente(clienteInsertar);
+
+           
+            response.sendRedirect("AltaCliente.jsp");	
+	
+        	
+        }
+        else {
+            doGet(request, response);
         }
     }
-
-
-    
-
 }

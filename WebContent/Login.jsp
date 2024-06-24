@@ -125,8 +125,8 @@
 		 
 		 <form class="formularioLogin" method=post action="ServletLogin">
 		     <div class="form-control">
-		       <label for="email" class=""> Email: </label> 
-		       <input   type="email" name="email" placeholder="Ingrese su email..." required >
+		       <label for="email" class=""> Usuario: </label> 
+		       <input   type="text" name="email" placeholder="Ingrese su Usuario..." required >
 		     </div>
 		     
 		     <div class="form-control">

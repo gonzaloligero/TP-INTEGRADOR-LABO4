@@ -29,6 +29,8 @@
         
         <div>
         	<a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3" href="AltaCuenta.jsp">Agregar</a>
+        	<a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3 btn-fixed-size " href="MenuAdministrador.jsp">Volver</a>
+ 
         </div>
         <table id="table_id" class="table table-striped display text-center">
             <thead>

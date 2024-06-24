@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import datosImpl.ClienteDaoImpl;
+import datosImpl.UsuarioDaoImpl;
 import entidad.Cliente;
+import entidad.Usuario;
 
 /**
  * Servlet implementation class ServletLogin
@@ -34,38 +36,41 @@ public class ServletLogin extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ClienteDaoImpl x = new ClienteDaoImpl();
-		Cliente cliente = new Cliente();
-		
-		if(request.getParameter("btnIniciarSesion")!=null)
-		{
-			
-			request.getSession().removeAttribute("email");
-			request.getSession().removeAttribute("contrasenia");
-			//En htttpSession obtengo todas las variables session creadas
-			HttpSession session = request.getSession();
-			
-			String datoEmail="";
-			String datoContrasenia="";
-			if(request.getParameter("email")!=null && request.getParameter("contrasenia")!=null)
-			{
-				
-				datoEmail = request.getParameter("email");
-				datoContrasenia = request.getParameter("contrasenia");
-				cliente = x.obtenerUsuarioLogin(datoEmail,datoContrasenia);
-										
-			}
-			
-			//Mediate el setAttribute creo la variable session
-			session.setAttribute("sessionLogin", cliente);
-			//Redirijo a otro jsp
-			
-			System.out.println(request.getParameter("email"));
-			System.out.println(request.getParameter("contrasenia"));
-			RequestDispatcher miDispacher = request.getRequestDispatcher("/Home.jsp"); // Es el archivo JSP al que le vamos a enviar la informacion
-		    miDispacher.forward(request, response);
-		}
-		doGet(request, response);
-	}
+		 UsuarioDaoImpl usuarioDao = new UsuarioDaoImpl();
+	        Usuario usuario = null;
+
+	        if (request.getParameter("btnIniciarSesion") != null) {
+	            String email = request.getParameter("email");
+	            String contrasenia = request.getParameter("contrasenia");
+
+	            if (email != null && !email.isEmpty() && contrasenia != null && !contrasenia.isEmpty()) {
+	                usuario = usuarioDao.obtenerUsuarioLogin(email, contrasenia);
+	            }
+
+	            HttpSession session = request.getSession();
+	            if (usuario != null) {
+	                session.setAttribute("sessionLogin", usuario);
+	                String redirectPage = determineRedirectPage(usuario.getUserType());
+	                RequestDispatcher dispatcher = request.getRequestDispatcher(redirectPage);
+	                dispatcher.forward(request, response);
+	            } else {
+	                request.setAttribute("error", "Invalid email or password");
+	                RequestDispatcher dispatcher = request.getRequestDispatcher("erro.jsp");
+	                dispatcher.forward(request, response);
+	            }
+	        } else {
+	            doGet(request, response);
+	        }
+	    }
+	    
+	    private String determineRedirectPage(int userType) {
+	        if (userType == 1) {
+	            return "MenuAdministrador.jsp";
+	        } else if (userType == 2) {
+	            return "ClienteHome.jsp"; 
+	        } else {
+	            return "erro.jsp"; 
+	        }
+	    }
 
 }

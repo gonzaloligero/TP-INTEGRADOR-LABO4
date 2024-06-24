@@ -128,6 +128,7 @@ public class ClienteDaoImpl implements ClienteDao{
 	}
 
 
+	
 	@Override
 	public boolean insertarCliente(Cliente cliente) {
 		cn = new Conexion();
@@ -136,19 +137,8 @@ public class ClienteDaoImpl implements ClienteDao{
 		boolean telefonoInsertado = false;
 		boolean direccionInsertada = false;
 		boolean usuarioInsertado = false;
+		boolean localidadInsertada = false;
 
-		cliente.getDNI();
-		/*cliente.getNombre();
-		cliente.getApellido();
-		cliente.getCUIL();
-		cliente.getEmail();
-		cliente.getNacionalidad();
-		cliente.getFechaNacimiento();
-		cliente.getSexo();
-		cliente.getDireccion();
-		cliente.getUser();
-		cliente.getPassword();
-		cliente.getNumeroTelefonico();*/
 		
 		try {
 			
@@ -157,19 +147,10 @@ public class ClienteDaoImpl implements ClienteDao{
 				return false;
 			}	
 			
-			 /*if (cliente.getDNI() == 0 || cliente.getCUIL() == "" || cliente.getNombre() == "" || cliente.getApellido() == "" || 
-			 cliente.getSexo() == "" || cliente.getNacionalidad() == "" || cliente.getFechaNacimiento() == null || 
-			 cliente.getEmail() == "" || cliente.getTelefono() == 0) {
-			 System.out.println("Se ha detectado un error al querer insertar el cliente: uno o más campos obligatorios están vacíos.");
-			 return false;
-			}*/
-			
 			 String queryUsuario = "INSERT INTO USUARIOS (Usuario, Contraseña, TipoUsuario, Estado) VALUES('" + cliente.getUser() + "', '" + cliente.getPassword() + "', 2, 1)";
 
 			 usuarioInsertado = cn.execute(queryUsuario);
 			 
-			 String queryTelefono = "INSERT INTO TELEFONOS(DNICliente, NumeroTelefonico) VALUES('" + cliente.getDNI() + "', '" + cliente.getNumeroTelefonico() + "')";
-			 telefonoInsertado = cn.execute(queryTelefono);
 			 
 			 String provincia = cliente.getDireccion().getProvincia();
 			 int provinciaNumero = 1;
@@ -257,11 +238,15 @@ public class ClienteDaoImpl implements ClienteDao{
 			 cliente.getDireccion().getNumero();
 			 
 			 
-			 String queryDireccion = "INSERT INTO DIRECCIONES (IDProvincia, Localidad, CodigoPostal, Calle, Numero) VALUES(" + provinciaNumero + ", '" + cliente.getDireccion().getLocalidad() + "', '" + cliente.getDireccion().getCodigoPostal() + "', '" + cliente.getDireccion().getCalle() + "', " + cliente.getDireccion().getNumero() + ")";			 
+			 
+			 String queryDireccion = "INSERT INTO DIRECCIONES (IDLocalidad, CodigoPostal, Calle, Numero) VALUES (" + 1 + ", '" + cliente.getDireccion().getCodigoPostal() + "', '" + cliente.getDireccion().getCalle() + "', " + cliente.getDireccion().getNumero() + ")";
 			 direccionInsertada = cn.execute(queryDireccion);
 			 
 			 String queryCliente = "INSERT INTO CLIENTES (DNI, CUIL, Nombre, Apellido, Sexo, Nacionalidad, FechaNacimiento, IDDireccion, Email, IDUsuario) VALUES ('" + cliente.getDNI() + "', '" + cliente.getCUIL() + "', '" + cliente.getNombre() + "', '" + cliente.getApellido() + "', '" + cliente.getSexo() + "', '" + cliente.getNacionalidad() + "', '" + cliente.getFechaNacimiento() + "', (SELECT MAX(IDDireccion) FROM DIRECCIONES), '" + cliente.getEmail() + "', (SELECT MAX(IDUsuario) FROM USUARIOS))";
 			 clienteInsertado = cn.execute(queryCliente);
+			 
+			 String queryTelefono = "INSERT INTO TELEFONOS(DNICliente, NumeroTelefonico) VALUES('" + cliente.getDNI() + "', '" + cliente.getNumeroTelefonico() + "')";
+			 telefonoInsertado = cn.execute(queryTelefono);
 			 
 		} catch (Exception e) {    
 		    System.out.println(e.getMessage());    
@@ -269,7 +254,7 @@ public class ClienteDaoImpl implements ClienteDao{
 		    cn.close();
 		}
 
-		if(usuarioInsertado == true && telefonoInsertado == true && direccionInsertada == true) {
+		if(usuarioInsertado == true && telefonoInsertado == true && direccionInsertada == true && clienteInsertado == true) {
 			return true;
 		}else {
 			return false;
@@ -287,7 +272,7 @@ public class ClienteDaoImpl implements ClienteDao{
 		cn.Open();	
 
 		//String query = "UPDATE CLIENTES SET CUIL='" + cliente.getCUIL() + "', Nombre='" + cliente.getNombre() + "', Apellido='" + cliente.getApellido() + "', Sexo='" + cliente.getSexo() + "', Nacionalidad='" + cliente.getNacionalidad() + "', FechaNacimiento='" + cliente.getFechaNacimiento() + "', IDDireccion='" + cliente.getDireccion().getID() + "', Email='" + cliente.getEmail() + "', IDUsuario='" + cliente.getIDUsuario() + "' WHERE DNI='" + cliente.getDNI() + "'";
-		String query = "UPDATE CLIENTES SET Nombre='" + cliente.getNombre() + "',Apellido='"+cliente.getApellido()+ "' WHERE DNI='" + cliente.getDNI() + "'";
+		String query = "UPDATE CLIENTES SET Nombre='" + cliente.getNombre() + "',Apellido='"+cliente.getApellido()+ "',CUIL='" + cliente.getCUIL()+  "', Nacionalidad='" + cliente.getNacionalidad() +  "', Sexo='" + cliente.getSexo() + "', FechaNacimiento='" + cliente.getFechaNacimiento() +   "', Email='" + cliente.getEmail() +                   "' WHERE DNI='" + cliente.getDNI() + "'";
 		
 		try
 		 {

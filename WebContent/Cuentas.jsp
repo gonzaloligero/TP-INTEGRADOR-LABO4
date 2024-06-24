@@ -7,6 +7,19 @@
     <jsp:include page="Componentes/head.jsp"></jsp:include>
 
 </head>
+
+	<style>
+   body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+       
+</style>
+
 <body class="d-flex flex-column">
     <div class="row flex-grow-1 m-0">
         <!--MAIN-->
@@ -59,7 +72,7 @@
                     
                     
                     <div class="text-center">
-                        <a href="#" class="btn btn-primary btnEnviar mt-3"><i class="fa-solid fa-arrow-left me-2"></i>Volver</a>
+                        <a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3 btn-fixed-size " href="MenuAdministrador.jsp">Volver</a>
                     </div>
                 </div>
             </div>

@@ -6,11 +6,21 @@
 	<title>Menu Administrador</title>
 	<jsp:include page="Componentes/head.jsp"></jsp:include>
 </head>
+<style>
+   body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+            margin: 0;
+        }
 
+       
+</style>
 <body>
 
 	<jsp:include page="Componentes/NavBar.jsp"></jsp:include>
-	
+	 <main>
 	<div class="container">
     <div class="row flex-grow-1 m-0">
         <div class="col-lg-13 d-flex flex-column justify-content-between">
@@ -22,27 +32,21 @@
                     <div class="row justify-content-center">
                         <div class="col-md-3">
                             <div class="mt-5">
-                                <a href="ListaClientes.jsp" class="btn btn-primary w-100 btn-admin">Clientes</a>
+                                <a href="ServletClientes?action=listar" class="btn btn-primary w-100 btn-admin">Clientes</a>
                             </div>
                             <div class="mt-5">
-                                <a href="" class="btn btn-primary w-100 btn-admin">Prestamos</a>
+                                <a href="PrestamosAdministrador.jsp" class="btn btn-primary w-100 btn-admin">Préstamos</a>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="mt-5">
-                                <a href="" class="btn btn-primary w-100 btn-admin">Opcion 3</a>
-                            </div>
-                            <div class="mt-5">
-                                <a href="" class="btn btn-primary w-100 btn-admin">Opcion 4</a>
-                            </div>
+                                <a href="ListaCuentas.jsp" class="btn btn-primary w-100 btn-admin">Cuentas</a>
+                            </div>                         
                         </div>
                         <div class="col-md-3">
                             <div class="mt-5">
-                                <a href="" class="btn btn-primary w-100 btn-admin">Opcion 5</a>
-                            </div>
-                            <div class="mt-5">
-                                <a href="" class="btn btn-primary w-100 btn-admin">Opcion 6</a>
-                            </div>
+                                <a href="InformesAdministrador.jsp" class="btn btn-primary w-100 btn-admin">Informes</a>
+                            </div>                        
                         </div>
                     </div>
                 </form>
@@ -50,7 +54,7 @@
         </div>
     </div>
 </div>
-
+</main>
 	
 	
 	<jsp:include page="Componentes/Footer.jsp"></jsp:include>
