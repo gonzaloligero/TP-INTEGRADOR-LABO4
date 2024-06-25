@@ -137,7 +137,10 @@ public class ClienteDaoImpl implements ClienteDao{
 		boolean telefonoInsertado = false;
 		boolean direccionInsertada = false;
 		boolean usuarioInsertado = false;
-		boolean localidadInsertada = false;
+
+		boolean localidadRastreada = false;
+		int idLocalidad = 0;
+		
 
 		
 		try {
@@ -232,18 +235,45 @@ public class ClienteDaoImpl implements ClienteDao{
 			         break;
 			 }
 		 
+			 cliente.getDireccion().setIDProvincia(provinciaNumero);
+			 cliente.getDireccion().getIDProvincia();
+			 
 			 cliente.getDireccion().getLocalidad();
-			 cliente.getDireccion().getCodigoPostal();
-			 cliente.getDireccion().getCalle();
-			 cliente.getDireccion().getNumero();
+			 
+			 ResultSet queryLocalidad = cn.query("SELECT IDLocalidad FROM LOCALIDADES WHERE Nombre='" + cliente.getDireccion().getLocalidad() + "'" + "AND IDProvincia = " + provinciaNumero);
+	
+			 if(queryLocalidad.next()) {
+				 idLocalidad = queryLocalidad.getInt("IDLocalidad");
+			 }
+	
+			 
+			 ResultSet queryNuevaLocalidad = cn.query("SELECT IDLocalidad FROM LOCALIDADES ORDER BY IDLocalidad DESC LIMIT 1");
+			 int idNuevaLocalidad = 0;
 			 
 			 
+			 if(queryNuevaLocalidad.next()) {
+				 idNuevaLocalidad = queryNuevaLocalidad.getInt("IDLocalidad");
+				 idNuevaLocalidad++;
+			 }
+
 			 
-			 String queryDireccion = "INSERT INTO DIRECCIONES (IDLocalidad, CodigoPostal, Calle, Numero) VALUES (" + 1 + ", '" + cliente.getDireccion().getCodigoPostal() + "', '" + cliente.getDireccion().getCalle() + "', " + cliente.getDireccion().getNumero() + ")";
+			 if(idLocalidad != 0) {
+				 cliente.getDireccion().setIDLocalidad(idLocalidad);
+			 }else {
+				 
+				 cliente.getDireccion().setIDLocalidad(idNuevaLocalidad);
+				 String queryLocalidadNueva = "INSERT INTO LOCALIDADES(IDLocalidad, Nombre, IDProvincia) VALUES (" + idNuevaLocalidad + ", '" + cliente.getDireccion().getLocalidad() + "', " + cliente.getDireccion().getIDProvincia() + ")";
+				 cn.execute(queryLocalidadNueva);
+			 }
+			 
+			
+			 String queryDireccion = "INSERT INTO DIRECCIONES (IDLocalidad, CodigoPostal, Calle, Numero) VALUES (" + cliente.getDireccion().getIDLocalidad() + ", '" + cliente.getDireccion().getCodigoPostal() + "', '" + cliente.getDireccion().getCalle() + "', " + cliente.getDireccion().getNumero() + ")";
 			 direccionInsertada = cn.execute(queryDireccion);
 			 
 			 String queryCliente = "INSERT INTO CLIENTES (DNI, CUIL, Nombre, Apellido, Sexo, Nacionalidad, FechaNacimiento, IDDireccion, Email, IDUsuario) VALUES ('" + cliente.getDNI() + "', '" + cliente.getCUIL() + "', '" + cliente.getNombre() + "', '" + cliente.getApellido() + "', '" + cliente.getSexo() + "', '" + cliente.getNacionalidad() + "', '" + cliente.getFechaNacimiento() + "', (SELECT MAX(IDDireccion) FROM DIRECCIONES), '" + cliente.getEmail() + "', (SELECT MAX(IDUsuario) FROM USUARIOS))";
 			 clienteInsertado = cn.execute(queryCliente);
+			 
+			 cliente.getNumeroTelefonico();
 			 
 			 String queryTelefono = "INSERT INTO TELEFONOS(DNICliente, NumeroTelefonico) VALUES('" + cliente.getDNI() + "', '" + cliente.getNumeroTelefonico() + "')";
 			 telefonoInsertado = cn.execute(queryTelefono);
@@ -271,7 +301,6 @@ public class ClienteDaoImpl implements ClienteDao{
 		cn = new Conexion();
 		cn.Open();	
 
-		//String query = "UPDATE CLIENTES SET CUIL='" + cliente.getCUIL() + "', Nombre='" + cliente.getNombre() + "', Apellido='" + cliente.getApellido() + "', Sexo='" + cliente.getSexo() + "', Nacionalidad='" + cliente.getNacionalidad() + "', FechaNacimiento='" + cliente.getFechaNacimiento() + "', IDDireccion='" + cliente.getDireccion().getID() + "', Email='" + cliente.getEmail() + "', IDUsuario='" + cliente.getIDUsuario() + "' WHERE DNI='" + cliente.getDNI() + "'";
 		String query = "UPDATE CLIENTES SET Nombre='" + cliente.getNombre() + "',Apellido='"+cliente.getApellido()+ "',CUIL='" + cliente.getCUIL()+  "', Nacionalidad='" + cliente.getNacionalidad() +  "', Sexo='" + cliente.getSexo() + "', FechaNacimiento='" + cliente.getFechaNacimiento() +   "', Email='" + cliente.getEmail() +                   "' WHERE DNI='" + cliente.getDNI() + "'";
 		
 		try

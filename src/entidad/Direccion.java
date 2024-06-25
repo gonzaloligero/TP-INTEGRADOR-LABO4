@@ -8,6 +8,8 @@ public class Direccion {
 	private int Numero;
 	private String Provincia;
 	private String CodigoPostal;
+	private int IDLocalidad;
+	private int IDProvincia;
 	
 public Direccion() {
 	this.ID = 0;
@@ -15,16 +17,20 @@ public Direccion() {
 	this.Numero = 0;
 	this.CodigoPostal = "";
 	this.Localidad = "";
+	this.IDLocalidad = 0;
 	this.Provincia = "";
+	this.IDProvincia = 0;
 }
 
-public Direccion(int id, String calle, int numero, String codPostal, String localidad, String provincia) {
+public Direccion(int id, String calle, int numero, String codPostal, String localidad, String provincia, int idLocalidad, int idProvincia) {
 	this.ID = id;
 	this.Calle = calle;
 	this.Numero = numero;
 	this.CodigoPostal = codPostal;
 	this.Localidad = localidad;
 	this.Provincia = provincia;
+	this.IDLocalidad = idLocalidad;
+	this.IDProvincia = idProvincia;
 }
 
 public int getID() {
@@ -35,6 +41,22 @@ public void setID(int iD) {
 	ID = iD;
 }
 
+
+public int getIDProvincia() {
+	return IDProvincia;
+}
+
+public void setIDProvincia(int iDProvincia) {
+	IDProvincia = iDProvincia;
+}
+
+public int getIDLocalidad() {
+	return IDLocalidad;
+}
+
+public void setIDLocalidad(int iDLocalidad) {
+	IDLocalidad = iDLocalidad;
+}
 
 public String getProvincia() {
 	return Provincia;

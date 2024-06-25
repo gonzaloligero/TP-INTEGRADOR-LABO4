@@ -220,9 +220,11 @@ public class ServletClientes extends HttpServlet {
                 e.printStackTrace();
             }
             clienteInsertar.setSexo(sexo);
+            clienteInsertar.getDireccion().setLocalidad(localidad);
             clienteInsertar.setDireccion(calle, numeroInt, codigoPostal, localidad, provincia);
             clienteInsertar.setUser(usuario);
             clienteInsertar.setPassword(contraseña);
+            clienteInsertar.setNumeroTelefonico(telefono);
 
             
             clienteNegocio.insertarCliente(clienteInsertar);

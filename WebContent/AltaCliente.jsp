@@ -50,23 +50,16 @@
                                 <label for="fechaNacimiento">Fecha de Nacimiento</label>
                                 <input type="date" class="form-control" name="fechaNacimiento" id="fechaNacimiento" placeholder="Ingrese la fecha de nacimiento" required>
                             </div>
+                            
+                            
                             <div class="form-group">
                                 <label for="localidad">Localidad</label>
-                                <select class="form-control" id="localidad" name="localidad" required>
-                                    <option value="" disabled selected>Seleccione una localidad</option>   
-                                     <% 
-                                                                              
-                                        for (Direccion localidad : localidades) {
-                                    %>
-                                        <option value="<%= localidad.getProvincia() %>"><%= localidad.getLocalidad() %></option>
-                                    <% 
-                                        }
-                                    %>                                 
-                                </select>
-                            </div>                            
+                                <input type="text" class="form-control" name="localidad" id="localidad" placeholder="Ingrese su localidad" required>
+                            </div>
+                                                      
                             <div class="form-group">
                                 <label for="codigoPostal">Código Postal</label>
-                                <input type="text" class="form-control" name="codigoPostal" id="codigoPostal" placeholder="Ingrese el código postal" required>
+                                <input type="number" class="form-control" name="codigoPostal" id="codigoPostal" placeholder="Ingrese el código postal" required>
                             </div>
                         </div>
                         
@@ -79,7 +72,13 @@
                             <div class="form-group">
                                 <label for="correo">Correo</label>
                                 <input type="email" class="form-control" id="correo" placeholder="Ingrese el correo" name="correo" required>
-                            </div>                            
+                            </div>  
+                            
+                            <div class="form-group">
+                                <label for="teléfono">Teléfono</label>
+                                <input type="number" class="form-control" id="correo" placeholder="Ingrese el número telefónico" name="teléfono" required>
+                            </div>  
+                                                      
                             <div class="form-group">
                                 <label for="sexo">Género</label>
                                 <select class="form-control" id="sexo" required name="sexo">
@@ -101,12 +100,61 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="dni">DNI</label>
-                                <input type="text" class="form-control" name="dni" id="dni" placeholder="Ingrese el DNI" required>
+                                <input type="number" class="form-control" name="dni" id="dni" placeholder="Ingrese el DNI" required>
                             </div>
                             <div class="form-group">
-                                <label for="nacionalidad">Nacionalidad</label>
-                                <input type="text" class="form-control" name="nacionalidad" id="nacionalidad" placeholder="Ingrese la nacionalidad" required>
-                            </div>                                                        
+    						<label for="nacionalidad">Nacionalidad</label>
+    							<select class="form-control" name="nacionalidad" id="nacionalidad" required>
+							        <option value="">Seleccione su nacionalidad</option>
+							        <option value="Argentina">Argentina</option>
+							        <option value="Australia">Australia</option>
+							        <option value="Austria">Austria</option>
+							        <option value="Bélgica">Bélgica</option>
+							        <option value="Brasil">Brasil</option>
+							        <option value="Canadá">Canadá</option>
+							        <option value="Chile">Chile</option>
+							        <option value="China">China</option>
+							        <option value="Colombia">Colombia</option>
+							        <option value="Corea del Sur">Corea del Sur</option>
+							        <option value="Dinamarca">Dinamarca</option>
+							        <option value="Egipto">Egipto</option>
+							        <option value="Emiratos Árabes Unidos">Emiratos Árabes Unidos</option>
+							        <option value="España">España</option>
+							        <option value="Estados Unidos">Estados Unidos</option>
+							        <option value="Filipinas">Filipinas</option>
+							        <option value="Finlandia">Finlandia</option>
+							        <option value="Francia">Francia</option>
+							        <option value="Grecia">Grecia</option>
+							        <option value="India">India</option>
+							        <option value="Indonesia">Indonesia</option>
+							        <option value="Irlanda">Irlanda</option>
+							        <option value="Israel">Israel</option>
+							        <option value="Italia">Italia</option>
+							        <option value="Japón">Japón</option>
+							        <option value="Malasia">Malasia</option>
+							        <option value="México">México</option>
+							        <option value="Noruega">Noruega</option>
+							        <option value="Nueva Zelanda">Nueva Zelanda</option>
+							        <option value="Países Bajos">Países Bajos</option>
+							        <option value="Pakistán">Pakistán</option>
+							        <option value="Perú">Perú</option>
+							        <option value="Polonia">Polonia</option>
+							        <option value="Portugal">Portugal</option>
+							        <option value="Reino Unido">Reino Unido</option>
+							        <option value="República Checa">República Checa</option>
+							        <option value="Rusia">Rusia</option>
+							        <option value="Singapur">Singapur</option>
+							        <option value="Sudáfrica">Sudáfrica</option>
+							        <option value="Suecia">Suecia</option>
+							        <option value="Suiza">Suiza</option>
+							        <option value="Tailandia">Tailandia</option>
+							        <option value="Turquía">Turquía</option>
+							        <option value="Ucrania">Ucrania</option>
+							        <option value="Venezuela">Venezuela</option>
+							        <option value="Vietnam">Vietnam</option>
+    						</select>
+							</div>
+                                                        
                             <div class="form-group">
                                 <label for="provincia">Provincia</label>
                                 <select class="form-control" id="provincia" name="provincia" required>
@@ -123,7 +171,7 @@
                             </div>                            
                             <div class="form-group">
                                 <label for="numero">Número</label>
-                                <input type="text" class="form-control" name="numero" id="numero" placeholder="Ingrese el número" required>
+                                <input type="number" class="form-control" name="numero" id="numero" placeholder="Ingrese el número" required>
                             </div>                        
                             <div class="form-group">
                                 <label for="contraseña">Contraseña</label>
