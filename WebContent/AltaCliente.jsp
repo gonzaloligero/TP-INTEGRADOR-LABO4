@@ -82,8 +82,8 @@
                             <div class="form-group">
                                 <label for="sexo">Género</label>
                                 <select class="form-control" id="sexo" required name="sexo">
-                                    <option value="M">Masculino</option>
-                                    <option value="F">Femenino</option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Femenino">Femenino</option>
                                 </select>
                             </div>                        
                             <div class="form-group">

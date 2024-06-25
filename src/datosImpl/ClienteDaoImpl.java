@@ -137,21 +137,28 @@ public class ClienteDaoImpl implements ClienteDao{
 		boolean telefonoInsertado = false;
 		boolean direccionInsertada = false;
 		boolean usuarioInsertado = false;
-
-		boolean localidadRastreada = false;
 		int idLocalidad = 0;
 		
 
-		
-		try {
-			
+		try {		
 			if(cliente == null) {
 				System.out.println("Se ha detectado un error al querer insertar el cliente");
-				return false;
-			}	
+				return false;}	
+			
+			
+			//VERIFICACIÓN SI EL USUARIO YA EXISTE. FALTA EL MENSAJE EN EL JSP
+			ResultSet queryUsuarioExistente = cn.query("SELECT Usuario FROM USUARIOS WHERE Usuario = '" + cliente.getUser() + "'");		
+			if(queryUsuarioExistente.next()) {
+				return false;}
+			
+			//VERIFICACIÓN SI EL CLIENTE YA EXISTE. FALTA EL MENSAJE EN EL JSP
+			ResultSet queryClienteExistente = cn.query("SELECT DNI FROM CLIENTES WHERE DNI =" + cliente.getDNI());	
+			if(queryClienteExistente.next()) {
+				return false;}
+
+			
 			
 			 String queryUsuario = "INSERT INTO USUARIOS (Usuario, Contraseña, TipoUsuario, Estado) VALUES('" + cliente.getUser() + "', '" + cliente.getPassword() + "', 2, 1)";
-
 			 usuarioInsertado = cn.execute(queryUsuario);
 			 
 			 
