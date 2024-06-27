@@ -69,8 +69,8 @@ public int getDNI() {
 	return DNI;
 }
 
-public void setDNI(int dNI) {
-	DNI = dNI;
+public void setDNI(int dni) {
+	DNI = dni;
 }
 
 
@@ -94,8 +94,8 @@ public String getCUIL() {
 	return CUIL;
 }
 
-public void setCUIL(String cUIL) {
-	CUIL = cUIL;
+public void setCUIL(String cuil) {
+	CUIL = cuil;
 }
 
 public String getNombre() {
