@@ -70,7 +70,12 @@
                     %>
                         <tr>
                             <td><%= cliente.getUser() %></td>
-                            <td><%= cliente.getPassword() %></td>
+                            <% 
+							    String contraseña = cliente.getPassword();
+							    StringBuilder contraseñaOculta = new StringBuilder();
+							    for (int i = 0; i < contraseña.length(); i++) {
+							        contraseñaOculta.append("*");}%>
+                            <td><%= contraseñaOculta.toString() %></td>
                             <td><%= cliente.getNombre() %> <%= cliente.getApellido() %></td>
                             <td><%= cliente.getDNI() %></td>
                             <td><%= cliente.getCUIL() %></td>

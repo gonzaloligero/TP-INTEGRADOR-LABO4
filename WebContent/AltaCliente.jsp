@@ -22,6 +22,20 @@
     ArrayList<Direccion> localidades = clienteNegImpl.listarLocalidades();
 %>
 
+<% 
+    String contraseñaError = (String) request.getAttribute("contraseñaError");
+    if (contraseñaError != null) { 
+%>
+    <script type="text/javascript">
+        document.getElementById("contraseña").value = "";
+        document.getElementById("contraseña2").value = "";
+        alert("<%= contraseñaError %>");
+    </script>
+<% 
+    } 
+%>
+
+
     <jsp:include page="Componentes/NavBar.jsp"></jsp:include>
 
     <div class="row flex-grow-1 m-0">
@@ -108,6 +122,7 @@
 							        <option value="">Seleccione su nacionalidad</option>
 							        <option value="Argentina">Argentina</option>
 							        <option value="Australia">Australia</option>
+							        <option value="Alemania">Alemania</option>
 							        <option value="Austria">Austria</option>
 							        <option value="Bélgica">Bélgica</option>
 							        <option value="Brasil">Brasil</option>
@@ -150,6 +165,7 @@
 							        <option value="Tailandia">Tailandia</option>
 							        <option value="Turquía">Turquía</option>
 							        <option value="Ucrania">Ucrania</option>
+							        <option value="Uruguay">Uruguay</option>
 							        <option value="Venezuela">Venezuela</option>
 							        <option value="Vietnam">Vietnam</option>
     						</select>
@@ -176,6 +192,10 @@
                             <div class="form-group">
                                 <label for="contraseña">Contraseña</label>
                                 <input type="password" class="form-control" id="contraseña" name="contraseña"  placeholder="Ingrese la contraseña" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contraseña2">Reitere la contraseña</label>
+                                <input type="password" class="form-control" id="contraseña2" name="contraseña2"  placeholder="Repita la contraseña" required>
                             </div>                            
                             <div class="mt-3">
                                 <button type="submit" class="btn btn-primary">Confirmar Alta</button>
