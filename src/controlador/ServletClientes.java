@@ -17,6 +17,7 @@ import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 import negocio.ClienteNegocio;
 import negocioImpl.ClienteNegImpl;
 import entidad.Cliente;
+import excepciones.ContraseñaDiferente;
 
 @WebServlet("/ServletClientes")
 public class ServletClientes extends HttpServlet {
@@ -188,7 +189,22 @@ public class ServletClientes extends HttpServlet {
             String numero = request.getParameter("numero");
             String contraseña = request.getParameter("contraseña");
             String telefono = request.getParameter("teléfono");
+            String contraseñaRepetida = request.getParameter("contraseña2");
+            
+            
+            
+            if(!contraseña.equals(contraseñaRepetida)) {
+                try {
+                    throw new ContraseñaDiferente();
+                } catch (ContraseñaDiferente e) {
+                    request.setAttribute("contraseñaError", "Las contraseñas no coinciden");
+                    request.getRequestDispatcher("AltaCliente.jsp").forward(request, response);
+                    return;
+                }
+            }
 
+            
+            
             localidad = (localidad != null && !localidad.isEmpty()) ? localidad : "";
             codigoPostal = (codigoPostal != null && !codigoPostal.isEmpty()) ? codigoPostal : "";
             correo = (correo != null && !correo.isEmpty()) ? correo : "";
