@@ -3,7 +3,7 @@ import entidad.Cliente;
 import entidad.Direccion;
 import datos.ClienteDao;
 import java.util.ArrayList;
-
+import java.util.Random;
 import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
@@ -131,14 +131,14 @@ public class ClienteDaoImpl implements ClienteDao{
 	
 	@Override
 	public boolean insertarCliente(Cliente cliente) {
-		cn = new Conexion();
-		cn.Open();
-		boolean clienteInsertado = false;
-		boolean telefonoInsertado = false;
-		boolean direccionInsertada = false;
-		boolean usuarioInsertado = false;
-		int idLocalidad = 0;
-		
+	    cn = new Conexion();
+	    cn.Open();
+	    boolean clienteInsertado = false;
+	    boolean telefonoInsertado = false;
+	    boolean direccionInsertada = false;
+	    boolean usuarioInsertado = false;
+	    boolean cuentaInsertada = false;
+            int idLocalidad = 0;
 
 		try {		
 			if(cliente == null) {
@@ -263,8 +263,7 @@ public class ClienteDaoImpl implements ClienteDao{
 				 idNuevaLocalidad++;
 			 }
 
-			 
-			 if(idLocalidad != 0) {
+ if(idLocalidad != 0) {
 				 cliente.getDireccion().setIDLocalidad(idLocalidad);
 			 }else {
 				 
@@ -272,33 +271,40 @@ public class ClienteDaoImpl implements ClienteDao{
 				 String queryLocalidadNueva = "INSERT INTO LOCALIDADES(IDLocalidad, Nombre, IDProvincia) VALUES (" + idNuevaLocalidad + ", '" + cliente.getDireccion().getLocalidad() + "', " + cliente.getDireccion().getIDProvincia() + ")";
 				 cn.execute(queryLocalidadNueva);
 			 }
-			 
-			
-			 String queryDireccion = "INSERT INTO DIRECCIONES (IDLocalidad, CodigoPostal, Calle, Numero) VALUES (" + cliente.getDireccion().getIDLocalidad() + ", '" + cliente.getDireccion().getCodigoPostal() + "', '" + cliente.getDireccion().getCalle() + "', " + cliente.getDireccion().getNumero() + ")";
-			 direccionInsertada = cn.execute(queryDireccion);
-			 
-			 String queryCliente = "INSERT INTO CLIENTES (DNI, CUIL, Nombre, Apellido, Sexo, Nacionalidad, FechaNacimiento, IDDireccion, Email, IDUsuario) VALUES ('" + cliente.getDNI() + "', '" + cliente.getCUIL() + "', '" + cliente.getNombre() + "', '" + cliente.getApellido() + "', '" + cliente.getSexo() + "', '" + cliente.getNacionalidad() + "', '" + cliente.getFechaNacimiento() + "', (SELECT MAX(IDDireccion) FROM DIRECCIONES), '" + cliente.getEmail() + "', (SELECT MAX(IDUsuario) FROM USUARIOS))";
-			 clienteInsertado = cn.execute(queryCliente);
-			 
-			 cliente.getNumeroTelefonico();
-			 
-			 String queryTelefono = "INSERT INTO TELEFONOS(DNICliente, NumeroTelefonico) VALUES('" + cliente.getDNI() + "', '" + cliente.getNumeroTelefonico() + "')";
-			 telefonoInsertado = cn.execute(queryTelefono);
-			 
-		} catch (Exception e) {    
-		    System.out.println(e.getMessage());    
-		} finally {
-		    cn.close();
-		}
+	        String queryDireccion = "INSERT INTO DIRECCIONES (IDLocalidad, CodigoPostal, Calle, Numero) VALUES (" + cliente.getDireccion().getIDLocalidad() + ", '" + cliente.getDireccion().getCodigoPostal() + "', '" + cliente.getDireccion().getCalle() + "', " + cliente.getDireccion().getNumero() + ")";
+	        direccionInsertada = cn.execute(queryDireccion);
 
-		if(usuarioInsertado == true && telefonoInsertado == true && direccionInsertada == true && clienteInsertado == true) {
-			return true;
-		}else {
-			return false;
-		}
-		
-		
+	        String queryCliente = "INSERT INTO CLIENTES (DNI, CUIL, Nombre, Apellido, Sexo, Nacionalidad, FechaNacimiento, IDDireccion, Email, IDUsuario) VALUES ('" + cliente.getDNI() + "', '" + cliente.getCUIL() + "', '" + cliente.getNombre() + "', '" + cliente.getApellido() + "', '" + cliente.getSexo() + "', '" + cliente.getNacionalidad() + "', '" + cliente.getFechaNacimiento() + "', (SELECT MAX(IDDireccion) FROM DIRECCIONES), '" + cliente.getEmail() + "', (SELECT MAX(IDUsuario) FROM USUARIOS))";
+	        clienteInsertado = cn.execute(queryCliente);
+
+                 cliente.getNumeroTelefonico();
+	        String queryTelefono = "INSERT INTO TELEFONOS(DNICliente, NumeroTelefonico) VALUES('" + cliente.getDNI() + "', '" + cliente.getNumeroTelefonico() + "')";
+	        telefonoInsertado = cn.execute(queryTelefono);
+
+	        Random random = new Random();
+	        int numeroCuenta = 10000 + random.nextInt(90000);  // Genera un número de cuenta aleatorio de 5 dígitos
+	        String cbu = "CBU" + (1000000000 + random.nextInt(900000000));
+	        // Inserción de la cuenta asociada al cliente
+	        String queryCuenta = "INSERT INTO CUENTAS (DNICliente, fechaCreacion, numeroCuenta, CBU, Saldo) " + 
+                    "VALUES ('" + 
+                    cliente.getDNI() + "', " + 
+                    "NOW(), " + 
+                    numeroCuenta + ", '" + 
+                    cbu + "', " + 
+                    "1000);";
+
+            cuentaInsertada = cn.execute(queryCuenta);
+
+
+	    } catch (Exception e) {    
+	        System.out.println(e.getMessage());    
+	    } finally {
+	        cn.close();
+	    }
+
+	    return usuarioInsertado && telefonoInsertado && direccionInsertada && clienteInsertado && cuentaInsertada;
 	}
+
 
 
 	@Override
@@ -308,6 +314,7 @@ public class ClienteDaoImpl implements ClienteDao{
 		cn = new Conexion();
 		cn.Open();	
 
+		//String query = "UPDATE CLIENTES SET CUIL='" + cliente.getCUIL() + "', Nombre='" + cliente.getNombre() + "', Apellido='" + cliente.getApellido() + "', Sexo='" + cliente.getSexo() + "', Nacionalidad='" + cliente.getNacionalidad() + "', FechaNacimiento='" + cliente.getFechaNacimiento() + "', IDDireccion='" + cliente.getDireccion().getID() + "', Email='" + cliente.getEmail() + "', IDUsuario='" + cliente.getIDUsuario() + "' WHERE DNI='" + cliente.getDNI() + "'";
 		String query = "UPDATE CLIENTES SET Nombre='" + cliente.getNombre() + "',Apellido='"+cliente.getApellido()+ "',CUIL='" + cliente.getCUIL()+  "', Nacionalidad='" + cliente.getNacionalidad() +  "', Sexo='" + cliente.getSexo() + "', FechaNacimiento='" + cliente.getFechaNacimiento() +   "', Email='" + cliente.getEmail() +                   "' WHERE DNI='" + cliente.getDNI() + "'";
 		
 		try
