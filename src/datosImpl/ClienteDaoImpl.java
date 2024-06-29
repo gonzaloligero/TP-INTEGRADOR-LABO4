@@ -138,6 +138,7 @@ public class ClienteDaoImpl implements ClienteDao{
 	    boolean direccionInsertada = false;
 	    boolean usuarioInsertado = false;
 	    boolean cuentaInsertada = false;
+	    boolean movimientoInsertado = false;
             int idLocalidad = 0;
 
 		try {		
@@ -291,9 +292,13 @@ public class ClienteDaoImpl implements ClienteDao{
                     "NOW(), " + 
                     numeroCuenta + ", '" + 
                     cbu + "', " + 
-                    "1000);";
+                    "10000);";
+	        cuentaInsertada = cn.execute(queryCuenta);
+	        
+	        String queryMovimiento = "INSERT INTO MOVIMIENTOS(Fecha,Detalle,Importe,IDCuenta,IDTipoMovimiento)"
+	        		+ "VALUES(NOW(), 'ALTA DE CUENTA', 10000, (SELECT MAX(IDCuenta) FROM CUENTAS), 1 );";
 
-            cuentaInsertada = cn.execute(queryCuenta);
+	        movimientoInsertado = cn.execute(queryMovimiento);
 
 
 	    } catch (Exception e) {    
@@ -302,9 +307,8 @@ public class ClienteDaoImpl implements ClienteDao{
 	        cn.close();
 	    }
 
-	    return usuarioInsertado && telefonoInsertado && direccionInsertada && clienteInsertado && cuentaInsertada;
+	    return usuarioInsertado && telefonoInsertado && direccionInsertada && clienteInsertado && cuentaInsertada && movimientoInsertado;
 	}
-
 
 
 	@Override
