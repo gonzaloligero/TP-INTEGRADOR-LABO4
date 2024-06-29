@@ -7,6 +7,7 @@ import java.util.Random;
 import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ClienteDaoImpl implements ClienteDao{
 
@@ -314,16 +315,182 @@ public class ClienteDaoImpl implements ClienteDao{
 	@Override
 	public boolean editarCliente(Cliente cliente) {
 		boolean clienteEditado = false;
+		boolean usuarioEditado = false;
+		boolean localidadEditada = false;
+		boolean provinciaEditada = false;
+		boolean telefonoEditado = false;
+		boolean direccionEditada = false;
+		int nuevoIDDireccion = 0;
 
 		cn = new Conexion();
 		cn.Open();	
+		
+		String provincia = cliente.getDireccion().getProvincia();
+		 int provinciaNumero = 1;
+		 switch(provincia) {
+		     case "Buenos Aires":
+		         provinciaNumero = 1;
+		         break;
+		     case "Catamarca":
+		         provinciaNumero = 2;
+		         break;
+		     case "Chaco":
+		         provinciaNumero = 3;
+		         break;
+		     case "Chubut":
+		         provinciaNumero = 4;
+		         break;
+		     case "Córdoba":
+		         provinciaNumero = 5;
+		         break;
+		     case "Corrientes":
+		         provinciaNumero = 6;
+		         break;
+		     case "Entre Ríos":
+		         provinciaNumero = 7;
+		         break;
+		     case "Formosa":
+		         provinciaNumero = 8;
+		         break;
+		     case "Jujuy":
+		         provinciaNumero = 9;
+		         break;
+		     case "La Pampa":
+		         provinciaNumero = 10;
+		         break;
+		     case "La Rioja":
+		         provinciaNumero = 11;
+		         break;
+		     case "Mendoza":
+		         provinciaNumero = 12;
+		         break;
+		     case "Misiones":
+		         provinciaNumero = 13;
+		         break;
+		     case "Neuquén":
+		         provinciaNumero = 14;
+		         break;
+		     case "Río Negro":
+		         provinciaNumero = 15;
+		         break;
+		     case "Salta":
+		         provinciaNumero = 16;
+		         break;
+		     case "San Juan":
+		         provinciaNumero = 17;
+		         break;
+		     case "San Luis":
+		         provinciaNumero = 18;
+		         break;
+		     case "Santa Cruz":
+		         provinciaNumero = 19;
+		         break;
+		     case "Santa Fe":
+		         provinciaNumero = 20;
+		         break;
+		     case "Santiago del Estero":
+		         provinciaNumero = 21;
+		         break;
+		     case "Tierra del Fuego":
+		         provinciaNumero = 22;
+		         break;
+		     case "Tucumán":
+		         provinciaNumero = 23;
+		         break;
+		     case "Ciudad Autónoma de Buenos Aires":
+		         provinciaNumero = 24;
+		         break;
+		     case "CABA":
+		         provinciaNumero = 24;
+		         break;
+		 }
+		
+		 ResultSet queryLocalidad1 = cn.query("SELECT IDLocalidad FROM LOCALIDADES WHERE Nombre='" + cliente.getDireccion().getLocalidad() + "'" + "AND IDProvincia = " + provinciaNumero);
+		 int idLocalidad = 0;
+		 
+		 try {
+			if(queryLocalidad1.next()) {
+				 idLocalidad = queryLocalidad1.getInt("IDLocalidad");
+			 }
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 
+<<<<<<< HEAD
+		 
+		 ResultSet queryNuevaLocalidad = cn.query("SELECT IDLocalidad FROM LOCALIDADES ORDER BY IDLocalidad DESC LIMIT 1");
+		 int idNuevaLocalidad = 0;
+		 
+		 
+		 try {
+			if(queryNuevaLocalidad.next()) {
+				 idNuevaLocalidad = queryNuevaLocalidad.getInt("IDLocalidad");
+				 idNuevaLocalidad++;
+			 }
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+
+		 
+		 if(idLocalidad != 0) {
+			 cliente.getDireccion().setIDLocalidad(idLocalidad);
+		 }else {
+			 
+			 cliente.getDireccion().setIDLocalidad(idNuevaLocalidad);
+			 cliente.getDireccion().getIDLocalidad();
+			 cliente.getDireccion().setIDProvincia(provinciaNumero);
+			 cliente.getDireccion().getIDProvincia();
+			 cliente.getDireccion().getLocalidad();
+			 String queryLocalidadNueva = "INSERT INTO LOCALIDADES(IDLocalidad, Nombre, IDProvincia) VALUES (" + cliente.getDireccion().getIDLocalidad() + ", '" + cliente.getDireccion().getLocalidad() + "', " + cliente.getDireccion().getIDProvincia() + ")";
+			 cn.execute(queryLocalidadNueva);
+			 idLocalidad = idNuevaLocalidad;
+		 }
+		 
+		 ResultSet verificacionNuevaDireccion = cn.query("SELECT Calle, Numero, CodigoPostal, IDLocalidad FROM DIRECCIONES AS d INNER JOIN CLIENTES AS c ON c.IDDireccion = d.IDDireccion");
+		 
+		 		 
+		 try {
+				if(verificacionNuevaDireccion.next()) {
+					String calle = verificacionNuevaDireccion.getString("Calle");
+					int numero = verificacionNuevaDireccion.getInt("Numero");
+					String codigoPostal = verificacionNuevaDireccion.getString("CodigoPostal");
+					int idLoca = verificacionNuevaDireccion.getInt("IDLocalidad");
+					
+						if(cliente.getDireccion().getCalle() != calle || cliente.getDireccion().getNumero() != numero || cliente.getDireccion().getCodigoPostal() != codigoPostal || cliente.getDireccion().getIDLocalidad() != idLoca) {
+							String queryDireccion = "INSERT INTO DIRECCIONES (IDLocalidad, CodigoPostal, Calle, Numero) VALUES (" + idLocalidad + ", '" + cliente.getDireccion().getCodigoPostal() + "', '" + cliente.getDireccion().getCalle() + "', " + cliente.getDireccion().getNumero() + ")";
+							direccionEditada = cn.execute(queryDireccion);}
+							ResultSet nuevoIDDire = cn.query("SELECT IDDireccion FROM DIRECCIONES ORDER BY IDDireccion DESC LIMIT 1");
+							if(nuevoIDDire.next()) {
+								int idNuevaDireccion = nuevoIDDire.getInt("IDDireccion");
+								String actualizacionDireccion = "UPDATE CLIENTES SET IDDireccion = " + idNuevaDireccion + " WHERE DNI = " + cliente.getDNI();
+								cn.execute(actualizacionDireccion);
+							}
+					}
+				
+					
+	 
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		 
+		
+		 
+		String queryUsuario = "UPDATE USUARIOS SET Contraseña ='" + cliente.getPassword() + "' WHERE Usuario = '" + cliente.getUser() + "'";
+		String queryCliente = "UPDATE CLIENTES SET Nombre='" + cliente.getNombre() + "',Apellido='"+cliente.getApellido()+ "',CUIL='" + cliente.getCUIL()+  "', Nacionalidad='" + cliente.getNacionalidad() +  "', Sexo='" + cliente.getSexo() + "', FechaNacimiento='" + cliente.getFechaNacimiento() +   "', Email='" + cliente.getEmail() + "' WHERE DNI='" + cliente.getDNI() + "'";
+		String queryTelefono = "UPDATE TELEFONOS SET NumeroTelefonico = '" + cliente.getNumeroTelefonico() + "' WHERE DNICliente = " + cliente.getDNI();
+=======
 		//String query = "UPDATE CLIENTES SET CUIL='" + cliente.getCUIL() + "', Nombre='" + cliente.getNombre() + "', Apellido='" + cliente.getApellido() + "', Sexo='" + cliente.getSexo() + "', Nacionalidad='" + cliente.getNacionalidad() + "', FechaNacimiento='" + cliente.getFechaNacimiento() + "', IDDireccion='" + cliente.getDireccion().getID() + "', Email='" + cliente.getEmail() + "', IDUsuario='" + cliente.getIDUsuario() + "' WHERE DNI='" + cliente.getDNI() + "'";
 		String query = "UPDATE CLIENTES SET Nombre='" + cliente.getNombre() + "',Apellido='"+cliente.getApellido()+ "',CUIL='" + cliente.getCUIL()+  "', Nacionalidad='" + cliente.getNacionalidad() +  "', Sexo='" + cliente.getSexo() + "', FechaNacimiento='" + cliente.getFechaNacimiento() +   "', Email='" + cliente.getEmail() +                   "' WHERE DNI='" + cliente.getDNI() + "'";
+>>>>>>> 82352064534612d08d5163d5fbec77403cbd42ad
 		
 		try
 		 {
-			clienteEditado=cn.execute(query);
+			
+			usuarioEditado = cn.execute(queryUsuario);
+			clienteEditado=cn.execute(queryCliente);
+			telefonoEditado = cn.execute(queryTelefono);
+
+
 		 }
 		catch(Exception e)
 		{
@@ -333,7 +500,11 @@ public class ClienteDaoImpl implements ClienteDao{
 		{
 			cn.close();
 		}
-		return clienteEditado;
+		
+		if(usuarioEditado == true && clienteEditado == true && telefonoEditado == true) {
+			return true;
+		}else {return false;}
+		
 	}
 
 

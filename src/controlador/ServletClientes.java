@@ -107,7 +107,7 @@ public class ServletClientes extends HttpServlet {
 
         if ("actualizar".equals(action)) {
             int id = Integer.parseInt(request.getParameter("id"));
-            String user = request.getParameter("user");
+            String user = request.getParameter("usuario");
             String password = request.getParameter("password");
             String nombre = request.getParameter("nombre");
             String apellido = request.getParameter("apellido");
@@ -115,6 +115,9 @@ public class ServletClientes extends HttpServlet {
             String cuil = request.getParameter("cuil");
             String nacionalidad = request.getParameter("nacionalidad");
             String sexo = request.getParameter("sexo");
+            String usuario = request.getParameter("usuario");
+            String contraseña = request.getParameter("contraseña");
+            String telefono = request.getParameter("telefono");
             
             
             String fechaNacStr = request.getParameter("fechaNacimiento");                  
@@ -127,6 +130,7 @@ public class ServletClientes extends HttpServlet {
             int numero = Integer.parseInt(request.getParameter("numero"));
             String localidad = request.getParameter("localidad");
             String provincia = request.getParameter("provincia");
+            String codigoPostal = request.getParameter("codigoPostal");
 
             Cliente clienteActualizar = new Cliente();
             clienteActualizar.setIDUsuario(id);
@@ -138,6 +142,10 @@ public class ServletClientes extends HttpServlet {
             clienteActualizar.setCUIL(cuil);
             clienteActualizar.setNacionalidad(nacionalidad);
             clienteActualizar.setSexo(sexo);
+            clienteActualizar.getDireccion().setLocalidad(localidad);
+            clienteActualizar.getDireccion().setProvincia(provincia);
+            clienteActualizar.getDireccion().setCodigoPostal(codigoPostal);
+            clienteActualizar.setNumeroTelefonico(telefono);
             
             try {
                 LocalDate localDate = LocalDate.parse(fechaNacStr);                           
@@ -151,7 +159,7 @@ public class ServletClientes extends HttpServlet {
             //clienteActualizar.setFechaNacimiento(fechaNacimiento);
             clienteActualizar.setEmail(email);
             clienteActualizar.setNumeroTelefonico(numeroTelefonico);
-            clienteActualizar.setDireccion(calle, numero, "", localidad, provincia);
+            clienteActualizar.setDireccion(calle, numero, codigoPostal, localidad, provincia);
 
             boolean exito = clienteNegocio.editarCliente(clienteActualizar);
 
@@ -228,6 +236,11 @@ public class ServletClientes extends HttpServlet {
             clienteInsertar.setDNI(dniInt);
             clienteInsertar.setEmail(correo);
             clienteInsertar.setNacionalidad(nacionalidad);
+            clienteInsertar.getDireccion().setProvincia(provincia);
+            clienteInsertar.getDireccion().setLocalidad(localidad);
+            clienteInsertar.getDireccion().setCalle(calle);
+            clienteInsertar.getDireccion().setCodigoPostal(codigoPostal);
+            clienteInsertar.getDireccion().setNumero(numeroInt);
             
             try {
                 LocalDate localDate = LocalDate.parse(fechaNacimiento);                           
@@ -236,8 +249,7 @@ public class ServletClientes extends HttpServlet {
                 e.printStackTrace();
             }
             clienteInsertar.setSexo(sexo);
-            clienteInsertar.getDireccion().setLocalidad(localidad);
-            clienteInsertar.setDireccion(calle, numeroInt, codigoPostal, localidad, provincia);
+            //clienteInsertar.setDireccion(calle, numeroInt, codigoPostal, localidad, provincia);
             clienteInsertar.setUser(usuario);
             clienteInsertar.setPassword(contraseña);
             clienteInsertar.setNumeroTelefonico(telefono);
