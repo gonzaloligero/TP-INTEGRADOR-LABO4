@@ -38,7 +38,7 @@ public class ServletLogin extends HttpServlet {
 		
 		 UsuarioDaoImpl usuarioDao = new UsuarioDaoImpl();
 	        Usuario usuario = null;
-
+	        ClienteDaoImpl Dao = new ClienteDaoImpl();
 	        if (request.getParameter("btnIniciarSesion") != null) {
 	            String email = request.getParameter("email");
 	            String contrasenia = request.getParameter("contrasenia");
@@ -49,6 +49,8 @@ public class ServletLogin extends HttpServlet {
 
 	            HttpSession session = request.getSession();
 	            if (usuario != null) {
+	            	Cliente cliente = Dao.obtenerUnClientePorIDUsuario(usuario.getID());
+	            	session.setAttribute("cliente", cliente);
 	                session.setAttribute("sessionLogin", usuario);
 	                String redirectPage = determineRedirectPage(usuario.getUserType());
 	                RequestDispatcher dispatcher = request.getRequestDispatcher(redirectPage);

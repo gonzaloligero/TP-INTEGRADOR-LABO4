@@ -59,6 +59,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
             if (rs.next()) {
                 usuario = new Usuario();
+                usuario.setID(rs.getInt("IDUsuario"));
                 usuario.setUser(rs.getString("Usuario"));
                 usuario.setPassword(rs.getString("Contraseña"));
                 usuario.setUserType(rs.getInt("TipoUsuario"));

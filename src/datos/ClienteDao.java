@@ -15,6 +15,8 @@ public interface ClienteDao {
 	public boolean altaLogicaCliente(String DNI);
 	public ArrayList<Direccion>obtenerProvincias();
 	public ArrayList<Direccion>obtenerLocalidades();
+	Cliente obtenerUnClientePorIDUsuario(int idUsuario);
+	
 	
 }
 

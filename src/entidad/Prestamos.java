@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Prestamos {
 	private int IDPrestamo;
+	private int IDTipoPrestamo;
 	private int DNICliente;
 	private double MontoPedido; 
 	private double ImporteAPagar;
@@ -19,10 +20,14 @@ public class Prestamos {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Prestamos(int iDPrestamo, int dNICliente, double montoPedido, double importeAPagar, int cuotas, Date fecha,
-			boolean estado) {
+
+	
+	
+	public Prestamos(int iDPrestamo, int iDTipoPrestamo, int dNICliente, double montoPedido, double importeAPagar,
+			int cuotas, Date fecha, boolean estado) {
 		super();
 		IDPrestamo = iDPrestamo;
+		IDTipoPrestamo = iDTipoPrestamo;
 		DNICliente = dNICliente;
 		MontoPedido = montoPedido;
 		ImporteAPagar = importeAPagar;
@@ -30,9 +35,9 @@ public class Prestamos {
 		Fecha = fecha;
 		Estado = estado;
 	}
-	
-	
-	
+
+
+
 	//Getter y setter
 	public int getIDPrestamo() {
 		return IDPrestamo;
@@ -76,13 +81,24 @@ public class Prestamos {
 	public void setEstado(boolean estado) {
 		Estado = estado;
 	}
-	@Override
-	public String toString() {
-		return "Prestamos [IDPrestamo=" + IDPrestamo + ", DNICliente=" + DNICliente + ", MontoPedido=" + MontoPedido
-				+ ", ImporteAPagar=" + ImporteAPagar + ", Cuotas=" + Cuotas + ", Fecha=" + Fecha + ", Estado=" + Estado
-				+ "]";
+
+	public int getIDTipoPrestamo() {
+		return IDTipoPrestamo;
+	}
+	public void setIDTipoPrestamo(int iDTipoPrestamo) {
+		IDTipoPrestamo = iDTipoPrestamo;
 	}
 
+
+
+	@Override
+	public String toString() {
+		return "Prestamos [IDPrestamo=" + IDPrestamo + ", IDTipoPrestamo=" + IDTipoPrestamo + ", DNICliente="
+				+ DNICliente + ", MontoPedido=" + MontoPedido + ", ImporteAPagar=" + ImporteAPagar + ", Cuotas="
+				+ Cuotas + ", Fecha=" + Fecha + ", Estado=" + Estado + "]";
+	}
+
+	
 	
 	
 	

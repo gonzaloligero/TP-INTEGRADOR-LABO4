@@ -35,7 +35,7 @@
                                 <a href="ServletClientes?action=listar" class="btn btn-primary w-100 btn-admin">Clientes</a>
                             </div>
                             <div class="mt-5">
-                                <a href="PrestamosAdministrador.jsp" class="btn btn-primary w-100 btn-admin">Préstamos</a>
+                                <a href="ServLetPrestamos?action=listar" class="btn btn-primary w-100 btn-admin">Préstamos</a>
                             </div>
                         </div>
                         <div class="col-md-3">

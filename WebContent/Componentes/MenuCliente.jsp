@@ -1,5 +1,7 @@
-
+  	
 <div class="sidebar">
+
+
     <ul class="nav flex-column">
         <li class="nav-item">
             <a class="nav-link" href="ClienteHome.jsp">
@@ -12,7 +14,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="PedidoPrestamoCliente.jsp">
+            <a class="nav-link" href="MostrarTipoPrestamosServlet">
                 <i class="fas fa-hand-holding-usd"></i> Pedido de Préstamo
             </a>
         </li>

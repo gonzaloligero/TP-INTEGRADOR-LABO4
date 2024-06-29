@@ -2,24 +2,26 @@ package entidad;
 
 public class Usuario {
 	
-	private static int IDCounter = 1;
+	
 	private int ID;
 	private String User;
 	private String Password;
 	private int UserType;; 
 
 public Usuario() {
-	this.ID = IDCounter++;
-	this.User = "test";
-	this.Password = "test";
-	this.UserType = 0;
+	
 }	
 
 public Usuario (String usuario, String contraseña, int tipoUsuario) {
-	this.ID = IDCounter++;
+	
 	this.User = usuario;
 	this.Password = contraseña;
 	this.UserType = tipoUsuario;
+}
+
+
+public int getID() {
+	return this.ID;
 }
 
 public String getUser() {

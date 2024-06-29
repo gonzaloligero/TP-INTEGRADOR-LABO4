@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ClienteDaoImpl implements ClienteDao{
 
@@ -416,6 +417,60 @@ boolean clienteActivado = false;
 		}
 		return clienteActivado;
 	}
+	
+	
+	//Emmma obtener Cliente con el usuario
+	@Override
+
+	public Cliente obtenerUnClientePorIDUsuario(int idUsuario) {
+	    Conexion cn = new Conexion();
+	    Cliente cliente = null;
+	    ResultSet rs = null;
+
+	    try {
+	        cn.Open();  // Abre la conexión
+	        String query = "SELECT c.ESTADO, l.Nombre AS NombreLocalidad, p.Nombre AS NombreProvincia, u.Usuario, u.Contraseña, t.NumeroTelefonico, c.Nombre, c.Apellido, c.DNI, c.CUIL, c.Sexo, c.Nacionalidad, c.FechaNacimiento, c.Email, d.Calle, d.Numero, d.CodigoPostal " +
+	                       "FROM CLIENTES AS c " +
+	                       "INNER JOIN DIRECCIONES AS d ON d.IDDireccion = c.IDDireccion " +
+	                       "INNER JOIN USUARIOS AS u ON u.IDUsuario = c.IDUsuario " +
+	                       "INNER JOIN TELEFONOS AS T ON T.DNICliente = c.DNI " +
+	                       "INNER JOIN LOCALIDADES AS l ON l.IDLocalidad = d.IDLocalidad " +
+	                       "INNER JOIN PROVINCIAS AS p ON p.IDProvincia = l.IDProvincia " +
+	                       "WHERE c.IDUsuario = "+ idUsuario;
+	        
+	        rs = cn.query(query);
+
+	        if (rs.next()) {
+	            cliente = new Cliente();
+	            cliente.setDNI(rs.getInt("DNI"));
+	            cliente.setEstado(rs.getBoolean("ESTADO"));
+	            cliente.setCUIL(rs.getString("CUIL"));
+	            cliente.setNombre(rs.getString("Nombre"));
+	            cliente.setApellido(rs.getString("Apellido"));
+	            cliente.setSexo(rs.getString("Sexo"));
+	            cliente.setNacionalidad(rs.getString("Nacionalidad"));
+	            cliente.setFechaNacimiento(rs.getDate("FechaNacimiento"));
+	            cliente.setEmail(rs.getString("Email"));
+	            cliente.setNumeroTelefonico(rs.getString("NumeroTelefonico"));
+	            
+	            
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            cn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return cliente;
+	}
+
+
+	
 	
 
 	

@@ -2,17 +2,17 @@ package entidad;
 
 public class TipoPrestamos {
 	private int IDTipoPrestamo; 
-	private int IDPrestamo;
+	private int TNA;
 	private String Tipo;
 	
 	
 	
 	
 	//constructores
-	public TipoPrestamos(int iDTipoPrestamo, int iDPrestamo, String tipo) {
+	public TipoPrestamos(int iDTipoPrestamo, int tna, String tipo) {
 		super();
 		IDTipoPrestamo = iDTipoPrestamo;
-		IDPrestamo = iDPrestamo;
+		TNA=tna;
 		Tipo = tipo;
 	}
 
@@ -41,16 +41,6 @@ public class TipoPrestamos {
 
 
 
-	public int getIDPrestamo() {
-		return IDPrestamo;
-	}
-
-
-
-
-	public void setIDPrestamo(int iDPrestamo) {
-		IDPrestamo = iDPrestamo;
-	}
 
 
 
@@ -64,6 +54,20 @@ public class TipoPrestamos {
 
 	public void setTipo(String tipo) {
 		Tipo = tipo;
+	}
+
+
+
+
+	public int getTNA() {
+		return TNA;
+	}
+
+
+
+
+	public void setTNA(int tNA) {
+		TNA = tNA;
 	}
 	
 	
