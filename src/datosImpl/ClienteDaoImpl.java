@@ -416,7 +416,7 @@ public class ClienteDaoImpl implements ClienteDao{
 			e1.printStackTrace();
 		}
 
-<<<<<<< HEAD
+
 		 
 		 ResultSet queryNuevaLocalidad = cn.query("SELECT IDLocalidad FROM LOCALIDADES ORDER BY IDLocalidad DESC LIMIT 1");
 		 int idNuevaLocalidad = 0;
@@ -478,10 +478,10 @@ public class ClienteDaoImpl implements ClienteDao{
 		String queryUsuario = "UPDATE USUARIOS SET Contraseña ='" + cliente.getPassword() + "' WHERE Usuario = '" + cliente.getUser() + "'";
 		String queryCliente = "UPDATE CLIENTES SET Nombre='" + cliente.getNombre() + "',Apellido='"+cliente.getApellido()+ "',CUIL='" + cliente.getCUIL()+  "', Nacionalidad='" + cliente.getNacionalidad() +  "', Sexo='" + cliente.getSexo() + "', FechaNacimiento='" + cliente.getFechaNacimiento() +   "', Email='" + cliente.getEmail() + "' WHERE DNI='" + cliente.getDNI() + "'";
 		String queryTelefono = "UPDATE TELEFONOS SET NumeroTelefonico = '" + cliente.getNumeroTelefonico() + "' WHERE DNICliente = " + cliente.getDNI();
-=======
+
 		//String query = "UPDATE CLIENTES SET CUIL='" + cliente.getCUIL() + "', Nombre='" + cliente.getNombre() + "', Apellido='" + cliente.getApellido() + "', Sexo='" + cliente.getSexo() + "', Nacionalidad='" + cliente.getNacionalidad() + "', FechaNacimiento='" + cliente.getFechaNacimiento() + "', IDDireccion='" + cliente.getDireccion().getID() + "', Email='" + cliente.getEmail() + "', IDUsuario='" + cliente.getIDUsuario() + "' WHERE DNI='" + cliente.getDNI() + "'";
 		String query = "UPDATE CLIENTES SET Nombre='" + cliente.getNombre() + "',Apellido='"+cliente.getApellido()+ "',CUIL='" + cliente.getCUIL()+  "', Nacionalidad='" + cliente.getNacionalidad() +  "', Sexo='" + cliente.getSexo() + "', FechaNacimiento='" + cliente.getFechaNacimiento() +   "', Email='" + cliente.getEmail() +                   "' WHERE DNI='" + cliente.getDNI() + "'";
->>>>>>> 82352064534612d08d5163d5fbec77403cbd42ad
+
 		
 		try
 		 {
