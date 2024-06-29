@@ -19,6 +19,9 @@
             document.getElementById("cuil").value = selectedOption.getAttribute("data-cuil");
             document.getElementById("nacionalidad").value = selectedOption.getAttribute("data-nacionalidad");
             document.getElementById("sexo").value = selectedOption.getAttribute("data-sexo");
+            document.getElementById("usuario").value = selectedOption.getAttribute("data-usuario");
+            document.getElementById("password").value = selectedOption.getAttribute("data-password");
+
 
             var fechaNacimientoISO = selectedOption.getAttribute("data-fecha-nacimiento");
             var fechaNacimiento = new Date(fechaNacimientoISO);
@@ -31,6 +34,7 @@
             document.getElementById("numero").value = selectedOption.getAttribute("data-numero");
             document.getElementById("localidad").value = selectedOption.getAttribute("data-localidad");
             document.getElementById("provincia").value = selectedOption.getAttribute("data-provincia");
+            document.getElementById("codigoPostal").value = selectedOption.getAttribute("data-codigoPostal");
         }
     </script>
 </head>
@@ -65,6 +69,8 @@
                             data-nombre="<%= cliente.getNombre() %>"
                             data-apellido="<%= cliente.getApellido() %>"
                             data-cuil="<%= cliente.getCUIL() %>"
+                            data-usuario="<%= cliente.getUser() %>"
+                            data-password="<%= cliente.getPassword() %>"
                             data-nacionalidad="<%= cliente.getNacionalidad() %>"
                             data-sexo="<%= cliente.getSexo() %>"
                             data-fecha-nacimiento="<%= cliente.getFechaNacimiento() %>"
@@ -72,6 +78,7 @@
                             data-numero-telefonico="<%= cliente.getNumeroTelefonico() %>"
                             data-calle="<%= cliente.getDireccion().getCalle() %>"
                             data-numero="<%= cliente.getDireccion().getNumero() %>"
+                            data-codigoPostal="<%= cliente.getDireccion().getCodigoPostal() %>"
                             data-localidad="<%= cliente.getDireccion().getLocalidad() %>"
                             data-provincia="<%= cliente.getDireccion().getProvincia() %>">
                         <%= cliente.getDNI() %> - <%= cliente.getNombre() %> <%= cliente.getApellido() %>
@@ -118,6 +125,15 @@
 
             <div class="col-md-6">
 
+				 <div class="mb-3">
+                  <label for="usuario" class="form-label">Usuario</label>
+                  <input type="text" class="form-control" id="usuario" name="usuario" value="<%= nuevoRegistro.getUser() %>" readonly required>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="password" class="form-label">Contraseña</label>
+                  <input type="password" class="form-control" id="password" name="password" value="<%= nuevoRegistro.getPassword() %>" required>
+                </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo</label>
@@ -126,7 +142,7 @@
 
                 <div class="mb-3">
                     <label for="numeroTelefonico" class="form-label">Telefono</label>
-                    <input type="text" class="form-control" id="numeroTelefonico" name="numeroTelefonico" value="<%= nuevoRegistro.getNumeroTelefonico() %>" required>
+                    <input type="number" class="form-control" id="numeroTelefonico" name="numeroTelefonico" value="<%= nuevoRegistro.getNumeroTelefonico() %>" required>
                 </div>
 
                 <div class="mb-3">
@@ -136,7 +152,12 @@
 
                 <div class="mb-3">
                     <label for="numero" class="form-label">Número</label>
-                    <input type="text" class="form-control" id="numero" name="numero" value="<%= nuevoRegistro.getDireccion().getNumero() %>" required>
+                    <input type="number" class="form-control" id="numero" name="numero" value="<%= nuevoRegistro.getDireccion().getNumero() %>" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="codigoPostal" class="form-label">Codigo Postal</label>
+                    <input type="number" class="form-control" id="codigoPostal" name="codigoPostal" value="<%= nuevoRegistro.getDireccion().getCodigoPostal() %>" required>
                 </div>
 
                 <div class="mb-3">
