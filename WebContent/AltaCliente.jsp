@@ -42,12 +42,12 @@ label {
 
 						<div class="col-md-3">
 							<div class="form-group">
-								<label for="nombre">Nombre</label> <input value="Pepe"
+								<label for="nombre">Nombre</label> <input 
 									type="text" class="form-control" name="nombre" id="nombre"
 									placeholder="Ingrese el nombre" required>
 							</div>
 							<div class="form-group">
-								<label for="cuil">CUIL</label> <input value="20-33669955-0"
+								<label for="cuil">CUIL</label> <input
 									type="text" class="form-control" name="cuil" id="cuil"
 									placeholder="Ingrese el CUIL" required>
 							</div>
@@ -61,14 +61,14 @@ label {
 
 							<div class="form-group">
 								<label for="localidad">Localidad</label> <input
-									value="Avellaneda" type="text" class="form-control"
+									type="text" class="form-control"
 									name="localidad" id="localidad"
 									placeholder="Ingrese su localidad" required>
 							</div>
 
 							<div class="form-group">
 								<label for="codigoPostal">Código Postal</label> <input
-									value="1122" type="number" class="form-control"
+									type="number" class="form-control"
 									name="codigoPostal" id="codigoPostal"
 									placeholder="Ingrese el código postal" required>
 							</div>
@@ -77,18 +77,18 @@ label {
 
 						<div class="col-md-3">
 							<div class="form-group">
-								<label for="apellido">Apellido</label> <input value="Argento"
+								<label for="apellido">Apellido</label> <input
 									type="text" class="form-control" name="apellido" id="apellido"
 									placeholder="Ingrese el apellido" required>
 							</div>
 							<div class="form-group">
-								<label for="correo">Correo</label> <input value="pepe@prueba"
-									type="email" class="form-control" id="correo"
+								<label for="correo">Correo</label> 
+								<input type="email" class="form-control" id="correo"
 									placeholder="Ingrese el correo" name="correo" required>
 							</div>
 
 							<div class="form-group">
-								<label for="teléfono">Teléfono</label> <input value="9999"
+								<label for="teléfono">Teléfono</label> <input 
 									type="number" class="form-control" id="correo"
 									placeholder="Ingrese el número telefónico" name="teléfono"
 									required>
@@ -102,13 +102,13 @@ label {
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="calle">Calle</label> <input value="Calle street"
+								<label for="calle">Calle</label> <input
 									type="text" class="form-control" name="calle" id="calle"
 									placeholder="Ingrese la calle" required>
 							</div>
 							<div class="form-group">
 								<label for="usuario">Nombre de Usuario</label> <input
-									value="pepeuser" type="text" class="form-control" id="usuario"
+								    type="text" class="form-control" id="usuario"
 									placeholder="Ingrese el nombre de usuario" name="usuario"
 									required>
 							</div>
@@ -126,11 +126,11 @@ label {
 									class="form-control" name="nacionalidad" id="nacionalidad"
 									required>
 									<option value="">Seleccione su nacionalidad</option>
-									<option value="Argentina">Argentina</option>
+									<option value="Argentina" selected >Argentina</option>
 									<option value="Australia">Australia</option>
 									<option value="Alemania">Alemania</option>
 									<option value="Austria">Austria</option>
-									<option value="Bélgica" selected>Bélgica</option>
+									<option value="Bélgica">Bélgica</option>
 									<option value="Brasil">Brasil</option>
 									<option value="Canadá">Canadá</option>
 									<option value="Chile">Chile</option>
@@ -180,7 +180,7 @@ label {
 
 							<div class="form-group">
 								<label for="provincia">Provincia</label> <select
-									value="Buenos Aires" class="form-control" id="provincia"
+									class="form-control" id="provincia"
 									name="provincia" required>
 									<option value="" disabled selected>Seleccione una
 										provincia</option>
@@ -194,18 +194,18 @@ label {
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="numero">Número</label> <input value="1144"
+								<label for="numero">Número</label> <input 
 									type="number" class="form-control" name="numero" id="numero"
 									placeholder="Ingrese el número" required>
 							</div>
 							<div class="form-group">
-								<label for="contraseña">Contraseña</label> <input value="1234"
+								<label for="contraseña">Contraseña</label> <input 
 									type="password" class="form-control" id="contraseña"
 									name="contraseña" placeholder="Ingrese la contraseña" required>
 							</div>
 							<div class="form-group">
 								<label for="contraseña2">Reitere la contraseña</label> <input
-									value="1234" type="password" class="form-control"
+									type="password" class="form-control"
 									id="contraseña2" name="contraseña2"
 									placeholder="Repita la contraseña" required>
 								<div id="contraseñaError" class="text-danger">
@@ -220,7 +220,6 @@ label {
 							</div>
 
 						</div>
-
 
 					</div>
 
