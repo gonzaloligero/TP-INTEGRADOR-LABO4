@@ -4,7 +4,17 @@ package excepciones;
 public class ContraseñaDiferente extends Exception{
 
 	public ContraseñaDiferente() {
-		super("Las excepciones no son iguales. Por favor, revíselas para que coincidan");
+	
 	}
+
+	@Override
+	public String getMessage() {
+		
+		return "Las contraseñas no son iguales!";
+	}
+	
+	
+	
+	
 	
 }
