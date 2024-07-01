@@ -325,6 +325,9 @@ public class ClienteDaoImpl implements ClienteDao{
 		cn = new Conexion();
 		cn.Open();	
 		
+		cliente.getDireccion().getLocalidad();
+		
+		
 		String provincia = cliente.getDireccion().getProvincia();
 		 int provinciaNumero = 1;
 		 switch(provincia) {
@@ -441,9 +444,12 @@ public class ClienteDaoImpl implements ClienteDao{
 			 cliente.getDireccion().setIDProvincia(provinciaNumero);
 			 cliente.getDireccion().getIDProvincia();
 			 cliente.getDireccion().getLocalidad();
-			 String queryLocalidadNueva = "INSERT INTO LOCALIDADES(IDLocalidad, Nombre, IDProvincia) VALUES (" + cliente.getDireccion().getIDLocalidad() + ", '" + cliente.getDireccion().getLocalidad() + "', " + cliente.getDireccion().getIDProvincia() + ")";
-			 cn.execute(queryLocalidadNueva);
-			 idLocalidad = idNuevaLocalidad;
+			 if(cliente.getDireccion().getLocalidad() != "") {
+				 String queryLocalidadNueva = "INSERT INTO LOCALIDADES(IDLocalidad, Nombre, IDProvincia) VALUES (" + cliente.getDireccion().getIDLocalidad() + ", '" + cliente.getDireccion().getLocalidad() + "', " + cliente.getDireccion().getIDProvincia() + ")";
+				 cn.execute(queryLocalidadNueva);
+				 idLocalidad = idNuevaLocalidad;
+			 }
+			
 		 }
 		 
 		 ResultSet verificacionNuevaDireccion = cn.query("SELECT Calle, Numero, CodigoPostal, IDLocalidad FROM DIRECCIONES AS d INNER JOIN CLIENTES AS c ON c.IDDireccion = d.IDDireccion");

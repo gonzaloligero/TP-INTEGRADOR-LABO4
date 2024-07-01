@@ -38,7 +38,9 @@
         
         <div>
             <a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3" href="AltaCliente.jsp">Agregar</a>
-            <a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3" href="MenuAdministrador.jsp">Volver</a>
+			<a class="btn bg-azul fw-bold bi bi-pencil fs-5 mb-3" href="ServletClientes?action=editar&id=99999999">Modificar</a>
+			<a class="btn bg-azul fw-bold bi bi-trash fs-5 mb-3" href="ServletClientes?action=eliminar&id=0">Alta/Baja</a>
+			<a class="btn bg-azul fw-bold bi bi-arrow-left fs-5 mb-3" href="MenuAdministrador.jsp">Volver</a>
         </div>
         
         <div class="table-responsive">
@@ -109,10 +111,10 @@
 
     <jsp:include page="Componentes/Footer.jsp"></jsp:include>
 
-    <!-- CSS personalizado -->
+    
     <style>
         .table th, .table td {
-            padding: 0.5rem; /* Reducir el padding para hacer la tabla más compacta */
+            padding: 0.8rem;
         }
     </style>
 </body>
