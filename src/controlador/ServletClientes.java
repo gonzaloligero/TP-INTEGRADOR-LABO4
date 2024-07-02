@@ -201,11 +201,12 @@ public class ServletClientes extends HttpServlet {
             
             
             
+            
             if(!contraseña.equals(contraseñaRepetida)) {
                 try {
                     throw new ContraseñaDiferente();
                 } catch (ContraseñaDiferente e) {
-                    request.setAttribute("contraseñaError", "Las contraseñas no coinciden");
+                    request.setAttribute("contraseñaError", e.getMessage());
                     request.getRequestDispatcher("AltaCliente.jsp").forward(request, response);
                     return;
                 }

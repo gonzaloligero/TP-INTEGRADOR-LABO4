@@ -8,13 +8,10 @@
 <head>
     <title>Lista de clientes</title>
 
-    <jsp:include page="Componentes/head.jsp"></jsp:include>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#table_id').DataTable();
-        });
-    </script>
+    <jsp:include page="Componentes/head.jsp"></jsp:include>    
+    <jsp:include page="Componentes/script_paginado.jsp"></jsp:include>
+    
+
     
     
     <style>
@@ -30,6 +27,7 @@
 
 <body>
     <jsp:include page="Componentes/NavBar.jsp"></jsp:include>
+    
    
     <div class="container">
         <div class="w-100 pt-2 text-center">
@@ -38,7 +36,9 @@
         
         <div>
             <a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3" href="AltaCliente.jsp">Agregar</a>
-            <a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3" href="MenuAdministrador.jsp">Volver</a>
+			<a class="btn bg-azul fw-bold bi bi-pencil fs-5 mb-3" href="ServletClientes?action=editar&id=99999999">Modificar</a>
+			<a class="btn bg-azul fw-bold bi bi-trash fs-5 mb-3" href="ServletClientes?action=eliminar&id=0">Alta/Baja</a>
+			<a class="btn bg-azul fw-bold bi bi-arrow-left fs-5 mb-3" href="MenuAdministrador.jsp">Volver</a>
         </div>
         
         <div class="table-responsive">
@@ -109,10 +109,10 @@
 
     <jsp:include page="Componentes/Footer.jsp"></jsp:include>
 
-    <!-- CSS personalizado -->
+    
     <style>
         .table th, .table td {
-            padding: 0.5rem; /* Reducir el padding para hacer la tabla más compacta */
+            padding: 0.8rem;
         }
     </style>
 </body>
