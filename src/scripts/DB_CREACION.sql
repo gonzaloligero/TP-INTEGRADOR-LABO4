@@ -134,6 +134,11 @@ CREATE TABLE MOVIMIENTOS (
 );
 
 
+INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Alta de cuenta');
+INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Alta de un préstamo');
+INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Pago de préstamo');
+INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Transferencia');
+
 -- Inserts para la tabla PROVINCIAS
 INSERT INTO PROVINCIAS (Nombre) VALUES ('Buenos Aires');
 INSERT INTO PROVINCIAS (Nombre) VALUES ('Catamarca');
