@@ -3,14 +3,14 @@ package datos;
 import java.util.ArrayList;
 
 import entidad.Cuenta;
+import excepciones.ClienteExcedeCantCuentas;
 
 
 public interface CuentaDao {
 	public ArrayList<Cuenta> obtenerCuentasCliente(int DNICliente);
-	public ArrayList<Cuenta> obtenerCuentasGral();
-	public boolean agregarCuentaCliente(int DNICliente);
+	public ArrayList<Cuenta> listaCuentas();
+	public boolean agregarCuentaCliente(int DNICliente, int IDTipoCuenta) throws ClienteExcedeCantCuentas;
 	public boolean editarCuenta(Cuenta cuenta);
-	public boolean bajaLogicaCuenta(int IDCuenta);
-	public boolean altaLogicaCuenta(int IDCuenta);
 }
+
 		

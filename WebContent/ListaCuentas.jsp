@@ -58,6 +58,7 @@
                         <td><%= cuenta.getNumeroCuenta() %></td>
                         <td><%= cuenta.getCBU() %></td>
                         <td><%= cuenta.getSaldo() %></td>
+                        <td><%= cuenta.getIDTipoCuenta() %></td>
                         <td>
                             <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
                             <button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button>

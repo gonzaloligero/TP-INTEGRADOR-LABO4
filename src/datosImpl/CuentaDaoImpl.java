@@ -1,12 +1,15 @@
 package datosImpl;
 
+import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Random;
 
 import datos.CuentaDao;
 import entidad.Cliente;
 import entidad.Cuenta;
+import excepciones.ClienteExcedeCantCuentas;
 
 public class CuentaDaoImpl implements CuentaDao{
 
@@ -40,14 +43,14 @@ public class CuentaDaoImpl implements CuentaDao{
 	}
 
 	@Override
-	public ArrayList<Cuenta> obtenerCuentasGral() {
+	public ArrayList<Cuenta> listaCuentas() {
 		
 		cn = new Conexion();
 		cn.Open();
 		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
 		
 		try {
-			ResultSet rs= cn.query("SELECT c.IDCuenta, c.DNICliente, c.FechaCreacion, c.NumeroCuenta, c.CBU, c.Saldo FROM cuentas as c INNER JOIN clientes as cl on cl.DNI = c.DNICliente");
+			ResultSet rs= cn.query("SELECT c.IDCuenta, c.DNICliente, c.FechaCreacion, c.NumeroCuenta, c.CBU, c.Saldo, c.IDTipoCuenta FROM cuentas as c INNER JOIN clientes as cl on cl.DNI = c.DNICliente");
 			while(rs.next()) {
 				Cuenta regCuenta = new Cuenta();
 				regCuenta.setIDCuenta(rs.getInt("c.IDCuenta"));
@@ -55,7 +58,8 @@ public class CuentaDaoImpl implements CuentaDao{
 				regCuenta.setFechaCreacion(rs.getDate("c.FechaCreacion"));
 				regCuenta.setNumeroCuenta(rs.getInt("c.NumeroCuenta"));
 				regCuenta.setCBU(rs.getString("c.CBU"));
-				regCuenta.setSaldo(rs.getDouble("c.Saldo"));  
+				regCuenta.setSaldo(rs.getDouble("c.Saldo")); 
+				regCuenta.setIDTipoCuenta(rs.getInt("c.IDTipoCuenta"));
 				lista.add(regCuenta);
 			}
 		}catch (Exception e){	
@@ -68,13 +72,17 @@ public class CuentaDaoImpl implements CuentaDao{
 	
 	
 	@Override
-	public boolean agregarCuentaCliente(int DNICliente) {
+	public boolean agregarCuentaCliente(int DNICliente, int IDTipoCuenta) throws ClienteExcedeCantCuentas {
 	    cn = new Conexion();
 	    cn.Open();
 	    boolean cuentaAgregada = false;
+	    Random random = new Random();
 	    
+	    System.out.print(DNICliente);
+	    System.out.print(IDTipoCuenta);
+
 	    try {
-	        // ACA VEMOS CUANTAS CUENTAS TIENE EL CLIENTE
+	        // Verificar cuántas cuentas tiene el cliente
 	        ResultSet rsCount = cn.query("SELECT COUNT(*) AS CantidadCuentas FROM CUENTAS WHERE DNICliente = " + DNICliente);
 	        int cantidadCuentas = 0;
 	        if (rsCount.next()) {
@@ -82,12 +90,25 @@ public class CuentaDaoImpl implements CuentaDao{
 	        }
 	        
 	        if (cantidadCuentas < 3) {
-	            // ACA CUANDO LA CUENTA ES CREADA, SE LE DEPOSITAN LOS 10.000$$
-	            String queryInsertCuenta = "INSERT INTO CUENTAS (DNICliente, FechaCreacion, NumeroCuenta, CBU, Saldo) " +
-	                                       "VALUES (" + DNICliente + ", CURDATE(), 12345, 'CBU12345', 10000.00)";
+	            
+	            int numeroCuenta = 10000 + random.nextInt(90000);  
+	            
+	            
+	            String cbu = new BigInteger(130, random).toString();  
+	            
+	            while (cbu.length() < 22) {
+	                cbu = "0" + cbu;
+	            }
+	            
+	            if (cbu.length() > 22) {
+	                cbu = cbu.substring(0, 22);
+	            }
+	            
+	            String queryInsertCuenta = "INSERT INTO CUENTAS (DNICliente, FechaCreacion, NumeroCuenta, CBU, Saldo, IDTipoCuenta) " +
+	                                       "VALUES (" + DNICliente + ", CURDATE(), " + numeroCuenta + ", '" + cbu + "', 10000.00, " + IDTipoCuenta + ")";
 	            cuentaAgregada = cn.execute(queryInsertCuenta);
 	        } else {
-	            System.out.println("El cliente ya tiene 3 cuentas asociadas.");
+	            throw new ClienteExcedeCantCuentas("El cliente ya tiene 3 cuentas asociadas.");
 	        }
 	    } catch (Exception e) {
 	        System.out.println(e.getMessage());
@@ -97,7 +118,6 @@ public class CuentaDaoImpl implements CuentaDao{
 	    
 	    return cuentaAgregada;
 	}
-
 	
 
 	@Override
@@ -121,22 +141,8 @@ public class CuentaDaoImpl implements CuentaDao{
 	    return cuentaEditada;
 	}
 
-	
-
-	
-	
-	@Override
-	public boolean altaLogicaCuenta(int IDCuenta) {
-		
-		return false;
-	}
-
-
-	@Override
-	public boolean bajaLogicaCuenta(int IDCuenta) {
-		
-		return false;
-	}
-
 
 }
+
+
+

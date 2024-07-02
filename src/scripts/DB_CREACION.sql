@@ -1,4 +1,3 @@
-
 CREATE DATABASE TPIntegradorLaboratorio4;
 
 USE TPIntegradorLaboratorio4;
@@ -51,10 +50,6 @@ CREATE TABLE CLIENTES (
     FOREIGN KEY (IDUsuario) REFERENCES USUARIOS(IDUsuario)
 );
 
-
-
-
-
 CREATE TABLE TELEFONOS (
     IDTelefono INT PRIMARY KEY AUTO_INCREMENT,
     DNICliente INT,
@@ -84,6 +79,14 @@ CREATE TABLE PRESTAMOS (
     CONSTRAINT chk_ImporteAPagar CHECK (ImporteAPagar REGEXP '^[0-9]+(\\.[0-9]{1,2})?$')
 );
 
+CREATE TABLE TIPO_CUENTAS (
+    IDTipoCuenta INT PRIMARY KEY AUTO_INCREMENT,
+    Tipo VARCHAR(50) NOT NULL
+);
+
+INSERT INTO TIPO_CUENTAS (Tipo) VALUES ('Caja de Ahorro');
+INSERT INTO TIPO_CUENTAS (Tipo) VALUES ('Cuenta corriente');
+
 
 CREATE TABLE CUENTAS (
     IDCuenta INT PRIMARY KEY AUTO_INCREMENT,
@@ -92,10 +95,13 @@ CREATE TABLE CUENTAS (
     NumeroCuenta INT NOT NULL,
     CBU VARCHAR(50) NOT NULL,
     Saldo DECIMAL(18,2) NOT NULL,
+    IDTipoCuenta INT NOT NULL,
+    CONSTRAINT fk_Cuentas_a_tipo_Cuentas FOREIGN KEY (IDTipoCuenta) REFERENCES TIPO_CUENTAS(IDTipoCuenta),
     CONSTRAINT fk_Cuentas_Clientes FOREIGN KEY (DNICliente) REFERENCES CLIENTES(DNI),
     CONSTRAINT chk_CBU CHECK (CBU REGEXP '^[0-9.,]+$'),
     CONSTRAINT chk_Saldo CHECK (Saldo REGEXP '^[0-9]+(\\.[0-9]{1,6})?$')
 );
+
 
 
 CREATE TABLE PLAZOS (
@@ -109,24 +115,10 @@ CREATE TABLE PLAZOS (
 );
 
 
-CREATE TABLE TIPO_CUENTAS (
-    IDTipoCuenta INT PRIMARY KEY AUTO_INCREMENT,
-    IDCuenta INT,
-    Tipo VARCHAR(50) NOT NULL,
-    CONSTRAINT fk_TipoCuentas_Cuentas FOREIGN KEY (IDCuenta) REFERENCES CUENTAS(IDCuenta),
-    CONSTRAINT chk_Tipo CHECK (Tipo NOT REGEXP '[^a-zA-Z]')
-);
-
-
 CREATE TABLE TIPO_MOVIMIENTOS (
     IDTipoMovimiento INT PRIMARY KEY AUTO_INCREMENT,
     Nombre VARCHAR(100) NOT NULL
 );
-
-INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Alta de cuenta');
-INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Alta de un préstamo');
-INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Pago de préstamo');
-INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Transferencia');
 
 
 CREATE TABLE MOVIMIENTOS (
@@ -167,7 +159,6 @@ INSERT INTO PROVINCIAS (Nombre) VALUES ('Santiago del Estero');
 INSERT INTO PROVINCIAS (Nombre) VALUES ('Tierra del Fuego');
 INSERT INTO PROVINCIAS (Nombre) VALUES ('Tucumán');
 INSERT INTO PROVINCIAS (Nombre) VALUES ('Ciudad Autónoma de Buenos Aires');
-
 
 -- Inserts para la tabla LOCALIDADES (asumiendo IDProvincia = 1 para todas las localidades de Buenos Aires)
 INSERT INTO LOCALIDADES (Nombre, IDProvincia) VALUES ('La Plata', 1);
@@ -230,7 +221,6 @@ INSERT INTO USUARIOS (Usuario, Contraseña, TipoUsuario, Estado) VALUES ('usuario
 INSERT INTO USUARIOS (Usuario, Contraseña, TipoUsuario, Estado) VALUES ('usuario15', 'password15', 1, 0);
 
 
-
 -- Inserts para la tabla DIRECCIONES (asumiendo IDLocalidad y IDProvincia adecuados)
 INSERT INTO DIRECCIONES (IDLocalidad, CodigoPostal, Calle, Numero) VALUES (1, '1900', 'Calle Falsa', 123);
 INSERT INTO DIRECCIONES (IDLocalidad, CodigoPostal, Calle, Numero) VALUES (2, '7600', 'Avenida Principal', 456);
@@ -251,8 +241,6 @@ INSERT INTO DIRECCIONES (IDLocalidad, CodigoPostal, Calle, Numero) VALUES (1, '1
 INSERT INTO DIRECCIONES (IDLocalidad, CodigoPostal, Calle, Numero) VALUES (1, '14000', 'Calle Lavalle', 556);
 INSERT INTO DIRECCIONES (IDLocalidad, CodigoPostal, Calle, Numero) VALUES (1, '15000', 'Avenida de Mayo', 667);
 
-
-
 -- Inserts para la tabla CLIENTES
 INSERT INTO CLIENTES (DNI, CUIL, Nombre, Apellido, Sexo, Nacionalidad, FechaNacimiento, IDDireccion, Email, IDUsuario, ESTADO) VALUES (11111111, '20-11111111-1', 'Carlos', 'Gómez', 'Masculino', 'Argentino', '1992-03-25', 1, 'carlos.gomez@gmail.com', 2, true);
 INSERT INTO CLIENTES (DNI, CUIL, Nombre, Apellido, Sexo, Nacionalidad, FechaNacimiento, IDDireccion, Email, IDUsuario, ESTADO) VALUES (22222222, '27-22222222-2', 'Laura', 'Fernández', 'Femenino', 'Argentina', '1988-07-12', 2, 'laura.fernandez@yahoo.com', 3, true);
@@ -264,17 +252,17 @@ INSERT INTO CLIENTES (DNI, CUIL, Nombre, Apellido, Sexo, Nacionalidad, FechaNaci
 INSERT INTO CLIENTES (DNI, CUIL, Nombre, Apellido, Sexo, Nacionalidad, FechaNacimiento, IDDireccion, Email, IDUsuario, ESTADO) VALUES (12121212, '20-12121212-1', 'Alejandro', 'Pérez', 'Masculino', 'Argentino', '1997-11-14', 11, 'alejandro.perez@yahoo.com', 12, true);
 INSERT INTO CLIENTES (DNI, CUIL, Nombre, Apellido, Sexo, Nacionalidad, FechaNacimiento, IDDireccion, Email, IDUsuario, ESTADO) VALUES (14141414, '20-14141414-1', 'Lucas', 'Martín', 'Masculino', 'Argentino', '1985-12-17', 13, 'lucas.martin@gmail.com', 14, true);
 
+
+
 -- Inserts para la tabla TELEFONOS (asumiendo DNICliente adecuado)
 INSERT INTO TELEFONOS (DNICliente, NumeroTelefonico) VALUES (11111111, '1122334455');
 INSERT INTO TELEFONOS (DNICliente, NumeroTelefonico) VALUES (22222222, '1122446688');
-
 INSERT INTO TELEFONOS (DNICliente, NumeroTelefonico) VALUES (77777777, '1177991122');
 INSERT INTO TELEFONOS (DNICliente, NumeroTelefonico) VALUES (88888888, '1188002233');
 INSERT INTO TELEFONOS (DNICliente, NumeroTelefonico) VALUES (99999999, '1199113344');
 INSERT INTO TELEFONOS (DNICliente, NumeroTelefonico) VALUES (10101010, '1100224455');
 INSERT INTO TELEFONOS (DNICliente, NumeroTelefonico) VALUES (12121212, '1111335566');
 INSERT INTO TELEFONOS (DNICliente, NumeroTelefonico) VALUES (14141414, '1133557788');
-
 
 INSERT INTO TIPO_PRESTAMOS (Tipo, TNA) VALUES ('Personal', 25);
 INSERT INTO TIPO_PRESTAMOS (Tipo, TNA) VALUES ('Hipotecario', 5);

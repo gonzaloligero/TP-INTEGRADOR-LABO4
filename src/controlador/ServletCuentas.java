@@ -18,6 +18,7 @@ import datosImpl.ClienteDaoImpl;
 import datosImpl.CuentaDaoImpl;
 import entidad.Cliente;
 import entidad.Cuenta;
+import excepciones.ClienteExcedeCantCuentas;
 import negocio.ClienteNegocio;
 import negocio.CuentaNegocio;
 import negocioImpl.ClienteNegImpl;
@@ -27,12 +28,13 @@ import negocioImpl.CuentaNegocioImpl;
 @WebServlet("/ServletCuentas")
 public class ServletCuentas extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+     
+	CuentaDao obj = new CuentaDaoImpl();
+	
   
     public ServletCuentas() {
        
     }
-
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -43,7 +45,28 @@ public class ServletCuentas extends HttpServlet {
 	
 		
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    if (request.getParameter("BtnAgregarCuenta") != null) {
+	        int DNICliente = Integer.parseInt(request.getParameter("dniCliente"));
+	        int tipoDeCuenta = Integer.parseInt(request.getParameter("tipoDeCuenta"));
 
+	        try {
+	            boolean cuentaAgregada = obj.agregarCuentaCliente(DNICliente, tipoDeCuenta);
+	            if (cuentaAgregada) {
+	                request.setAttribute("mensaje", "Cuenta agregada exitosamente.");
+	            } else {
+	                request.setAttribute("mensaje", "No se pudo agregar la cuenta.");
+	            }
+	        } catch (ClienteExcedeCantCuentas e) {
+	            request.setAttribute("mensaje", e.getMensajeError());
+	        } catch (Exception e) {
+	            request.setAttribute("mensaje", "Ocurrió un error: " + e.getMessage());
+	        }
+	        request.getRequestDispatcher("AltaCuenta.jsp").forward(request, response);
+	    }
+		
+		
+		
+		/*
 		    CuentaNegocio cuentaNegocio = new CuentaNegocioImpl();
 		    
 		    // Obtener la sesión actual
@@ -51,9 +74,9 @@ public class ServletCuentas extends HttpServlet {
 		     String usuario = (String) session.getAttribute("usuario");
 		    
 		    // CONSEGUIR DNI DE UN USUARIO LOGUEADO
-		    // String DNICliente = TraerDniCliente(usuario);
+		     String DNICliente = TraerDniCliente(usuario);
 		    
-		  /* if (DNICliente != null && !DNICliente.isEmpty()) {
+		   if (DNICliente != null && !DNICliente.isEmpty()) {
 		        ArrayList<Cuenta> listaCuentasCliente = cuentaNegocio.agregarCuentaCliente(DNICliente);
 		        request.setAttribute("listaCuentas", listaCuentasCliente);
 		        request.getRequestDispatcher("ListaCuentas.jsp").forward(request, response);

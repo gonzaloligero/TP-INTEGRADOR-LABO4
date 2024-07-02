@@ -4,6 +4,7 @@ import entidad.Direccion;
 import datos.ClienteDao;
 import java.util.ArrayList;
 import java.util.Random;
+import java.math.BigInteger;
 import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
@@ -285,7 +286,15 @@ public class ClienteDaoImpl implements ClienteDao{
 
 	        Random random = new Random();
 	        int numeroCuenta = 10000 + random.nextInt(90000);  // Genera un número de cuenta aleatorio de 5 dígitos
-	        String cbu = "CBU" + (1000000000 + random.nextInt(900000000));
+	        String cbu = new BigInteger(130, random).toString();  
+            
+            while (cbu.length() < 22) {
+                cbu = "0" + cbu;
+            }
+           
+            if (cbu.length() > 22) {
+                cbu = cbu.substring(0, 22);
+            }
 	        // Inserción de la cuenta asociada al cliente
 	        String queryCuenta = "INSERT INTO CUENTAS (DNICliente, fechaCreacion, numeroCuenta, CBU, Saldo) " + 
                     "VALUES ('" + 
