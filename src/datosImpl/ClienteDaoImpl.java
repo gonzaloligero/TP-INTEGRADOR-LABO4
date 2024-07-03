@@ -648,7 +648,7 @@ boolean clienteActivado = false;
 	            cliente.setFechaNacimiento(rs.getDate("FechaNacimiento"));
 	            cliente.setEmail(rs.getString("Email"));
 	            cliente.setNumeroTelefonico(rs.getString("NumeroTelefonico"));
-	            
+	           
 	            
 	        }
 	    } catch (Exception e) {
