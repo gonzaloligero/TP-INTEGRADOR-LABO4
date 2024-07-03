@@ -6,8 +6,11 @@
     <title>Dashboard de Administrador</title>
     <jsp:include page="Componentes/head.jsp"></jsp:include>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+  
     <style>
         body {
+        	font-family: 'Roboto Condensed', sans-serif;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -55,47 +58,7 @@
 <body>
     <jsp:include page="Componentes/NavBar.jsp"></jsp:include>
 
-    <main>
-    <div class="container">
-        <div class="card-group">
-            <div class="card" style="width: 18rem;">
-                <img src="https://19640noticias.com/download/multimedia.normal.816c7f6b82a8e57f.QXJnZW50aW5hX25vcm1hbC53ZWJw.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">CLIENTES POR PROVINCIA</h5>
-                    <p class="card-text">Reporte sobre la cantidad de clientes discriminado por cada provincia de la Argentina</p>
-                    <a href="#" class="btn btn-primary">Ver</a>
-                </div>
-            </div>
-
-            <div class="card" style="width: 18rem;">
-                <img src="https://conceptoabc.com/wp-content/uploads/2021/05/deudor.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">CLIENTES DEUDORES</h5>
-                    <p class="card-text">Listado con los clientes que solicitaron préstamos. Cantidad de cuotas pagadas y aún debidas.</p>
-                    <a href="#" class="btn btn-primary">Ver</a>
-                </div>
-            </div>
-
-            <div class="card" style="width: 18rem;">
-                <img src="https://www.weareteachers.com/wp-content/uploads/GettyImages-471617812.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">CLIENTES EXTRANJEROS</h5>
-                    <p class="card-text">Detalle de los clientes asociados al banco y no nacidos en la Argentina</p>
-                    <a href="#" class="btn btn-primary">Ver</a>
-                </div>
-            </div>
-
-            <div class="card" style="width: 18rem;">
-                <img src="https://media.licdn.com/dms/image/D4E22AQGGGEcD-wNcaQ/feedshare-shrink_800/0/1707994069994?e=2147483647&v=beta&t=ydsV3qd_9DtwvRBneKHkudYHv0Rr6oFqTNCj6Rh1PAM" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">PRÉSTAMOS SOLICITADOS</h5>
-                    <p class="card-text">Informe sobre la cantidad de préstamos solicitados el último mes y su estado actual (aprobado/desaprobado)</p>
-                    <a href="#" class="btn btn-primary">Ver</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
+  
 
 <main>
     <div class="container">
@@ -104,8 +67,8 @@
                 <img src="https://images.squarespace-cdn.com/content/v1/5714c56a7c65e4da9938003d/1588347561425-09P0DO81CIPOOSY8ZXIQ/cash-flow-illustration-laptop-money-graph-chart-vector-68966608.jpg?format=1000w" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">CASHFLOW</h5>
-                    <p class="card-text">Reporte del dinero que se ha transferido el último tiempo con los clientes involucrados</p>
-                    <a href="#" class="btn btn-primary">Ver</a>
+                    <p class="card-text">Seleccione un cliente para ver todas las transferencias realizadas, las recibidas y el total de dinero vinculado al cliente</p>
+                    <a href="ServletClientes?clienteId=&action=cashflow" class="btn btn-primary">Ver</a>
                 </div>
             </div>
 
@@ -114,7 +77,7 @@
                 <div class="card-body">
                     <h5 class="card-title">PRÉSTAMOS POR FECHA</h5>
                     <p class="card-text">Seleccione mes y año para rastrear los préstamos que han sido solicitados en ese momento</p>
-                    <a href="#" class="btn btn-primary">Ver</a>
+                    <a href="PrestamosPorFecha.jsp" class="btn btn-primary">Ver</a>
                 </div>
             </div>
 
@@ -123,7 +86,7 @@
                 <div class="card-body">
                     <h5 class="card-title">MONTOS INGRESADOS</h5>
                     <p class="card-text">Seleccione dos fechas de inicio y fin para determinar el dinero que ingresó en el banco en esa franja</p>
-                    <a href="#" class="btn btn-primary">Ver</a>
+                    <a href="MontosIngresados.jsp" class="btn btn-primary">Ver</a>
                 </div>
             </div>
 
@@ -131,7 +94,7 @@
                 <img src="https://www.worktango.com/wp-content/uploads/2022/09/Batch2_1711_5waystoengage_1280x720ArticleHeaderandHomepageThumbnail.jpg-800x450.png" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">REGISTRO DE APROBACIONES</h5>
-                    <p class="card-text">Detalle sobre usuarios que han aprobado préstamos, su monto, fecha y estado actual</p>
+                    <p class="card-text">Seleccione un usuario administrador para ver los préstamos que ha aprobado y aquellos que rechazó</p>
                     <a href="#" class="btn btn-primary">Ver</a>
                 </div>
             </div>

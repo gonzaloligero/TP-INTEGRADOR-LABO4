@@ -1,5 +1,6 @@
 package negocioImpl;
 import java.util.ArrayList;
+import java.util.Map;
 
 import datos.ClienteDao;
 import entidad.Cliente;
@@ -69,6 +70,11 @@ public class ClienteNegImpl implements ClienteNegocio{
 	@Override
 	public boolean altaLogicaCliente(String dni) {
 		return clienteDao.altaLogicaCliente(dni);
+	}
+
+	@Override
+	public ArrayList<Integer> obtenerCantidadClientesPorProvincia(){
+		return clienteDao.obtenerCantidadClientesPorProvincia();
 	}
 
 	

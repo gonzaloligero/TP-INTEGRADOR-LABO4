@@ -3,6 +3,8 @@ import entidad.Cliente;
 import entidad.Direccion;
 import datos.ClienteDao;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.math.BigInteger;
 import java.sql.PreparedStatement;
@@ -559,6 +561,7 @@ public class ClienteDaoImpl implements ClienteDao{
 			while(rs.next()) {
 				Direccion regDireccion = new Direccion();
 				regDireccion.setProvincia(rs.getString("Nombre"));   
+				System.out.print(regDireccion.getProvincia());
 				lista.add(regDireccion);
 			}
 		}catch (Exception e){	
@@ -664,6 +667,32 @@ boolean clienteActivado = false;
 
 	    return cliente;
 	}
+
+
+	@Override
+	public ArrayList<Integer> obtenerCantidadClientesPorProvincia() {
+	    ArrayList<Integer> cantidadClientes = new ArrayList<>();
+	    cn = new Conexion();
+	    ResultSet rs = null;
+	    try {
+	        cn.Open();
+	        
+	        String queryClientePorProvincia = "SELECT COUNT(c.DNI) AS cantidad FROM PROVINCIAS p JOIN LOCALIDADES l ON p.IDProvincia = l.IDProvincia JOIN DIRECCIONES d ON l.IDLocalidad = d.IDLocalidad JOIN CLIENTES c ON d.IDDireccion = c.IDDireccion GROUP BY p.Nombre";
+	        rs = cn.query(queryClientePorProvincia);
+	        
+	        while (rs.next()) {
+	            int cantidad = rs.getInt("cantidad");
+	            cantidadClientes.add(cantidad);
+	        }
+	        rs.close();
+	        cn.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return cantidadClientes;
+	}
+
+
 
 
 	
