@@ -1,5 +1,6 @@
 package datos;
 import java.util.ArrayList;
+import java.util.Map;
 
 import entidad.Cliente;
 import entidad.Direccion;
@@ -15,6 +16,7 @@ public interface ClienteDao {
 	public boolean altaLogicaCliente(String DNI);
 	public ArrayList<Direccion>obtenerProvincias();
 	public ArrayList<Direccion>obtenerLocalidades();
+	public ArrayList<Integer> obtenerCantidadClientesPorProvincia();
 	Cliente obtenerUnClientePorIDUsuario(int idUsuario);
 	
 	

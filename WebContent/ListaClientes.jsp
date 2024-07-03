@@ -11,11 +11,13 @@
     <jsp:include page="Componentes/head.jsp"></jsp:include>    
     <jsp:include page="Componentes/script_paginado.jsp"></jsp:include>
     
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
 
     
     
     <style>
     body {
+    font-family: 'Roboto Condensed', sans-serif;
             display: flex;
             flex-direction: column;
             justify-content: space-between;

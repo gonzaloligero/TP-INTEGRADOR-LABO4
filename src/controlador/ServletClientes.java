@@ -34,6 +34,13 @@ public class ServletClientes extends HttpServlet {
 
         if (action != null) {
             switch (action) {
+            
+            case "cashflow":
+                ArrayList<Cliente> listaClientesCashflow = clienteNegocio.listarClientes();
+                request.setAttribute("listaClientes", listaClientesCashflow);
+                request.getRequestDispatcher("Cashflow.jsp").forward(request, response); 
+                break;
+
                 case "listar":
                     ArrayList<Cliente> listaClientes = clienteNegocio.listarClientes();
                     request.setAttribute("listaClientes", listaClientes);

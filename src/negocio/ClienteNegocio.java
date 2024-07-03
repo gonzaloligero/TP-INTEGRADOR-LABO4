@@ -1,5 +1,6 @@
 package negocio;
 import java.util.ArrayList;
+import java.util.Map;
 
 import entidad.Cliente;
 import entidad.Direccion;
@@ -14,5 +15,7 @@ public interface ClienteNegocio {
 	public boolean altaLogicaCliente(String dni);
 	public ArrayList<Direccion> listarProvincias();
 	public ArrayList<Direccion> listarLocalidades();
+	public ArrayList<Integer> obtenerCantidadClientesPorProvincia();
+
 }
 
