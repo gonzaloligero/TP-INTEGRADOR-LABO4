@@ -7,27 +7,18 @@
 <html>
 <head>
     <title>Lista de cuentas</title>
-    
     <jsp:include page="Componentes/head.jsp"></jsp:include>
     <jsp:include page="Componentes/script_paginado.jsp"></jsp:include>
-    
-  
-
-    
 </head>
 <body>
-
     <jsp:include page="Componentes/NavBar.jsp"></jsp:include>
-
     <div class="container">
         <div class="w-100 pt-2 text-center">
             <h1 class="mb-5">LISTA DE CUENTAS</h1>
         </div>
-        
         <div>
-        	<a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3" href="AltaCuenta.jsp">Agregar</a>
-        	<a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3 btn-fixed-size " href="MenuAdministrador.jsp">Volver</a>
- 
+            <a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3" href="AltaCuenta.jsp">Agregar</a>
+            <a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3 btn-fixed-size" href="MenuAdministrador.jsp">Volver</a>
         </div>
         <table id="table_id" class="table table-striped display text-center">
             <thead>
@@ -43,8 +34,7 @@
             </thead>
             <tbody>
                 <% 
-                    ArrayList<Cuenta> listaCuentas = new ArrayList<Cuenta>(); 
-                    listaCuentas = Cuenta.listaCuentas(); //(ArrayList<Cuenta>) request.getAttribute("listaCuentas");
+                    ArrayList<Cuenta> listaCuentas = (ArrayList<Cuenta>) request.getAttribute("listaCuentas");
                     if (listaCuentas != null) {
                         for (Cuenta cuenta : listaCuentas) { 
                 %>
@@ -55,7 +45,6 @@
                         <td><%= cuenta.getNumeroCuenta() %></td>
                         <td><%= cuenta.getCBU() %></td>
                         <td><%= cuenta.getSaldo() %></td>
-                        <td><%= cuenta.getIDTipoCuenta() %></td>
                         <td>
                             <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
                             <button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button>
@@ -74,7 +63,6 @@
             </tbody>
         </table>
     </div>
-
     <jsp:include page="Componentes/Footer.jsp"></jsp:include>
 </body>
 </html>

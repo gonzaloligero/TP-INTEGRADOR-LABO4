@@ -661,12 +661,16 @@ boolean clienteActivado = false;
 	            cliente.setFechaNacimiento(rs.getDate("FechaNacimiento"));
 	            cliente.setEmail(rs.getString("Email"));
 	            cliente.setNumeroTelefonico(rs.getString("NumeroTelefonico"));
+<<<<<<< HEAD
 	            cliente.getDireccion().setCalle("Calle");
 	            cliente.getDireccion().setNumero(numeroInt);
 	            cliente.getDireccion().setCodigoPostal("CodigoPostal");
 	            cliente.getDireccion().setIDLocalidad(localidadInt);
 	            cliente.getDireccion().setIDProvincia(provinciaInt);
 	            //Emma fijate si así te sirve
+=======
+	           
+>>>>>>> Ariel
 	            
 	        }
 	    } catch (Exception e) {

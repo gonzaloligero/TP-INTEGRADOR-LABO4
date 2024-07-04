@@ -72,7 +72,7 @@ public class CuentaDaoImpl implements CuentaDao{
 	
 	
 	@Override
-	public boolean agregarCuentaCliente(int DNICliente, int IDTipoCuenta) throws ClienteExcedeCantCuentas {
+	public boolean agregarCuentaCliente(int DNICliente, int IDTipoCuenta) {
 	    cn = new Conexion();
 	    cn.Open();
 	    boolean cuentaAgregada = false;
@@ -91,7 +91,7 @@ public class CuentaDaoImpl implements CuentaDao{
 	        
 	        if (cantidadCuentas < 3) {
 	            
-	            int numeroCuenta = 10000 + random.nextInt(90000);  
+	            int numeroCuenta = 10000 + random.nextInt(90000000);  
 	            
 	            
 	            String cbu = new BigInteger(130, random).toString();  

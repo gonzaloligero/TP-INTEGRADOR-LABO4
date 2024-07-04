@@ -21,19 +21,25 @@ public class CuentaNegocioImpl implements CuentaNegocio {
 	@Override
 	public ArrayList<Cuenta> listarCuentasGral() {
 		
-		return null;
+		return cuentaDao.listaCuentas();
 	}
 
 	@Override
-	public boolean agregarCuentaCliente(int DNICliente) {
+	public boolean agregarCuentaCliente(int DNICliente, int IDTipoCuenta) {
 		
+		try {
+			return cuentaDao.agregarCuentaCliente(DNICliente, IDTipoCuenta);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
 		return false;
 	}
 
 	@Override
 	public boolean editarCuenta(Cuenta cuenta) {
 		
-		return false;
+		 return cuentaDao.editarCuenta(cuenta);
 	}
 
 }

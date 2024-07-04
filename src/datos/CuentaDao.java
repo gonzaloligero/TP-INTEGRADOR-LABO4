@@ -9,7 +9,7 @@ import excepciones.ClienteExcedeCantCuentas;
 public interface CuentaDao {
 	public ArrayList<Cuenta> obtenerCuentasCliente(int DNICliente);
 	public ArrayList<Cuenta> listaCuentas();
-	public boolean agregarCuentaCliente(int DNICliente, int IDTipoCuenta) throws ClienteExcedeCantCuentas;
+	public boolean agregarCuentaCliente(int DNICliente, int IDTipoCuenta);
 	public boolean editarCuenta(Cuenta cuenta);
 }
 
