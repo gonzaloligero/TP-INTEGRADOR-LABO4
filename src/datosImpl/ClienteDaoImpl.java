@@ -640,6 +640,16 @@ boolean clienteActivado = false;
 	        rs = cn.query(query);
 
 	        if (rs.next()) {
+	        	String numeroString = "Numero";
+	        	int numeroInt = Integer.parseInt(numeroString);
+	        	
+	        	String localidadString = "IDLocalidad";
+	        	int localidadInt = Integer.parseInt(localidadString);
+	        	
+	        	String provinciaString = "IDProvincia";
+	        	int provinciaInt = Integer.parseInt(provinciaString);
+	        	
+	        	
 	            cliente = new Cliente();
 	            cliente.setDNI(rs.getInt("DNI"));
 	            cliente.setEstado(rs.getBoolean("ESTADO"));
@@ -651,7 +661,12 @@ boolean clienteActivado = false;
 	            cliente.setFechaNacimiento(rs.getDate("FechaNacimiento"));
 	            cliente.setEmail(rs.getString("Email"));
 	            cliente.setNumeroTelefonico(rs.getString("NumeroTelefonico"));
-	            
+	            cliente.getDireccion().setCalle("Calle");
+	            cliente.getDireccion().setNumero(numeroInt);
+	            cliente.getDireccion().setCodigoPostal("CodigoPostal");
+	            cliente.getDireccion().setIDLocalidad(localidadInt);
+	            cliente.getDireccion().setIDProvincia(provinciaInt);
+	            //Emma fijate si así te sirve
 	            
 	        }
 	    } catch (Exception e) {
