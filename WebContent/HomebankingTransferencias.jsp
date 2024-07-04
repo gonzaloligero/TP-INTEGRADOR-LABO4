@@ -74,17 +74,17 @@
         <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse collapse">
                 <ul class="nav" id="main-menu">
-                    <li class="active-link">
+                    <li>
                         <a href="Homebanking.jsp"><i class="fa fa-history"></i>Historial de Movimientos</a>
                     </li>
-                    <li>
+                    <li class="active-link">
                         <a href="HomebankingTransferencias.jsp"><i class="fa fa-refresh"></i>Transferencias</a>
                     </li>
                     <li >
                         <a href="MostrarTipoPrestamosServlet"><i class="fa fa-edit"></i>Pedido de Préstamo</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-qrcode"></i>Pago de Préstamos</a>
+                        <a href="HomebankingPagoPrestamo.jsp"><i class="fa fa-qrcode"></i>Pago de Préstamos</a>
                     </li>
                     <li>
                         <a href="HomebankingInfomacionPersonal.jsp"><i class="fa fa-bar-chart-o"></i>Información Personal</a>
@@ -97,7 +97,25 @@
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Página de Administración</h2>
+                        
+                        
+                        <h2>Transferir</h2>
+<form>
+    <label for="cbu">CBU destino:</label>
+    <input type="text" id="cbu" name="cbu" required>
+
+    <label for="monto">Monto a transferir:</label>
+    <input type="number" id="monto" name="monto" step="0.01" required>
+
+    <label for="cuentaOrigen">Selecciona la cuenta origen:</label>
+    <select id="cuentaOrigen" name="cuentaOrigen">
+        <!-- Las opciones de cuentas se generan dinámicamente aquí -->
+    </select>
+
+    <input type="submit" value="Transferir">
+</form>
+                        
+                        
                     </div>
                 </div>
                 <!-- /. ROW  -->
@@ -146,4 +164,3 @@
     <script src="assets/js/custom.js"></script>
 </body>
 </html>
-

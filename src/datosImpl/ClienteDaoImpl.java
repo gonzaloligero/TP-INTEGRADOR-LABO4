@@ -621,11 +621,14 @@ boolean clienteActivado = false;
 
 	    try {
 	        cn.Open();  // Abre la conexión
-	        String query = "SELECT c.ESTADO, l.Nombre AS NombreLocalidad, p.Nombre AS NombreProvincia, u.Usuario, u.Contraseña, t.NumeroTelefonico, c.Nombre, c.Apellido, c.DNI, c.CUIL, c.Sexo, c.Nacionalidad, c.FechaNacimiento, c.Email, d.Calle, d.Numero, d.CodigoPostal " +
+	        String query = "SELECT c.ESTADO, l.Nombre AS NombreLocalidad, p.Nombre AS NombreProvincia, " +
+	                       "u.Usuario, u.Contraseña, t.NumeroTelefonico, c.Nombre, c.Apellido, " +
+	                       "c.DNI, c.CUIL, c.Sexo, c.Nacionalidad, c.FechaNacimiento, c.Email, " +
+	                       "d.Calle, d.Numero, d.CodigoPostal " +
 	                       "FROM CLIENTES AS c " +
 	                       "INNER JOIN DIRECCIONES AS d ON d.IDDireccion = c.IDDireccion " +
 	                       "INNER JOIN USUARIOS AS u ON u.IDUsuario = c.IDUsuario " +
-	                       "INNER JOIN TELEFONOS AS T ON T.DNICliente = c.DNI " +
+	                       "INNER JOIN TELEFONOS AS t ON t.DNICliente = c.DNI " +
 	                       "INNER JOIN LOCALIDADES AS l ON l.IDLocalidad = d.IDLocalidad " +
 	                       "INNER JOIN PROVINCIAS AS p ON p.IDProvincia = l.IDProvincia " +
 	                       "WHERE c.IDUsuario = " + idUsuario;
@@ -634,24 +637,26 @@ boolean clienteActivado = false;
 
 	        if (rs.next()) {
 	            cliente = new Cliente();
-	            cliente.setDNI(rs.getInt("c.DNI"));
-		        cliente.setEstado(rs.getBoolean("c.ESTADO"));
-		        cliente.setCUIL(rs.getString("c.CUIL"));
-		        cliente.setNombre(rs.getString("c.Nombre"));
-		        cliente.setApellido(rs.getString("c.Apellido"));
-		        cliente.setSexo(rs.getString("c.Sexo"));
-		        cliente.setNacionalidad(rs.getString("c.Nacionalidad"));
-		        cliente.setFechaNacimiento(rs.getDate("c.FechaNacimiento"));
-		        cliente.setNumeroTelefonico(rs.getString("t.NumeroTelefonico"));
-		        String calle = rs.getString("d.Calle");
-                int numero = rs.getInt("d.Numero");
-                String codigoPostal = rs.getString("d.CodigoPostal");
-                String localidad = rs.getString("l.Nombre");
-                String provincia = rs.getString("p.Nombre");
-                cliente.setDireccion(calle, numero, codigoPostal, localidad, provincia);
-                cliente.setEmail(rs.getString("Email"));
-		        cliente.setIDUsuario(rs.getInt("c.IDUsuario"));
-		        cliente.setUserType(2);
+	            cliente.setDNI(rs.getInt("DNI"));
+	            cliente.setEstado(rs.getBoolean("ESTADO"));
+	            cliente.setCUIL(rs.getString("CUIL"));
+	            cliente.setNombre(rs.getString("Nombre"));
+	            cliente.setApellido(rs.getString("Apellido"));
+	            cliente.setSexo(rs.getString("Sexo"));
+	            cliente.setNacionalidad(rs.getString("Nacionalidad"));
+	            cliente.setFechaNacimiento(rs.getDate("FechaNacimiento"));
+	            cliente.setNumeroTelefonico(rs.getString("NumeroTelefonico"));
+	            
+	            String calle = rs.getString("Calle");
+	            int numero = rs.getInt("Numero");
+	            String codigoPostal = rs.getString("CodigoPostal");
+	            String localidad = rs.getString("NombreLocalidad");
+	            String provincia = rs.getString("NombreProvincia");
+	            cliente.setDireccion(calle, numero, codigoPostal, localidad, provincia);
+	            
+	            cliente.setEmail(rs.getString("Email"));
+	            cliente.setIDUsuario(rs.getInt("IDUsuario"));
+	            cliente.setUserType(2);
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();

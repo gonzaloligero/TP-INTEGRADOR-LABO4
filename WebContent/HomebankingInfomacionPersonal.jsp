@@ -84,7 +84,7 @@
                         <a href="MostrarTipoPrestamosServlet"><i class="fa fa-edit"></i>Pedido de Préstamo</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-qrcode"></i>Pago de Préstamos</a>
+                        <a href="HomebankingPagoPrestamo.jsp"><i class="fa fa-qrcode"></i>Pago de Préstamos</a>
                     </li>
                     <li class="active-link">
                         <a href="HomebankingInformacionPersonal.jsp"><i class="fa fa-bar-chart-o"></i>Información Personal</a>

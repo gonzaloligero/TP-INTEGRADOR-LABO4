@@ -74,7 +74,7 @@
         <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse collapse">
                 <ul class="nav" id="main-menu">
-                    <li class="active-link">
+                    <li>
                         <a href="Homebanking.jsp"><i class="fa fa-history"></i>Historial de Movimientos</a>
                     </li>
                     <li>
@@ -83,8 +83,8 @@
                     <li >
                         <a href="MostrarTipoPrestamosServlet"><i class="fa fa-edit"></i>Pedido de Préstamo</a>
                     </li>
-                    <li>
-                        <a href="#"><i class="fa fa-qrcode"></i>Pago de Préstamos</a>
+                    <li class="active-link">
+                        <a href="HomebankingPagoPrestamo.jsp"><i class="fa fa-qrcode"></i>Pago de Préstamos</a>
                     </li>
                     <li>
                         <a href="HomebankingInfomacionPersonal.jsp"><i class="fa fa-bar-chart-o"></i>Información Personal</a>
@@ -97,7 +97,26 @@
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Página de Administración</h2>
+                        
+                        
+                         <h2>Pago de Prestamos</h2>
+        <!-- Suponiendo que tienes un formulario para seleccionar la cuenta -->
+<!-- Suponiendo que tienes una lista de cuotas pendientes -->
+<form>
+    <label for="cuota">Selecciona la cuota a pagar:</label>
+    <select id="cuota" name="cuota">
+        <!-- Las opciones de cuotas se generan dinámicamente aquí -->
+    </select>
+
+    <label for="cuentaPago">Selecciona la cuenta para el pago:</label>
+    <select id="cuentaPago" name="cuentaPago">
+        <!-- Las opciones de cuentas se generan dinámicamente aquí -->
+    </select>
+
+    <input type="submit" value="Pagar Cuota">
+</form>
+                        
+                        
                     </div>
                 </div>
                 <!-- /. ROW  -->
@@ -146,4 +165,3 @@
     <script src="assets/js/custom.js"></script>
 </body>
 </html>
-
