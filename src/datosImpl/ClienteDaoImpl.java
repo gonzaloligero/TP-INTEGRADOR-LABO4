@@ -15,6 +15,7 @@ import java.sql.SQLException;
 public class ClienteDaoImpl implements ClienteDao{
 
 	private Conexion cn;
+	private CuentaDaoImpl cuentaDao;
 	
 	@Override
 	public ArrayList<Cliente> obtenerClientes(){
@@ -286,27 +287,11 @@ public class ClienteDaoImpl implements ClienteDao{
 	        String queryTelefono = "INSERT INTO TELEFONOS(DNICliente, NumeroTelefonico) VALUES('" + cliente.getDNI() + "', '" + cliente.getNumeroTelefonico() + "')";
 	        telefonoInsertado = cn.execute(queryTelefono);
 
-	        Random random = new Random();
-	        int numeroCuenta = 10000 + random.nextInt(90000);  // Genera un número de cuenta aleatorio de 5 dígitos
-	        String cbu = new BigInteger(130, random).toString();  
-            
-            while (cbu.length() < 22) {
-                cbu = "0" + cbu;
-            }
-           
-            if (cbu.length() > 22) {
-                cbu = cbu.substring(0, 22);
-            }
-	        // Inserción de la cuenta asociada al cliente
-	        String queryCuenta = "INSERT INTO CUENTAS (DNICliente, fechaCreacion, numeroCuenta, CBU, Saldo) " + 
-                    "VALUES ('" + 
-                    cliente.getDNI() + "', " + 
-                    "NOW(), " + 
-                    numeroCuenta + ", '" + 
-                    cbu + "', " + 
-                    "10000);";
-	        cuentaInsertada = cn.execute(queryCuenta);
 	        
+	        cuentaDao = new CuentaDaoImpl();
+	        
+	        cuentaDao.agregarCuentaCliente(cliente.getDNI(),2); 
+	         
 	        String queryMovimiento = "INSERT INTO MOVIMIENTOS(Fecha,Detalle,Importe,IDCuenta,IDTipoMovimiento)"
 	        		+ "VALUES(NOW(), 'ALTA DE CUENTA', 10000, (SELECT MAX(IDCuenta) FROM CUENTAS), 1 );";
 
