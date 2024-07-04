@@ -18,6 +18,6 @@ public class MostrarTipoPrestamosServlet extends HttpServlet {
         TipoPrestamoDaoImpl dao = new TipoPrestamoDaoImpl();
         List<TipoPrestamos> lista = dao.obtenerTodos();
         request.setAttribute("listaTipoPrestamos", lista);
-        request.getRequestDispatcher("PedidoPrestamoCliente.jsp").forward(request, response);
+        request.getRequestDispatcher("HomebankingPedidoPrestamo.jsp").forward(request, response);
     }
 }

@@ -628,40 +628,30 @@ boolean clienteActivado = false;
 	                       "INNER JOIN TELEFONOS AS T ON T.DNICliente = c.DNI " +
 	                       "INNER JOIN LOCALIDADES AS l ON l.IDLocalidad = d.IDLocalidad " +
 	                       "INNER JOIN PROVINCIAS AS p ON p.IDProvincia = l.IDProvincia " +
-	                       "WHERE c.IDUsuario = "+ idUsuario;
+	                       "WHERE c.IDUsuario = " + idUsuario;
 	        
 	        rs = cn.query(query);
 
 	        if (rs.next()) {
-	        	String numeroString = "Numero";
-	        	int numeroInt = Integer.parseInt(numeroString);
-	        	
-	        	String localidadString = "IDLocalidad";
-	        	int localidadInt = Integer.parseInt(localidadString);
-	        	
-	        	String provinciaString = "IDProvincia";
-	        	int provinciaInt = Integer.parseInt(provinciaString);
-	        	
-	        	
 	            cliente = new Cliente();
-	            cliente.setDNI(rs.getInt("DNI"));
-	            cliente.setEstado(rs.getBoolean("ESTADO"));
-	            cliente.setCUIL(rs.getString("CUIL"));
-	            cliente.setNombre(rs.getString("Nombre"));
-	            cliente.setApellido(rs.getString("Apellido"));
-	            cliente.setSexo(rs.getString("Sexo"));
-	            cliente.setNacionalidad(rs.getString("Nacionalidad"));
-	            cliente.setFechaNacimiento(rs.getDate("FechaNacimiento"));
-	            cliente.setEmail(rs.getString("Email"));
-	            cliente.setNumeroTelefonico(rs.getString("NumeroTelefonico"));
-
-	            cliente.getDireccion().setCalle("Calle");
-	            cliente.getDireccion().setNumero(numeroInt);
-	            cliente.getDireccion().setCodigoPostal("CodigoPostal");
-	            cliente.getDireccion().setIDLocalidad(localidadInt);
-	            cliente.getDireccion().setIDProvincia(provinciaInt);
-	            //Emma fijate si así te sirve
-	            
+	            cliente.setDNI(rs.getInt("c.DNI"));
+		        cliente.setEstado(rs.getBoolean("c.ESTADO"));
+		        cliente.setCUIL(rs.getString("c.CUIL"));
+		        cliente.setNombre(rs.getString("c.Nombre"));
+		        cliente.setApellido(rs.getString("c.Apellido"));
+		        cliente.setSexo(rs.getString("c.Sexo"));
+		        cliente.setNacionalidad(rs.getString("c.Nacionalidad"));
+		        cliente.setFechaNacimiento(rs.getDate("c.FechaNacimiento"));
+		        cliente.setNumeroTelefonico(rs.getString("t.NumeroTelefonico"));
+		        String calle = rs.getString("d.Calle");
+                int numero = rs.getInt("d.Numero");
+                String codigoPostal = rs.getString("d.CodigoPostal");
+                String localidad = rs.getString("l.Nombre");
+                String provincia = rs.getString("p.Nombre");
+                cliente.setDireccion(calle, numero, codigoPostal, localidad, provincia);
+                cliente.setEmail(rs.getString("Email"));
+		        cliente.setIDUsuario(rs.getInt("c.IDUsuario"));
+		        cliente.setUserType(2);
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -676,6 +666,7 @@ boolean clienteActivado = false;
 
 	    return cliente;
 	}
+
 
 
 	@Override
