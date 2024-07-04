@@ -50,8 +50,8 @@ public class ServletCuentas extends HttpServlet {
 	        int tipoDeCuenta = Integer.parseInt(request.getParameter("tipoDeCuenta"));
 
 	        try {
-	            boolean cuentaAgregada = obj.agregarCuentaCliente(DNICliente, tipoDeCuenta);
-	            if (cuentaAgregada) {
+	            int idCuentaAgregada = obj.agregarCuentaCliente(DNICliente, tipoDeCuenta);
+	            if (idCuentaAgregada != 0) {
 	                request.setAttribute("mensaje", "Cuenta agregada exitosamente.");
 	            } else {
 	                request.setAttribute("mensaje", "No se pudo agregar la cuenta.");
