@@ -1,4 +1,5 @@
 CREATE DATABASE TPIntegradorLaboratorio4;
+
 USE TPIntegradorLaboratorio4;
 
 CREATE TABLE USUARIOS (
@@ -82,25 +83,12 @@ CREATE TABLE PRESTAMOS (
     CONSTRAINT chk_ImporteAPagar CHECK (ImporteAPagar REGEXP '^[0-9]+(\\.[0-9]{1,2})?$')
 );
 
-
-CREATE TABLE CUENTAS (
-    IDCuenta INT PRIMARY KEY AUTO_INCREMENT,
-    DNICliente INT,
-    FechaCreacion DATE NOT NULL,
-    NumeroCuenta INT NOT NULL,
-    CBU VARCHAR(50) NOT NULL,
-    Saldo DECIMAL(18,2) NOT NULL,
-    CONSTRAINT fk_Cuentas_Clientes FOREIGN KEY (DNICliente) REFERENCES CLIENTES(DNI),
-    CONSTRAINT chk_CBU CHECK (CBU REGEXP '^[0-9.,]+$'),
-    CONSTRAINT chk_Saldo CHECK (Saldo REGEXP '^[0-9]+(\\.[0-9]{1,6})?$')
-);
-
-
 CREATE TABLE PLAZOS (
     IDPlazo INT PRIMARY KEY AUTO_INCREMENT,
     IDPrestamo INT,
     MesQuePaga VARCHAR(20) NOT NULL,
     NroCuota INT NOT NULL,
+    Estado BIT NOT NULL,
     CONSTRAINT fk_Plazos_Prestamos FOREIGN KEY (IDPrestamo) REFERENCES PRESTAMOS(IDPrestamo),
     CONSTRAINT chk_Mes CHECK (MesQuePaga NOT REGEXP '[^a-zA-Z]'),
     CONSTRAINT chk_NroCuota CHECK (NroCuota REGEXP '^[0-9]+$')
@@ -109,10 +97,25 @@ CREATE TABLE PLAZOS (
 
 CREATE TABLE TIPO_CUENTAS (
     IDTipoCuenta INT PRIMARY KEY AUTO_INCREMENT,
-    IDCuenta INT,
-    Tipo VARCHAR(50) NOT NULL,
-    CONSTRAINT fk_TipoCuentas_Cuentas FOREIGN KEY (IDCuenta) REFERENCES CUENTAS(IDCuenta),
-    CONSTRAINT chk_Tipo CHECK (Tipo NOT REGEXP '[^a-zA-Z]')
+    Tipo VARCHAR(50) NOT NULL
+);
+
+INSERT INTO TIPO_CUENTAS (Tipo) VALUES ('Caja de Ahorro');
+INSERT INTO TIPO_CUENTAS (Tipo) VALUES ('Cuenta corriente');
+
+
+CREATE TABLE CUENTAS (
+    IDCuenta INT PRIMARY KEY AUTO_INCREMENT,
+    DNICliente INT,
+    FechaCreacion DATE NOT NULL,
+    NumeroCuenta INT NOT NULL,
+    CBU VARCHAR(50) NOT NULL,
+    Saldo DECIMAL(18,2) NOT NULL,
+    IDTipoCuenta INT NOT NULL,
+    
+    CONSTRAINT fk_Cuentas_Clientes FOREIGN KEY (DNICliente) REFERENCES CLIENTES(DNI),
+    CONSTRAINT chk_CBU CHECK (CBU REGEXP '^[0-9.,]+$'),
+    CONSTRAINT chk_Saldo CHECK (Saldo REGEXP '^[0-9]+(\\.[0-9]{1,6})?$')
 );
 
 
@@ -138,6 +141,8 @@ CREATE TABLE MOVIMIENTOS (
     CONSTRAINT fk_Movimientos_Cuentas FOREIGN KEY (IDCuenta) REFERENCES CUENTAS(IDCuenta),
     CONSTRAINT chk_Importe CHECK (Importe REGEXP '^[0-9]+(\\.[0-9]{1,2})?$')
 );
+
+
 
 
 -- Inserts para la tabla PROVINCIAS
@@ -280,3 +285,113 @@ INSERT INTO TIPO_PRESTAMOS (Tipo, TNA) VALUES ('Automotriz', 10);
 INSERT INTO TIPO_PRESTAMOS (Tipo, TNA) VALUES ('Estudiantil', 15);
 INSERT INTO TIPO_PRESTAMOS (Tipo, TNA) VALUES ('Comercial', 20);
 INSERT INTO TIPO_PRESTAMOS (Tipo, TNA) VALUES ('Agrícola', 18);
+
+INSERT INTO PRESTAMOS (IDPrestamo, IDTipoPrestamo, DNICliente, MontoPedido, ImporteAPagar, Cuotas, Fecha, Estado) VALUES 
+(1, 1, 11111111, 10000.00, 12000.00, 12, '2023-01-01', 0),
+(2, 2, 11111111, 15000.00, 18000.00, 24, '2023-02-01', 0),
+(3, 1, 22222222, 20000.00, 24000.00, 18, '2023-03-01', 0),
+(4, 3, 22222222, 25000.00, 30000.00, 36, '2023-04-01', 0),
+(5, 1, 44444444, 30000.00, 36000.00, 12, '2023-05-01', 0),
+(6, 2, 44444444, 35000.00, 42000.00, 24, '2023-06-01', 0),
+(7, 3, 44444444, 40000.00, 48000.00, 18, '2023-07-01', 0),
+(8, 1, 77777777, 45000.00, 54000.00, 36, '2023-08-01', 0),
+(9, 2, 88888888, 50000.00, 60000.00, 12, '2023-09-01', 0),
+(10, 3, 99999999, 55000.00, 66000.00, 24, '2023-10-01', 0);
+
+
+
+
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
+VALUES (11111111, 1, '2024-06-28', 123456789, '1234567801234567890104', 10000.00);
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
+VALUES (11111111, 2, '2024-06-28', 123456789, '1234567801234567890106', 10000.00);
+
+
+
+
+
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
+VALUES (22222222, 1, '2024-06-28', 987654321, '9876543209876543210987', 5000.00);
+
+
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
+VALUES (44444444, 2, '2024-06-28', 246810123, '2468101202468101230108', 15000.00);
+
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
+VALUES (77777777, 1, '2024-06-28', 123456789, '1234567801234567890109', 10000.00);
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
+VALUES (77777777, 2, '2024-06-28', 123456789, '1234567801234567890110', 10000.00);
+
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
+VALUES (88888888, 1, '2024-06-28', 987654321, '9876543209876543210985', 5000.00);
+
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
+VALUES (99999999, 1, '2024-06-28', 246810123, '2468101202468101230124', 15000.00);
+
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
+VALUES (10101010, 1, '2024-06-28', 987654321, '9876543209876543210987', 5000.00);
+
+
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
+VALUES (12121212, 1, '2024-06-28', 246810123, '2468101202468101230125', 15000.00);
+
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
+VALUES (12121212, 2, '2024-06-28', 123456789, '1234567801234567890127', 10000.00);
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
+VALUES (14141414, 2, '2024-06-28', 123456789, '1234567801234567890129', 10000.00);
+
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
+VALUES (14141414, 1, '2024-06-28', 987654321, '9876543209876543210987', 5000.00);
+
+
+
+
+
+
+
+DELIMITER //
+CREATE TRIGGER after_prestamo_update 
+AFTER UPDATE ON PRESTAMOS 
+FOR EACH ROW 
+BEGIN
+    DECLARE cuota DECIMAL(10, 2);
+    DECLARE saldo_actual DECIMAL(18, 2);
+    DECLARE interes_mensual DECIMAL(10, 2);
+    DECLARE i INT DEFAULT 1;
+
+    IF OLD.Estado = 0 AND NEW.Estado = 1 THEN
+       
+        SELECT TNA / 12 INTO interes_mensual
+        FROM TIPO_PRESTAMOS 
+        WHERE IDTipoPrestamo = NEW.IDTipoPrestamo;
+
+     
+        SET cuota = NEW.MontoPedido * (interes_mensual / 100) / (1 - POW(1 + (interes_mensual / 100), -NEW.Cuotas));
+        
+      
+        WHILE i <= NEW.Cuotas DO
+            INSERT INTO PLAZOS (IDPrestamo, MesQuePaga, NroCuota, Estado) 
+            VALUES (NEW.IDPrestamo, DATE_FORMAT(DATE_ADD(NEW.Fecha, INTERVAL i MONTH), '%Y-%m'), i, 0);
+            SET i = i + 1;
+        END WHILE;
+
+        
+        SELECT Saldo INTO saldo_actual 
+        FROM CUENTAS 
+        WHERE DNICliente = NEW.DNICliente AND IDTipoCuenta = 1;
+
+      
+        UPDATE CUENTAS 
+        SET Saldo = saldo_actual + NEW.MontoPedido 
+        WHERE DNICliente = NEW.DNICliente AND IDTipoCuenta = 1;
+
+        
+        INSERT INTO MOVIMIENTOS (Fecha, Detalle, Importe, IDCuenta, IDTipoMovimiento) 
+        VALUES (NEW.Fecha, CONCAT('Préstamo aprobado - ID: ', NEW.IDPrestamo), NEW.MontoPedido, 
+                (SELECT IDCuenta FROM CUENTAS WHERE DNICliente = NEW.DNICliente LIMIT 1), 
+                (SELECT IDTipoMovimiento FROM TIPO_MOVIMIENTOS WHERE Nombre = 'Alta de un préstamo'));
+    END IF;
+END;
+//
+DELIMITER ;
+
