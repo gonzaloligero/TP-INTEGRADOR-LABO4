@@ -59,14 +59,14 @@ public class ServletCuentas extends HttpServlet {
             int tipoDeCuenta = Integer.parseInt(request.getParameter("tipoDeCuenta"));
 
             try {
-                boolean cuentaAgregada = cuentaNegocio.agregarCuentaCliente(DNICliente, tipoDeCuenta);
-                if (cuentaAgregada) {
+                int IDcuentaAgregada = cuentaNegocio.agregarCuentaCliente(DNICliente, tipoDeCuenta);
+                if (IDcuentaAgregada != 0) {
                     request.setAttribute("mensaje", "Cuenta agregada exitosamente.");
                 } else {
                     request.setAttribute("mensaje", "No se pudo agregar la cuenta.");
                 }
             } catch (Exception e) {
-                request.setAttribute("mensaje", "Ocurrió un error: " + e.getMessage());
+                request.setAttribute("mensaje", "Ocurriï¿½ un error: " + e.getMessage());
             }
             request.getRequestDispatcher("AltaCuenta.jsp").forward(request, response);
         }

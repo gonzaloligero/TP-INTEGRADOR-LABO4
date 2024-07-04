@@ -94,9 +94,31 @@ public class MovimientoDaoImpl implements MovimientoDao {
 		return null;
 	}
 
+
 	@Override
-	public boolean insertarMovimiento(Movimiento movimiento) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean insertarMovimiento(BigDecimal importe, int IDCuenta, int IDTipoMovimiento, String Detalle) {
+		
+		boolean movimientoInsertado = false;
+		cn = new Conexion();
+        cn.Open();
+          
+        try {
+        	String queryMovimiento = "INSERT INTO MOVIMIENTOS(Fecha,Detalle,Importe,IDCuenta,IDTipoMovimiento)"
+	        		+ "VALUES(NOW(), '"+Detalle+"', "+ importe +","+ IDCuenta +", "+ IDTipoMovimiento +" );";
+      
+		 movimientoInsertado = cn.execute(queryMovimiento);	
+		
+        }
+        catch(Exception e){
+        	System.out.println(e.getMessage());
+        }
+        finally {
+            cn.close();
+        }
+        	
+        return movimientoInsertado;
+		 
 	}
+
+	
 }

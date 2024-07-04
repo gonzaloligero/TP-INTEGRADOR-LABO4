@@ -70,55 +70,6 @@ public class CuentaDaoImpl implements CuentaDao{
 		return lista;
 	}
 	
-	
-	@Override
-	public boolean agregarCuentaCliente(int DNICliente, int IDTipoCuenta) {
-	    cn = new Conexion();
-	    cn.Open();
-	    boolean cuentaAgregada = false;
-	    Random random = new Random();
-	    
-	    System.out.print(DNICliente);
-	    System.out.print(IDTipoCuenta);
-
-	    try {
-	        // Verificar cuántas cuentas tiene el cliente
-	        ResultSet rsCount = cn.query("SELECT COUNT(*) AS CantidadCuentas FROM CUENTAS WHERE DNICliente = " + DNICliente);
-	        int cantidadCuentas = 0;
-	        if (rsCount.next()) {
-	            cantidadCuentas = rsCount.getInt("CantidadCuentas");
-	        }
-	        
-	        if (cantidadCuentas < 3) {
-	            
-	            int numeroCuenta = 10000 + random.nextInt(90000000);  
-	            
-	            
-	            String cbu = new BigInteger(130, random).toString();  
-	            
-	            while (cbu.length() < 22) {
-	                cbu = "0" + cbu;
-	            }
-	            
-	            if (cbu.length() > 22) {
-	                cbu = cbu.substring(0, 22);
-	            }
-	            
-	            String queryInsertCuenta = "INSERT INTO CUENTAS (DNICliente, FechaCreacion, NumeroCuenta, CBU, Saldo, IDTipoCuenta) " +
-	                                       "VALUES (" + DNICliente + ", CURDATE(), " + numeroCuenta + ", '" + cbu + "', 10000.00, " + IDTipoCuenta + ")";
-	            cuentaAgregada = cn.execute(queryInsertCuenta);
-	        } else {
-	            throw new ClienteExcedeCantCuentas("El cliente ya tiene 3 cuentas asociadas.");
-	        }
-	    } catch (Exception e) {
-	        System.out.println(e.getMessage());
-	    } finally {
-	        cn.close();
-	    }
-	    
-	    return cuentaAgregada;
-	}
-	
 
 	@Override
 	public boolean editarCuenta(Cuenta cuenta) {
@@ -139,6 +90,64 @@ public class CuentaDaoImpl implements CuentaDao{
 	        cn.close();
 	    }
 	    return cuentaEditada;
+	}
+
+	@Override
+	public int agregarCuentaCliente(int DNICliente, int IDTipoCuenta){
+		    cn = new Conexion();
+		    cn.Open();
+		    
+		    int UltimoIdCuenta = 0;
+		    boolean cuentaAgregada = false;
+		    Random random = new Random();
+		    
+		    System.out.print(DNICliente);
+		    System.out.print(IDTipoCuenta);
+
+		    try {
+		        // Verificar cuï¿½ntas cuentas tiene el cliente
+		        ResultSet rsCount = cn.query("SELECT COUNT(*) AS CantidadCuentas FROM CUENTAS WHERE DNICliente = " + DNICliente);
+		        int cantidadCuentas = 0;
+		        if (rsCount.next()) {
+		            cantidadCuentas = rsCount.getInt("CantidadCuentas");
+		        }
+		        
+		        if (cantidadCuentas < 3) {
+		            
+		            int numeroCuenta = 10000 + random.nextInt(90000000);  
+		            
+		            
+		            String cbu = new BigInteger(130, random).toString();  
+		            
+		            while (cbu.length() < 22) {
+		                cbu = "0" + cbu;
+		            }
+		            
+		            if (cbu.length() > 22) {
+		                cbu = cbu.substring(0, 22);
+		            }
+		            
+		            String queryInsertCuenta = "INSERT INTO CUENTAS (DNICliente, FechaCreacion, NumeroCuenta, CBU, Saldo, IDTipoCuenta) " +
+		                                       "VALUES (" + DNICliente + ", CURDATE(), " + numeroCuenta + ", '" + cbu + "', 10000.00, " + IDTipoCuenta + ")";
+		            cuentaAgregada = cn.execute(queryInsertCuenta);
+		            	           	            
+		            ResultSet queryObtenerUltimaCuenta = cn.query("SELECT MAX(IDCuenta) as IDCuenta FROM CUENTAS");
+		            
+		            if(queryObtenerUltimaCuenta.next()) {
+		            	UltimoIdCuenta = queryObtenerUltimaCuenta.getInt("IDCuenta");				 
+					 }
+	           
+		            
+		        } else {
+		            throw new ClienteExcedeCantCuentas("El cliente ya tiene 3 cuentas asociadas.");
+		        }
+		    } catch (Exception e) {
+		        System.out.println(e.getMessage());
+		    } finally {
+		        cn.close();
+		    }
+		    
+		    return UltimoIdCuenta;
 	}
 
 

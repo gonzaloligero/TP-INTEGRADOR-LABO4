@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.PreparedStatement;
 
@@ -15,6 +16,8 @@ import java.sql.SQLException;
 public class ClienteDaoImpl implements ClienteDao{
 
 	private Conexion cn;
+	private CuentaDaoImpl cuentaDao;
+	private MovimientoDaoImpl movimientoDao;
 	
 	@Override
 	public ArrayList<Cliente> obtenerClientes(){
@@ -285,33 +288,23 @@ public class ClienteDaoImpl implements ClienteDao{
                  cliente.getNumeroTelefonico();
 	        String queryTelefono = "INSERT INTO TELEFONOS(DNICliente, NumeroTelefonico) VALUES('" + cliente.getDNI() + "', '" + cliente.getNumeroTelefonico() + "')";
 	        telefonoInsertado = cn.execute(queryTelefono);
-
-	        Random random = new Random();
-	        int numeroCuenta = 10000 + random.nextInt(90000);  // Genera un número de cuenta aleatorio de 5 dígitos
-	        String cbu = new BigInteger(130, random).toString();  
-            
-            while (cbu.length() < 22) {
-                cbu = "0" + cbu;
-            }
-           
-            if (cbu.length() > 22) {
-                cbu = cbu.substring(0, 22);
-            }
-	        // Inserción de la cuenta asociada al cliente
-	        String queryCuenta = "INSERT INTO CUENTAS (DNICliente, fechaCreacion, numeroCuenta, CBU, Saldo) " + 
-                    "VALUES ('" + 
-                    cliente.getDNI() + "', " + 
-                    "NOW(), " + 
-                    numeroCuenta + ", '" + 
-                    cbu + "', " + 
-                    "10000);";
-	        cuentaInsertada = cn.execute(queryCuenta);
 	        
-	        String queryMovimiento = "INSERT INTO MOVIMIENTOS(Fecha,Detalle,Importe,IDCuenta,IDTipoMovimiento)"
-	        		+ "VALUES(NOW(), 'ALTA DE CUENTA', 10000, (SELECT MAX(IDCuenta) FROM CUENTAS), 1 );";
-
-	        movimientoInsertado = cn.execute(queryMovimiento);
-
+	        cuentaDao = new CuentaDaoImpl();
+	        
+	        int IdCuentaGenerada =  cuentaDao.agregarCuentaCliente(cliente.getDNI(),2);
+	        
+	        if(IdCuentaGenerada != 0 ) { 
+	        	
+		        movimientoDao = new MovimientoDaoImpl();
+		        BigDecimal importe = new BigDecimal("10000");
+		        
+		        movimientoDao.insertarMovimiento( importe, IdCuentaGenerada, 1, "ALTA DE CUENTA");
+		        
+		       /* String queryMovimiento = "INSERT INTO MOVIMIENTOS(Fecha,Detalle,Importe,IDCuenta,IDTipoMovimiento)"
+		        		+ "VALUES(NOW(), 'ALTA DE CUENTA', 10000, (SELECT MAX(IDCuenta) FROM CUENTAS), 1 );";
+	
+		        movimientoInsertado = cn.execute(queryMovimiento);*/
+	        }
 
 	    } catch (Exception e) {    
 	        System.out.println(e.getMessage());    
@@ -661,16 +654,13 @@ boolean clienteActivado = false;
 	            cliente.setFechaNacimiento(rs.getDate("FechaNacimiento"));
 	            cliente.setEmail(rs.getString("Email"));
 	            cliente.setNumeroTelefonico(rs.getString("NumeroTelefonico"));
-<<<<<<< HEAD
+
 	            cliente.getDireccion().setCalle("Calle");
 	            cliente.getDireccion().setNumero(numeroInt);
 	            cliente.getDireccion().setCodigoPostal("CodigoPostal");
 	            cliente.getDireccion().setIDLocalidad(localidadInt);
 	            cliente.getDireccion().setIDProvincia(provinciaInt);
 	            //Emma fijate si así te sirve
-=======
-	           
->>>>>>> Ariel
 	            
 	        }
 	    } catch (Exception e) {

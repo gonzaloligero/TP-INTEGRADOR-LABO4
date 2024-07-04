@@ -113,6 +113,7 @@ CREATE TABLE CUENTAS (
     Saldo DECIMAL(18,2) NOT NULL,
     IDTipoCuenta INT NOT NULL,
     
+    CONSTRAINT fk_Cuentas_Tipo_Cuentas FOREIGN KEY (IDTipoCuenta) REFERENCES TIPO_CUENTAS(IDTipoCuenta),
     CONSTRAINT fk_Cuentas_Clientes FOREIGN KEY (DNICliente) REFERENCES CLIENTES(DNI),
     CONSTRAINT chk_CBU CHECK (CBU REGEXP '^[0-9.,]+$'),
     CONSTRAINT chk_Saldo CHECK (Saldo REGEXP '^[0-9]+(\\.[0-9]{1,6})?$')

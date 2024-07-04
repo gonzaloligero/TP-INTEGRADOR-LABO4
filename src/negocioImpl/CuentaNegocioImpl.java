@@ -25,7 +25,7 @@ public class CuentaNegocioImpl implements CuentaNegocio {
 	}
 
 	@Override
-	public boolean agregarCuentaCliente(int DNICliente, int IDTipoCuenta) {
+	public int agregarCuentaCliente(int DNICliente, int IDTipoCuenta) {
 		
 		try {
 			return cuentaDao.agregarCuentaCliente(DNICliente, IDTipoCuenta);
@@ -33,7 +33,7 @@ public class CuentaNegocioImpl implements CuentaNegocio {
 			
 			e.printStackTrace();
 		}
-		return false;
+		return 0;
 	}
 
 	@Override
