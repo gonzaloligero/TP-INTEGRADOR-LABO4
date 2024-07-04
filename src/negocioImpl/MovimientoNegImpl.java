@@ -18,12 +18,12 @@ private MovimientoDao movimientoDao= new MovimientoDaoImpl();
 	public MovimientoNegImpl() {}
 	
 	public ArrayList<Movimiento> listarMovimiento(){
-		return(ArrayList<Movimiento>) movimientoDao.listarMovimiento();
+		return(ArrayList<Movimiento>) movimientoDao.listarMovimientos();
 		
 	}
 
 	@Override
-	public Movimiento listarMovimiento(int idMovimiento) {
+	public Movimiento listarUnMovimiento(int idMovimiento) {
 		// TODO Auto-generated method stub
 		return null;
 	}

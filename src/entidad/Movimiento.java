@@ -9,25 +9,31 @@ public class Movimiento {
 	private  Date fecha;
 	private String detalle;
 	private BigDecimal importe;
-	private int idCuenta;
-	
+	private int idCuentaEmisor;
+	private int idCuentaReceptor;
+	private String tipoMovimiento;
+
 	
 	public Movimiento() {
 		this.idMovimiento = 0;
 		this.fecha = Date.valueOf("2000-01-01"); ;
 		this.detalle = "";
 		this.importe = BigDecimal.ZERO;
-		this.idCuenta = 0;
+		this.idCuentaEmisor = 0;
+		this.idCuentaReceptor = 0;
+		this.tipoMovimiento = "";
 	}
 	
 	
-	public Movimiento(int idMovimiento, Date fecha, String detalle, BigDecimal importe, int idCuenta) {
+	public Movimiento(int idMovimiento, Date fecha, String detalle, BigDecimal importe, int idCuentaEmisor, int idCuentaReceptor, String tipoMovimiento) {
 		super();
 		this.idMovimiento = idMovimiento;
 		this.fecha = fecha;
 		this.detalle = detalle;
 		this.importe = importe;
-		this.idCuenta = idCuenta;
+		this.idCuentaEmisor = idCuentaEmisor;
+		this.idCuentaReceptor = idCuentaReceptor;
+		this.tipoMovimiento = tipoMovimiento;
 	}
 	
 	
@@ -72,21 +78,47 @@ public class Movimiento {
 	}
 
 
-	public int getIdCuenta() {
-		return idCuenta;
+	public int getIdCuentaEmisor() {
+		return idCuentaEmisor;
 	}
 
 
-	public void setIdCuenta(int idCuenta) {
-		this.idCuenta = idCuenta;
+	public void setIdCuentaEmisor(int idCuentaEmisor) {
+		this.idCuentaEmisor = idCuentaEmisor;
+	}
+
+
+	public int getIdCuentaReceptor() {
+		return idCuentaReceptor;
+	}
+
+
+	public void setIdCuentaReceptor(int idCuentaReceptor) {
+		this.idCuentaReceptor = idCuentaReceptor;
+	}
+
+
+	public String getTipoMovimiento() {
+		return tipoMovimiento;
+	}
+
+
+	public void setTipoMovimiento(String tipoMovimiento) {
+		this.tipoMovimiento = tipoMovimiento;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Movimiento idMovimiento=" + idMovimiento + ", fecha=" + fecha + ", detalle=" + detalle + ", importe="
-				+ importe + ", idCuenta=" + idCuenta ;
+		return "Movimiento [idMovimiento=" + idMovimiento + ", fecha=" + fecha + ", detalle=" + detalle + ", importe="
+				+ importe + ", idCuentaEmisor=" + idCuentaEmisor + ", idCuentaReceptor=" + idCuentaReceptor
+				+ ", tipoMovimiento=" + tipoMovimiento + "]";
 	}
+
+
+
+
+	
 	
 	
 }
