@@ -27,7 +27,7 @@ public class ServletCuentas extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-
+        
         if (action != null) {
             switch (action) {
                 case "listarCuentasGral":
@@ -42,7 +42,14 @@ public class ServletCuentas extends HttpServlet {
                     request.setAttribute("listaCuentas", listarCuentasCliente);
                     request.getRequestDispatcher("ListaCuentas.jsp").forward(request, response);
                     break;
-
+                    
+                case "mostrarCuentasEnTransferencias":
+                    int dniClienteTransferencias = Integer.parseInt(request.getParameter("dniCliente"));
+                    System.out.print(dniClienteTransferencias);
+                    ArrayList<Cuenta> listarCuentasClienteTransferencias = cuentaNegocio.listarCuentasCliente(dniClienteTransferencias);
+                    request.setAttribute("listaCuentasCliente", listarCuentasClienteTransferencias);
+                    request.getRequestDispatcher("HomebankingTransferencias.jsp").forward(request, response);
+                    break;
                 default:
                     response.sendRedirect("ListaCuentas.jsp");
                     break;

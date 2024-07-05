@@ -75,10 +75,10 @@
             <div class="sidebar-collapse collapse">
                 <ul class="nav" id="main-menu">
                     <li>
-                        <a href="index.html"><i class="fa fa-history"></i>Historial de Movimientos</a>
+                        <a href="Homebanking.jsp"><i class="fa fa-history"></i>Historial de Movimientos</a>
                     </li>
                     <li>
-                        <a href="ui.html"><i class="fa fa-refresh"></i>Transferencias</a>
+                        <a href="HomebankingTransferencias.jsp"><i class="fa fa-refresh"></i>Transferencias</a>
                     </li>
                     <li>
                         <a href="MostrarTipoPrestamosServlet"><i class="fa fa-edit"></i>Pedido de Préstamo</a>
@@ -107,10 +107,10 @@
                         <p><strong>Fecha Nacimiento:</strong> <%= cliente.getFechaNacimiento() %></p>
                         
                         <p><strong>Email:</strong> <%= cliente.getEmail() %></p>
-                        <p><strong>Teléfono:</strong> <%= cliente.getTelefono() %></p>
+                        <p><strong>Teléfono:</strong> <%= cliente.getNumeroTelefonico() %></p>
                         <p><strong>Dirección:</strong> <%= cliente.getDireccion().getCalle()   + " " + cliente.getDireccion().getNumero() %></p>
-                        <p><strong>Provincia:</strong> <%= cliente.getDireccion().getIDProvincia() %></p>
-                        <p><strong>Localidad:</strong> <%= cliente.getDireccion().getIDLocalidad() %></p>
+                        <p><strong>Provincia:</strong> <%= cliente.getDireccion().getProvincia() %></p>
+                        <p><strong>Localidad:</strong> <%= cliente.getDireccion().getLocalidad() %></p>
                     </div>
                 </div>
                 <!-- /. ROW  -->

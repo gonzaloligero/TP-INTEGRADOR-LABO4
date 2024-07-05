@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@page import="entidad.Cliente"%>
+<%@page import="entidad.Cuenta"%>
+<%@page import="java.util.ArrayList"%>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -100,7 +103,10 @@
                         
                         
                         <h2>Transferir</h2>
-<form>
+	<form action="ServletCuentas" method="get">
+    <input type="hidden" name="action" value="mostrarCuentasEnTransferencias">
+    <input type="hidden" name="dniCliente" value="<%= cliente.getDNI() %>">
+    
     <label for="cbu">CBU destino:</label>
     <input type="text" id="cbu" name="cbu" required>
 
@@ -109,11 +115,21 @@
 
     <label for="cuentaOrigen">Selecciona la cuenta origen:</label>
     <select id="cuentaOrigen" name="cuentaOrigen">
-        <!-- Las opciones de cuentas se generan dinámicamente aquí -->
+        <% 
+            ArrayList<Cuenta> listaCuentas = (ArrayList<Cuenta>) request.getAttribute("listaCuentasCliente");
+            if (listaCuentas != null) {
+                for (Cuenta cuenta : listaCuentas) {
+        %>
+                    <option value="<%= cuenta.getCBU() %>"><%= cuenta.getNumeroCuenta() %></option>
+        <% 
+                }
+            }
+        %>
     </select>
 
-    <input type="submit" value="Transferir">
+    <input type="submit" value="Seleccionar cuenta">
 </form>
+
                         
                         
                     </div>
