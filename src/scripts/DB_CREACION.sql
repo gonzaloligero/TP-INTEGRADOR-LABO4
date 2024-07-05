@@ -1,3 +1,4 @@
+
 CREATE DATABASE TPIntegradorLaboratorio4;
 
 USE TPIntegradorLaboratorio4;
@@ -145,12 +146,15 @@ CREATE TABLE MOVIMIENTOS (
 
 
 
+<<<<<<< HEAD
 
 
 INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Alta de cuenta');
 INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Alta de un préstamo');
 INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Pago de préstamo');
 INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Transferencia');
+=======
+>>>>>>> Ariel
 
 
 -- Inserts para la tabla PROVINCIAS
@@ -401,4 +405,8 @@ BEGIN
     END IF;
 END;
 //
+<<<<<<< HEAD
 DELIMITER ;
+=======
+DELIMITER ;
+>>>>>>> Ariel

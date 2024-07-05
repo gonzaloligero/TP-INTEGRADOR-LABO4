@@ -19,7 +19,11 @@
         <div>
             <a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3" href="AltaCuenta.jsp">Agregar</a>          
             <a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3 btn-fixed-size" href="MenuAdministrador.jsp">Volver</a>
+<<<<<<< HEAD
             <a class="btn bg-azul fw-bold bi bi-trash fs-5 mb-3" href="ServletCuentas?action=eliminar&id=0">Alta/Baja</a>
+=======
+             <a class="btn bg-azul fw-bold bi bi-search fs-5 mb-3" href="ListarCuentasDeCliente.jsp">Cuentas de un Cliente</a>
+>>>>>>> Ariel
         </div>
         <table id="table_id" class="table table-striped display text-center">
             <thead>
