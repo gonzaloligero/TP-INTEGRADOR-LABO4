@@ -53,7 +53,7 @@
     </div>
     
     <div class="mt-3">
-        <a class="btn bg-azul fw-bold bi bi-arrow-left fs-5" href="ListaCuentas.jsp">Volver</a>
+        <a class="btn bg-azul fw-bold bi bi-arrow-left fs-5" href="ServletCuentas?action=listarCuentasGral">Volver</a>
     </div>
 
     <!-- Modal -->

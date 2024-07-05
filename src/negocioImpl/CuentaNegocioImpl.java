@@ -22,19 +22,7 @@ public class CuentaNegocioImpl implements CuentaNegocio {
 	public ArrayList<Cuenta> listarCuentasGral() {
 		
 		return cuentaDao.listaCuentas();
-	}
-
-	@Override
-	public int agregarCuentaCliente(int DNICliente, int IDTipoCuenta) {
-		
-		try {
-			return cuentaDao.agregarCuentaCliente(DNICliente, IDTipoCuenta);
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-		}
-		return 0;
-	}
+	}	
 
 	@Override
 	public boolean editarCuenta(Cuenta cuenta) {
@@ -42,4 +30,32 @@ public class CuentaNegocioImpl implements CuentaNegocio {
 		 return cuentaDao.editarCuenta(cuenta);
 	}
 
+	@Override
+	public boolean agregarCuentaCliente(int DNICliente, int IDTipoCuenta) {
+		try {
+			return cuentaDao.agregarCuentaCliente(DNICliente, IDTipoCuenta);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+			
+		return false;
+	}
+
+	@Override
+	public boolean bajaLogicaCuenta(int numeroCuenta) {
+		
+		return cuentaDao.bajaLogicaCuenta(numeroCuenta);
+	}
+
+	@Override
+	public boolean altaLogicaCuenta(int numeroCuenta) {
+		return cuentaDao.altaLogicaCuenta(numeroCuenta);
+	}
+
+	
+
+	
+
+	
 }

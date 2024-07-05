@@ -50,7 +50,7 @@ public class CuentaDaoImpl implements CuentaDao{
 		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
 		
 		try {
-			ResultSet rs= cn.query("SELECT c.IDCuenta, c.DNICliente, c.FechaCreacion, c.NumeroCuenta, c.CBU, c.Saldo, c.IDTipoCuenta FROM cuentas as c INNER JOIN clientes as cl on cl.DNI = c.DNICliente");
+			ResultSet rs= cn.query("SELECT c.IDCuenta, c.DNICliente, c.FechaCreacion, c.NumeroCuenta, c.CBU, c.Saldo, c.IDTipoCuenta, c.ESTADO FROM cuentas as c INNER JOIN clientes as cl on cl.DNI = c.DNICliente");
 			while(rs.next()) {
 				Cuenta regCuenta = new Cuenta();
 				regCuenta.setIDCuenta(rs.getInt("c.IDCuenta"));
@@ -60,6 +60,7 @@ public class CuentaDaoImpl implements CuentaDao{
 				regCuenta.setCBU(rs.getString("c.CBU"));
 				regCuenta.setSaldo(rs.getDouble("c.Saldo")); 
 				regCuenta.setIDTipoCuenta(rs.getInt("c.IDTipoCuenta"));
+				regCuenta.setEstado(rs.getBoolean("c.ESTADO"));
 				lista.add(regCuenta);
 			}
 		}catch (Exception e){	
@@ -79,13 +80,13 @@ public class CuentaDaoImpl implements CuentaDao{
 	    Conexion cn = new Conexion();
 	    cn.Open();    
 
-	    String query = "UPDATE Cuentas SET DNICliente='" + cuenta.getDNICliente() + "', FechaCreacion='" + cuenta.getFechaCreacion() + "', NumeroCuenta='" + cuenta.getNumeroCuenta() + "', CBU='" + cuenta.getCBU() + "', Saldo='" + cuenta.getSaldo() + "' WHERE IDCuenta='" + cuenta.getIDCuenta() + "'";
+	    String query = "UPDATE Cuentas SET Saldo='" + cuenta.getSaldo() + "' WHERE IDCuenta='" + cuenta.getIDCuenta() + "'";
 
 	    
-	    try {
+	    try {	    	
 	        cuentaEditada = cn.execute(query);
 	    } catch(Exception e) {
-	        e.printStackTrace();
+	    	System.out.println(e.getMessage());
 	    } finally {
 	        cn.close();
 	    }
@@ -93,11 +94,10 @@ public class CuentaDaoImpl implements CuentaDao{
 	}
 
 	@Override
-	public int agregarCuentaCliente(int DNICliente, int IDTipoCuenta){
+	public boolean agregarCuentaCliente(int DNICliente, int IDTipoCuenta){
 		    cn = new Conexion();
 		    cn.Open();
-		    
-		    int UltimoIdCuenta = 0;
+		   		    
 		    boolean cuentaAgregada = false;
 		    Random random = new Random();
 		    
@@ -105,7 +105,7 @@ public class CuentaDaoImpl implements CuentaDao{
 		    System.out.print(IDTipoCuenta);
 
 		    try {
-		        // Verificar cu�ntas cuentas tiene el cliente
+		        // Verificar cuantas cuentas tiene el cliente
 		        ResultSet rsCount = cn.query("SELECT COUNT(*) AS CantidadCuentas FROM CUENTAS WHERE DNICliente = " + DNICliente);
 		        int cantidadCuentas = 0;
 		        if (rsCount.next()) {
@@ -130,13 +130,7 @@ public class CuentaDaoImpl implements CuentaDao{
 		            String queryInsertCuenta = "INSERT INTO CUENTAS (DNICliente, FechaCreacion, NumeroCuenta, CBU, Saldo, IDTipoCuenta) " +
 		                                       "VALUES (" + DNICliente + ", CURDATE(), " + numeroCuenta + ", '" + cbu + "', 10000.00, " + IDTipoCuenta + ")";
 		            cuentaAgregada = cn.execute(queryInsertCuenta);
-		            	           	            
-		            ResultSet queryObtenerUltimaCuenta = cn.query("SELECT MAX(IDCuenta) as IDCuenta FROM CUENTAS");
-		            
-		            if(queryObtenerUltimaCuenta.next()) {
-		            	UltimoIdCuenta = queryObtenerUltimaCuenta.getInt("IDCuenta");				 
-					 }
-	           
+		            return true;
 		            
 		        } else {
 		            throw new ClienteExcedeCantCuentas("El cliente ya tiene 3 cuentas asociadas.");
@@ -147,9 +141,52 @@ public class CuentaDaoImpl implements CuentaDao{
 		        cn.close();
 		    }
 		    
-		    return UltimoIdCuenta;
+		    return false;
 	}
 
+	@Override
+	public boolean bajaLogicaCuenta(int NumeroCuenta) {
+		 boolean cuentaDesactivado = false;
+			
+			cn = new Conexion();
+			cn.Open();		 
+			String query = "UPDATE CUENTAS SET ESTADO = 0 WHERE NumeroCuenta = "+NumeroCuenta;
+			try
+			 {
+				cuentaDesactivado=cn.execute(query);
+			 }
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			finally
+			{
+				cn.close();
+			}
+			return cuentaDesactivado;
+	}
+
+	@Override
+	public boolean altaLogicaCuenta(int NumeroCuenta) {
+		 boolean cuentaActivado = false;
+			
+			cn = new Conexion();
+			cn.Open();		 
+			String query = "UPDATE CUENTAS SET ESTADO = 1 WHERE NumeroCuenta = "+NumeroCuenta;
+			try
+			 {
+				cuentaActivado=cn.execute(query);
+			 }
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			finally
+			{
+				cn.close();
+			}
+			return cuentaActivado;
+	}
 
 }
 

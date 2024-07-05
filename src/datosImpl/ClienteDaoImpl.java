@@ -291,20 +291,9 @@ public class ClienteDaoImpl implements ClienteDao{
 	        
 	        cuentaDao = new CuentaDaoImpl();
 	        
-	        int IdCuentaGenerada =  cuentaDao.agregarCuentaCliente(cliente.getDNI(),2);
+	        cuentaDao.agregarCuentaCliente(cliente.getDNI(),2);
 	        
-	        if(IdCuentaGenerada != 0 ) { 
-	        	
-		        movimientoDao = new MovimientoDaoImpl();
-		        BigDecimal importe = new BigDecimal("10000");
-		        
-		        movimientoDao.insertarMovimiento( importe, IdCuentaGenerada, 1, "ALTA DE CUENTA");
-		        
-		       /* String queryMovimiento = "INSERT INTO MOVIMIENTOS(Fecha,Detalle,Importe,IDCuenta,IDTipoMovimiento)"
-		        		+ "VALUES(NOW(), 'ALTA DE CUENTA', 10000, (SELECT MAX(IDCuenta) FROM CUENTAS), 1 );";
-	
-		        movimientoInsertado = cn.execute(queryMovimiento);*/
-	        }
+	        
 
 	    } catch (Exception e) {    
 	        System.out.println(e.getMessage());    

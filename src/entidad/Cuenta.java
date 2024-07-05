@@ -11,11 +11,23 @@ public class Cuenta {
     private String CBU;
     private double Saldo;
     private int IDTipoCuenta;
- 
-    public Cuenta() {}
-
-
-    public Cuenta(int IDCuenta, int DNICliente, Date FechaCreacion, int NumeroCuenta, String CBU, double Saldo, int IDTipoCuenta) {
+    private boolean Estado;
+    
+    
+    public Cuenta() { 	
+    	this.IDCuenta = 0;
+        this.DNICliente = 0;
+        this.FechaCreacion = Date.valueOf("2020-02-01");
+        this.NumeroCuenta = 0;
+        this.CBU = "";
+        this.Saldo = 0;
+        this.IDTipoCuenta=0;
+        this.Estado = true;
+	
+    }
+  
+    
+    public Cuenta(int IDCuenta, int DNICliente, Date FechaCreacion, int NumeroCuenta, String CBU, double Saldo, int IDTipoCuenta, boolean estado) {
         this.IDCuenta = IDCuenta;
         this.DNICliente = DNICliente;
         this.FechaCreacion = FechaCreacion;
@@ -23,6 +35,7 @@ public class Cuenta {
         this.CBU = CBU;
         this.Saldo = Saldo;
         this.IDTipoCuenta=IDTipoCuenta;
+        this.Estado = estado;
     }
 
 
@@ -82,13 +95,21 @@ public class Cuenta {
         this.IDTipoCuenta = IDTipoCuenta;
     }
     
+    public boolean getEstado() {
+    	return Estado;
+    }
+    public void setEstado(boolean estado) {
+        this.Estado = estado;
+    }
+    
+    
     
    
     @Override
 	public String toString() {
 		return "Cuenta IDCuenta=" + IDCuenta + ", DNICliente=" + DNICliente + ", FechaCreacion=" + FechaCreacion
 				+ ", NumeroCuenta=" + NumeroCuenta + ", CBU=" + CBU + ", Saldo=" + Saldo + ", IDTipoCuenta="
-				+ IDTipoCuenta;
+				+ IDTipoCuenta + ", Estado = " +Estado ;
 	}
 
 }
