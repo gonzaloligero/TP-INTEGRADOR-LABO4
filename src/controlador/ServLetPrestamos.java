@@ -78,7 +78,7 @@ public class ServLetPrestamos extends HttpServlet{
 	                    Cliente cliente = (Cliente) session.getAttribute("cliente");
 
 	                    if (cliente == null) {
-	                        response.sendRedirect("login.jsp?sessionExpired=true");
+	                        response.sendRedirect("Login.jsp?sessionExpired=true");
 	                        return;
 	                    }
 	                	

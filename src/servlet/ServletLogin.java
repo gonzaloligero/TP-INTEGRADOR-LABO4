@@ -31,7 +31,13 @@ public class ServletLogin extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession(false); // Obtener la sesión si existe
+        if (session != null) {
+            session.invalidate(); // Invalidar la sesión
+        }
+        response.sendRedirect("Login.jsp");
+		
+		
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -57,7 +63,7 @@ public class ServletLogin extends HttpServlet {
 	                dispatcher.forward(request, response);
 	            } else {
 	                request.setAttribute("error", "Invalid email or password");
-	                RequestDispatcher dispatcher = request.getRequestDispatcher("erro.jsp");
+	                RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
 	                dispatcher.forward(request, response);
 	            }
 	        } else {
@@ -69,9 +75,9 @@ public class ServletLogin extends HttpServlet {
 	        if (userType == 1) {
 	            return "MenuAdministrador.jsp";
 	        } else if (userType == 2) {
-	            return "ClienteHome.jsp"; 
+	            return "Homebanking.jsp"; 
 	        } else {
-	            return "erro.jsp"; 
+	            return "error.jsp"; 
 	        }
 	    }
 
