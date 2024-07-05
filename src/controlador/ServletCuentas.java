@@ -40,7 +40,7 @@ public class ServletCuentas extends HttpServlet {
                     int dniCliente = Integer.parseInt(request.getParameter("dniCliente"));
                     ArrayList<Cuenta> listarCuentasCliente = cuentaNegocio.listarCuentasCliente(dniCliente);
                     request.setAttribute("listaCuentas", listarCuentasCliente);
-                    request.getRequestDispatcher("ListaCuentas.jsp").forward(request, response);
+                    request.getRequestDispatcher("ListarCuentasDeCliente.jsp").forward(request, response);
                     break;
                     
                 case "mostrarCuentasEnTransferencias":
