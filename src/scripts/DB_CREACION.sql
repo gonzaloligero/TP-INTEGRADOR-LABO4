@@ -126,13 +126,12 @@ CREATE TABLE MOVIMIENTOS (
     Fecha DATE NOT NULL,
     Detalle VARCHAR(100) NOT NULL,
     Importe DECIMAL(18,2) NOT NULL,
-    IDCuenta INT,
+    IDCuentaEmisor INT,
+    IDCuentaReceptor INT,
     IDTipoMovimiento INT NOT NULL,
     CONSTRAINT fk_Movimientos_Tipo_Movimientos FOREIGN KEY (IDTipoMovimiento) REFERENCES TIPO_MOVIMIENTOS(IDTipoMovimiento),
-    CONSTRAINT fk_Movimientos_Cuentas FOREIGN KEY (IDCuenta) REFERENCES CUENTAS(IDCuenta),
     CONSTRAINT chk_Importe CHECK (Importe REGEXP '^[0-9]+(\\.[0-9]{1,2})?$')
 );
-
 
 INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Alta de cuenta');
 INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Alta de un préstamo');
