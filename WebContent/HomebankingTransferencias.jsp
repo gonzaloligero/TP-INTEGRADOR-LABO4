@@ -109,10 +109,10 @@
     
     <label for="cbu">CBU destino:</label>
     <input type="text" id="cbu" name="cbu" required>
-
+	<br><br>
     <label for="monto">Monto a transferir:</label>
     <input type="number" id="monto" name="monto" step="0.01" required>
-
+	<br><br>
     <label for="cuentaOrigen">Selecciona la cuenta origen:</label>
     <select id="cuentaOrigen" name="cuentaOrigen">
         <% 
@@ -120,15 +120,17 @@
             if (listaCuentas != null) {
                 for (Cuenta cuenta : listaCuentas) {
         %>
-                    <option value="<%= cuenta.getCBU() %>"><%= cuenta.getNumeroCuenta() %></option>
-        <% 
+                    <option value="<%= cuenta.getCBU() %>"><%= cuenta.getNumeroCuenta() + " _$" + cuenta.getSaldo() %></option>
+                    
+        <% 			
                 }
             }
         %>
     </select>
-
+	<br><br>
     <input type="submit" value="Seleccionar cuenta">
-</form>
+</form>option, se puede?
+
 
                         
                         

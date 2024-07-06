@@ -77,8 +77,8 @@
                     <li class="active-link">
                         <a href="Homebanking.jsp"><i class="fa fa-history"></i>Historial de Movimientos</a>
                     </li>
-                    <li>
-                        <a href="HomebankingTransferencias.jsp"><i class="fa fa-refresh"></i>Transferencias</a>
+                    <li>                   
+                        <a href="ServletTransferencias?action=listarCuentas"><i class="fa fa-refresh"></i>Transferencias</a>
                     </li>
                     <li >
                         <a href="MostrarTipoPrestamosServlet"><i class="fa fa-edit"></i>Pedido de Préstamo</a>
