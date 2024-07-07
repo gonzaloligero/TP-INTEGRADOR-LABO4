@@ -89,6 +89,7 @@ CREATE TABLE PLAZOS (
     IDPrestamo INT,
     MesQuePaga VARCHAR(20) NOT NULL,
     NroCuota INT NOT NULL,
+    ImporteAPagarCuotas DECIMAL(10,2) NOT NULL,
     Estado BIT NOT NULL,
     CONSTRAINT fk_Plazos_Prestamos FOREIGN KEY (IDPrestamo) REFERENCES PRESTAMOS(IDPrestamo),
     CONSTRAINT chk_Mes CHECK (MesQuePaga NOT REGEXP '[^a-zA-Z]'),
@@ -146,15 +147,14 @@ CREATE TABLE MOVIMIENTOS (
 
 
 
-<<<<<<< HEAD
+
 
 
 INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Alta de cuenta');
 INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Alta de un préstamo');
 INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Pago de préstamo');
 INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Transferencia');
-=======
->>>>>>> Ariel
+
 
 
 -- Inserts para la tabla PROVINCIAS
@@ -366,47 +366,47 @@ CREATE TRIGGER after_prestamo_update
 AFTER UPDATE ON PRESTAMOS 
 FOR EACH ROW 
 BEGIN
-    DECLARE cuota DECIMAL(10, 2);
     DECLARE saldo_actual DECIMAL(18, 2);
-    DECLARE interes_mensual DECIMAL(10, 2);
+    DECLARE monto DECIMAL(10,2);
     DECLARE i INT DEFAULT 1;
 
     IF OLD.Estado = 0 AND NEW.Estado = 1 THEN
-       
-        SELECT TNA / 12 INTO interes_mensual
-        FROM TIPO_PRESTAMOS 
-        WHERE IDTipoPrestamo = NEW.IDTipoPrestamo;
 
-     
-        SET cuota = NEW.MontoPedido * (interes_mensual / 100) / (1 - POW(1 + (interes_mensual / 100), -NEW.Cuotas));
         
-      
+        SET monto = NEW.ImporteAPagar / NEW.Cuotas;
+
+
         WHILE i <= NEW.Cuotas DO
-            INSERT INTO PLAZOS (IDPrestamo, MesQuePaga, NroCuota, Estado) 
-            VALUES (NEW.IDPrestamo, DATE_FORMAT(DATE_ADD(NEW.Fecha, INTERVAL i MONTH), '%Y-%m'), i, 0);
+            INSERT INTO PLAZOS (IDPrestamo, MesQuePaga, NroCuota, ImporteAPagarCuotas, Estado) 
+            VALUES (NEW.IDPrestamo, DATE_FORMAT(DATE_ADD(NEW.Fecha, INTERVAL i MONTH), '%Y-%m'), i, monto, 0);
             SET i = i + 1;
         END WHILE;
 
-        
+       
         SELECT Saldo INTO saldo_actual 
         FROM CUENTAS 
         WHERE DNICliente = NEW.DNICliente AND IDTipoCuenta = 1;
 
-      
+       
         UPDATE CUENTAS 
         SET Saldo = saldo_actual + NEW.MontoPedido 
         WHERE DNICliente = NEW.DNICliente AND IDTipoCuenta = 1;
 
-        
-        INSERT INTO MOVIMIENTOS (Fecha, Detalle, Importe, IDCuenta, IDTipoMovimiento) 
-        VALUES (NEW.Fecha, CONCAT('Préstamo aprobado - ID: ', NEW.IDPrestamo), NEW.MontoPedido, 
-                (SELECT IDCuenta FROM CUENTAS WHERE DNICliente = NEW.DNICliente LIMIT 1), 
-                (SELECT IDTipoMovimiento FROM TIPO_MOVIMIENTOS WHERE Nombre = 'Alta de un préstamo'));
+         
+        BEGIN
+            DECLARE EXIT HANDLER FOR SQLEXCEPTION
+            BEGIN
+             
+                SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error en el trigger: no se pudo insertar en MOVIMIENTOS';
+            END;
+
+            INSERT INTO MOVIMIENTOS (Fecha, Detalle, Importe, IDCuentaEmisor, IDTipoMovimiento) 
+            VALUES (NEW.Fecha, CONCAT('Préstamo aprobado - ID: ', NEW.IDPrestamo), NEW.MontoPedido, 
+                    (SELECT IDCuenta FROM CUENTAS WHERE DNICliente = NEW.DNICliente AND IDTipoCuenta = 1 LIMIT 1), 
+                    NEW.IDTipoMovimiento);
+        END;
     END IF;
 END;
 //
-<<<<<<< HEAD
 DELIMITER ;
-=======
-DELIMITER ;
->>>>>>> Ariel
+

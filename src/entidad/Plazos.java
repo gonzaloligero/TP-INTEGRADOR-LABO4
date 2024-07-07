@@ -4,7 +4,9 @@ public class Plazos {
 	private int IDPlazo;
 	private int IDPrestamo;
 	private String MesQuePaga;
+	private double ImporteAPagarCuotas;
 	private  int NroCuota;
+	private boolean Estado;
 	
 	
 	//Constructores
@@ -13,15 +15,24 @@ public class Plazos {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Plazos(int iDPlazo, int iDPrestamo, String mesQuePaga, int nroCuota) {
+
+	
+	
+	
+	public Plazos(int iDPlazo, int iDPrestamo, String mesQuePaga, double importeAPagarCuotas, int nroCuota,
+			boolean estado) {
 		super();
 		IDPlazo = iDPlazo;
 		IDPrestamo = iDPrestamo;
 		MesQuePaga = mesQuePaga;
+		ImporteAPagarCuotas = importeAPagarCuotas;
 		NroCuota = nroCuota;
+		Estado = estado;
 	}
-	
-	
+
+
+
+
 	//Getters y Setter
 	public int getIDPlazo() {
 		return IDPlazo;
@@ -47,11 +58,37 @@ public class Plazos {
 	public void setNroCuota(int nroCuota) {
 		NroCuota = nroCuota;
 	}
+	
+	public double getImporteAPagarCuotas() {
+		return ImporteAPagarCuotas;
+	}
+	public void setImporteAPagarCuotas(double importeAPagarCuotas) {
+		ImporteAPagarCuotas = importeAPagarCuotas;
+	}
+
+
+
+	public boolean isEstado() {
+		return Estado;
+	}
+
+
+
+	public void setEstado(boolean estado) {
+		Estado = estado;
+	}
+
+
+
+
 	@Override
 	public String toString() {
 		return "Plazos [IDPlazo=" + IDPlazo + ", IDPrestamo=" + IDPrestamo + ", MesQuePaga=" + MesQuePaga
-				+ ", NroCuota=" + NroCuota + "]";
+				+ ", ImporteAPagarCuotas=" + ImporteAPagarCuotas + ", NroCuota=" + NroCuota + ", Estado=" + Estado
+				+ "]";
 	}
+	
+	
 	
 	
 	

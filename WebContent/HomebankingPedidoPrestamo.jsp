@@ -20,6 +20,8 @@
     <!-- FONT AWESOME STYLES (for additional icons) -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     
+    
+    
    <style>
         .LOGEARSE {
         	background: #1e1566;
@@ -83,10 +85,10 @@
                         <a href="HomebankingTransferencias.jsp"><i class="fa fa-refresh"></i>Transferencias</a>
                     </li>
                     <li class="active-link">
-                        <a href="blank.html"><i class="fa fa-edit"></i>Pedido de Préstamo</a>
+                        <a href="MostrarTipoPrestamosServlet"><i class="fa fa-edit"></i>Pedido de Préstamo</a>
                     </li>
                     <li>
-                        <a href="HomebankingPagoPrestamo.jsp"><i class="fa fa-qrcode"></i>Pago de Préstamos</a>
+                        <a href="ServLetPrestamos?action=PagarPrestamo"><i class="fa fa-qrcode"></i>Pago de Préstamos</a>
                     </li>
                     <li>
                         <a href="HomebankingInfomacionPersonal.jsp"><i class="fa fa-bar-chart-o"></i>Información Personal</a>
@@ -100,43 +102,45 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h2>Pedi tu Prestamo!</h2>
-                         <form action="ServLetPrestamos" method="post">
-            <input type="hidden" name="action" value="agregar">
-            <label for="montoPrestamo">Monto del préstamo:</label>
-            <input type="number" id="MontoPedido" name="montoPrestamo" step="0.01" required>
+                 		 <form action="ServLetPrestamos" method="post">
+            				<input type="hidden" name="action" value="agregar">
+           					<label for="montoPrestamo">Monto del préstamo:</label>
+           					 <input type="number" id="MontoPedido" name="montoPrestamo" step="0.01" min="0.01" required>
+           					 
 
-            <label for="cuotas">Cantidad de cuotas:</label>
-            <input type="number" id="cuotas" name="cuotas" required>
+            				<label for="cuotas">Cantidad de cuotas:</label>
+            				<input type="number" id="cuotas" name="cuotas" min="1" required>
+           					
 
-            <div class="form-group">
-                <label for="tipoPrestamo">Tipo de Préstamo:</label>
-                <select id="tipoPrestamo" name="tipoPrestamo" class="form-control" required>
-                    <option value="" disabled selected>Seleccione un tipo de préstamo</option>
-                    <%
-                        List<TipoPrestamos> listaTiposPrestamo = (List<TipoPrestamos>) request.getAttribute("listaTipoPrestamos");
-                        if (listaTiposPrestamo != null) {
-                            for (TipoPrestamos tipoPrestamo : listaTiposPrestamo) {
-                    %>
+            				<div class="form-group">
+             				  <label for="tipoPrestamo">Tipo de Préstamo:</label>
+               				 <select id="tipoPrestamo" name="tipoPrestamo" class="form-control" required>
+                 			   <option value="" disabled selected>Seleccione un tipo de préstamo</option>
+                  			  <%
+                  		      List<TipoPrestamos> listaTiposPrestamo = (List<TipoPrestamos>) request.getAttribute("listaTipoPrestamos");
+                  			      if (listaTiposPrestamo != null) {
+                         		   for (TipoPrestamos tipoPrestamo : listaTiposPrestamo) {
+                 					   %>
                                 <option value="<%= tipoPrestamo.getIDTipoPrestamo() %>" data-tna="<%= tipoPrestamo.getTNA() %>"><%= tipoPrestamo.getTipo() %></option>
-                    <%
-                            }
-                        } else {
-                    %>
-                        <option value="" disabled>No hay tipos de préstamo disponibles</option>
-                    <%
-                        }
-                    %>
-                </select>
-            </div>
+                			    <%
+                		            }
+             			           } else {
+             				       %>
+               			         <option value="" disabled>No hay tipos de préstamo disponibles</option>
+                 				   <%
+                 			       }
+                 				   %>
+               				 </select>
+        				    </div>
             
             
             
 
-            <!-- Campo oculto para el TNA -->
-            <input type="hidden" id="tna" name="tna">
+          				  <!-- Campo oculto para el TNA -->
+          					  <input type="hidden" id="tna" name="tna">
 
-            <input type="submit" value="Solicitar Préstamo">
-        </form>
+           				 <input type="submit" value="Solicitar Préstamo">
+       					 </form>
         
          </div>
                 
@@ -146,6 +150,27 @@
         
          <hr />
             <h4>Importe a Pagar: <span id="importeAPagar">0.00</span></h4>
+            
+
+
+<% 
+String mensaje = (String) session.getAttribute("mensaje");
+if (mensaje != null && !mensaje.isEmpty()) {
+%>
+   <div>
+   <h4>¡¡<%= mensaje%>!!</h4> 
+   
+   </div>
+<%
+    session.removeAttribute("mensaje");
+}
+%>
+
+
+            
+            
+            
+            
         </div>
                         
                         

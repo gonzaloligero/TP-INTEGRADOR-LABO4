@@ -37,6 +37,18 @@ public class PrestamosNegImpl implements PrestamosNegocio {
         return prestamoDao.obtenerTodos();
     }
 
+	@Override
+	public Prestamos obtenerPrestamosCliente(int DNICliente) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Prestamos> obtenerTodosPrestamosCliente(int DNICliente) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 	

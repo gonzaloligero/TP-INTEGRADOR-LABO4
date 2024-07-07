@@ -14,10 +14,14 @@ import javax.servlet.http.HttpSession;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
+import datosImpl.CuentaDaoImpl;
+import datosImpl.PlazosPrestamoImpleDao;
 import datosImpl.PrestamoDaoImpl;
 import datosImpl.TipoPrestamoDaoImpl;
 import entidad.Cliente;
+import entidad.Cuenta;
 import entidad.Prestamos;
+import entidad.Plazos;
 import negocio.PrestamosNegocio;
 import negocioImpl.PrestamosNegImpl;
 
@@ -26,6 +30,9 @@ public class ServLetPrestamos extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
 	private PrestamosNegocio prestamoNeg = new PrestamosNegImpl();
+	private PrestamoDaoImpl pc = new PrestamoDaoImpl();
+	private PlazosPrestamoImpleDao ppi = new PlazosPrestamoImpleDao();
+	private CuentaDaoImpl cdi = new CuentaDaoImpl();
 	
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	        String action = request.getParameter("action");
@@ -50,6 +57,34 @@ public class ServLetPrestamos extends HttpServlet{
 	                    prestamodaoimpl2.eliminar(idEliminar);
 	                    response.sendRedirect("ServLetPrestamos?action=listar");
 	                    break;
+	                    
+	                    //Pagina HomebankingPagoPrestamo.jsp
+	                case "PagarPrestamo":
+	                	HttpSession session = request.getSession();
+	                    
+	                    Cliente cliente = (Cliente) session.getAttribute("cliente");
+	                  
+	                    if (cliente == null) {
+	                        response.sendRedirect("Login.jsp?sessionExpired=true");
+	                        return;
+	                    }
+	                	
+	                	List<Prestamos> lista2 = pc.obtenerTodosPrestamosCliente(cliente.getDNI());
+	                	List<Plazos> lista3 = ppi.obtenerCuotasPorDNI(cliente.getDNI());
+	                	List<Cuenta> lista4 = cdi.obtenerCuentasCliente(cliente.getDNI());
+	                	
+	                	
+	                	request.setAttribute("listaPrestamosCliente", lista2);
+	                	
+	                	request.setAttribute("listaPlazosCliente", lista3);
+	                	request.setAttribute("listaCuentaCliente", lista4);
+	                	request.getRequestDispatcher("HomebankingPagoPrestamo.jsp").forward(request, response);
+	                	
+	                	break;
+	                    
+	                    
+	                    
+	                    
 	                default:
 	                    response.sendRedirect("index.jsp");
 	                    break;
@@ -95,7 +130,9 @@ public class ServLetPrestamos extends HttpServlet{
 						System.out.println("Fecha del préstamo: " + prestamoNuevo.getFecha());
 	                    prestamoNuevo.setEstado(false);
 	                    prestamoNeg.agregarPrestamo(prestamoNuevo);
-	                    response.sendRedirect("PrestamoServlet?action=listar");
+	                    session.setAttribute("mensaje", "Pedido de Préstamo agregado exitosamente.");
+	                    response.sendRedirect("HomebankingPedidoPrestamo.jsp");
+	                    
 	                    break;
 	                case "actualizar":
 	                	PrestamoDaoImpl prestamodaoimpl = new PrestamoDaoImpl();
@@ -105,6 +142,16 @@ public class ServLetPrestamos extends HttpServlet{
 	                    prestamoNeg.modificarPrestamo(prestamoActualizar);
 	                    response.sendRedirect("ServLetPrestamos");
 	                    break;
+	                    
+	                case "Pagar":
+	                	// toda la logica 
+	                	
+	                	
+	                	
+	                	
+	                	
+	                	break;
+	                    
 	                default:
 	                    response.sendRedirect("index.jsp");
 	                    break;
