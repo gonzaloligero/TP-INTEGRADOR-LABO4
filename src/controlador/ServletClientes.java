@@ -31,20 +31,43 @@ public class ServletClientes extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         ClienteNegocio clienteNegocio = new ClienteNegImpl();
-
+        ArrayList<Cliente> listaClientes; 
         if (action != null) {
             switch (action) {
             
-            case "cashflow":
-                ArrayList<Cliente> listaClientesCashflow = clienteNegocio.listarClientes();
-                request.setAttribute("listaClientes", listaClientesCashflow);
-                request.getRequestDispatcher("Cashflow.jsp").forward(request, response); 
+            	case "cashflow":
+            		ArrayList<Cliente> listaClientesCashflow = clienteNegocio.listarClientes();
+            		request.setAttribute("listaClientes", listaClientesCashflow);
+            		request.getRequestDispatcher("Cashflow.jsp").forward(request, response); 
                 break;
 
                 case "listar":
-                    ArrayList<Cliente> listaClientes = clienteNegocio.listarClientes();
+                	listaClientes = clienteNegocio.listarClientes();
                     request.setAttribute("listaClientes", listaClientes);
                     request.getRequestDispatcher("ListaClientes.jsp").forward(request, response); 
+                    break;
+                case "buscarPorDni":
+                    listaClientes = clienteNegocio.listarClientes();
+                    ArrayList<Cliente> listaFiltrada = new ArrayList<>();
+                    
+                    String dniParam = request.getParameter("dni");
+                    
+                    if (dniParam == null || dniParam.isEmpty()) {
+                        
+                        request.setAttribute("listaClientes", listaClientes);
+                    } else {
+                        
+                        int dni = Integer.parseInt(dniParam);
+                        for (Cliente cliente : listaClientes) {
+                            if (cliente.getDNI() == dni) {
+                                listaFiltrada.add(cliente);
+                                break; 
+                            }
+                        }
+                        request.setAttribute("listaClientes", listaFiltrada);
+                    }
+                    
+                    request.getRequestDispatcher("ListaClientes.jsp").forward(request, response);
                     break;
 
                 case "editar":
