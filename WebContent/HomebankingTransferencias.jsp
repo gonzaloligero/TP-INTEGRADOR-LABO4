@@ -129,7 +129,7 @@
     </select>
 	<br><br>
     <input type="submit" value="Seleccionar cuenta">
-</form>option, se puede?
+</form>
 
 
                         
