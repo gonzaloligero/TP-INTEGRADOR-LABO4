@@ -96,17 +96,32 @@ public class MovimientoDaoImpl implements MovimientoDao {
 
 
 	@Override
-	public boolean insertarMovimiento(BigDecimal importe, int IDCuenta, int IDTipoMovimiento, String Detalle) {
+	public boolean realizarTransferencia(Movimiento transferencia) {
 		
 		boolean movimientoInsertado = false;
+		boolean saldoPositivo = false;
+		boolean saldoNegativo = false;
 		cn = new Conexion();
         cn.Open();
-          
+        
+        BigDecimal importe = transferencia.getImporte();
+
+        
         try {
-        	String queryMovimiento = "INSERT INTO MOVIMIENTOS(Fecha,Detalle,Importe,IDCuenta,IDTipoMovimiento)"
-	        		+ "VALUES(NOW(), '"+Detalle+"', "+ importe +","+ IDCuenta +", "+ IDTipoMovimiento +" );";
+        	String queryMovimiento = "INSERT INTO MOVIMIENTOS(Fecha,Detalle,Importe,IDCuentaEmisor, IDCuentaReceptor,IDTipoMovimiento)"
+	        		+ "VALUES(CURDATE(), '"+transferencia.getDetalle()+"', "+ importe +","+ transferencia.getIdCuentaEmisor() +", "+ transferencia.getIdCuentaReceptor() +  ", "+ 1 +" );";
       
+        	String querySaldoNegativo = "UPDATE CUENTAS SET Saldo = Saldo - " + importe + " WHERE NumeroCuenta = " + transferencia.getIdCuentaEmisor() + ";";
+        	
+        	String querySaldoPositivo = "UPDATE CUENTAS SET Saldo = Saldo + " + importe + " WHERE NumeroCuenta = " + transferencia.getIdCuentaReceptor() + ";";
+
+        	
 		 movimientoInsertado = cn.execute(queryMovimiento);	
+		 
+		 saldoPositivo = cn.execute(querySaldoPositivo);
+		 
+		 saldoNegativo = cn.execute(querySaldoNegativo);
+		 
 		
         }
         catch(Exception e){
@@ -116,7 +131,10 @@ public class MovimientoDaoImpl implements MovimientoDao {
             cn.close();
         }
         	
-        return movimientoInsertado;
+        if(movimientoInsertado == true && saldoPositivo == true && saldoNegativo == true) {
+        	return true;
+        }else {return false;}
+
 		 
 	}
 

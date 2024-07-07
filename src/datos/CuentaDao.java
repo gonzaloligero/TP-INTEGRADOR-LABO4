@@ -13,6 +13,7 @@ public interface CuentaDao {
 	public boolean editarCuenta(Cuenta cuenta);
 	public boolean bajaLogicaCuenta(int NumeroCuenta);
 	public boolean altaLogicaCuenta(int NumeroCuenta);
+	public ArrayList<Cuenta> listarCuentasTransferencia();
 }
 
 		

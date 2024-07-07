@@ -29,9 +29,23 @@ private MovimientoDao movimientoDao= new MovimientoDaoImpl();
 	}
 
 	@Override
-	public boolean insertarMovimiento(Movimiento movimiento) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean realizarTransferencia(Movimiento transferencia) {
+		return movimientoDao.realizarTransferencia(transferencia);
 	}
-	
 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+

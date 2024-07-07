@@ -9,6 +9,6 @@ public interface MovimientoNegocio {
 
 	public ArrayList <Movimiento> listarMovimiento();
 	public Movimiento listarUnMovimiento(int dniCliente);
-	public boolean insertarMovimiento(Movimiento movimiento);
+	public boolean realizarTransferencia(Movimiento transferencia);
 
 }
