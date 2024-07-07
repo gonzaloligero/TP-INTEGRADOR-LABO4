@@ -109,7 +109,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
         
         try {
         	String queryMovimiento = "INSERT INTO MOVIMIENTOS(Fecha,Detalle,Importe,IDCuentaEmisor, IDCuentaReceptor,IDTipoMovimiento)"
-	        		+ "VALUES(CURDATE(), '"+transferencia.getDetalle()+"', "+ importe +","+ transferencia.getIdCuentaEmisor() +", "+ transferencia.getIdCuentaReceptor() +  ", "+ 1 +" );";
+	        		+ "VALUES(CURDATE(), '"+transferencia.getDetalle()+"', "+ importe +","+ transferencia.getIdCuentaEmisor() +", "+ transferencia.getIdCuentaReceptor() +  ", "+ 4 +" );";
       
         	String querySaldoNegativo = "UPDATE CUENTAS SET Saldo = Saldo - " + importe + " WHERE NumeroCuenta = " + transferencia.getIdCuentaEmisor() + ";";
         	
