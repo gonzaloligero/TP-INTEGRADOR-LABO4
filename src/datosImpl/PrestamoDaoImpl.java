@@ -131,6 +131,70 @@ public class PrestamoDaoImpl implements PrestamoDao {
     }
 
     
+    public Prestamos obtenerPrestamosCliente(int DNICliente) {
+        cn = new Conexion();
+        cn.Open();
+        Prestamos prestamo = null;
+
+        try {
+            String SELECT_ONE = "SELECT * FROM PRESTAMOS WHERE DNICliente=" + DNICliente;
+            ResultSet rs = cn.query(SELECT_ONE);
+
+            if (rs.next()) {
+                prestamo = new Prestamos();
+                prestamo.setIDPrestamo(rs.getInt("IDPrestamo"));
+                prestamo.setIDTipoPrestamo(rs.getInt("IDTipoPrestamo"));
+                prestamo.setDNICliente(rs.getInt("DNICliente"));
+                prestamo.setMontoPedido(rs.getDouble("MontoPedido"));
+                prestamo.setImporteAPagar(rs.getDouble("ImporteAPagar"));
+                prestamo.setCuotas(rs.getInt("Cuotas"));
+                prestamo.setFecha(rs.getDate("Fecha"));
+                prestamo.setEstado(rs.getBoolean("Estado"));
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            cn.close();
+        }
+
+        return prestamo;
+    }
+    
+    
+    @Override
+    public List<Prestamos> obtenerTodosPrestamosCliente(int DNICliente) {
+    	List<Prestamos> prestamosList = new ArrayList<>();
+        cn = new Conexion();
+        cn.Open();
+
+        try {
+            String SELECT_PRESTAMOS = "SELECT * FROM PRESTAMOS WHERE DNICliente=" + DNICliente;
+            ResultSet rs = cn.query(SELECT_PRESTAMOS);
+
+            while (rs.next()) {
+                Prestamos prestamo = new Prestamos();
+                prestamo.setIDPrestamo(rs.getInt("IDPrestamo"));
+                prestamo.setIDTipoPrestamo(rs.getInt("IDTipoPrestamo"));
+                prestamo.setDNICliente(rs.getInt("DNICliente"));
+                prestamo.setMontoPedido(rs.getDouble("MontoPedido"));
+                prestamo.setImporteAPagar(rs.getDouble("ImporteAPagar"));
+                prestamo.setCuotas(rs.getInt("Cuotas"));
+                prestamo.setFecha(rs.getDate("Fecha"));
+                prestamo.setEstado(rs.getBoolean("Estado"));
+
+                prestamosList.add(prestamo);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            cn.close();
+        }
+
+        return prestamosList;
+    }
+
     
     
     @Override

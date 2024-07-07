@@ -58,53 +58,7 @@
 <body>
     <jsp:include page="Componentes/NavBar.jsp"></jsp:include>
 
-<<<<<<< HEAD
-  
 
-<main>
-    <div class="container">
-        <div class="card-group">
-            <div class="card" style="width: 18rem;">
-                <img src="https://images.squarespace-cdn.com/content/v1/5714c56a7c65e4da9938003d/1588347561425-09P0DO81CIPOOSY8ZXIQ/cash-flow-illustration-laptop-money-graph-chart-vector-68966608.jpg?format=1000w" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">CASHFLOW</h5>
-                    <p class="card-text">Seleccione un cliente para ver todas las transferencias realizadas, las recibidas y el total de dinero vinculado al cliente</p>
-                    <a href="ServletClientes?clienteId=&action=cashflow" class="btn btn-primary">Ver</a>
-                </div>
-            </div>
-
-            <div class="card" style="width: 18rem;">
-                <img src="https://tyrrrz.me/_next/image?url=%2Fblog%2Ftarget-type-inference%2Fcover.png&w=1920&q=75" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">PRÉSTAMOS POR FECHA</h5>
-                    <p class="card-text">Seleccione mes y año para rastrear los préstamos que han sido solicitados en ese momento</p>
-                    <a href="PrestamosPorFecha.jsp" class="btn btn-primary">Ver</a>
-                </div>
-            </div>
-
-            <div class="card" style="width: 18rem;">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR34MDPHThtQz2Mefl0Rjt_BFMcT8yzhRI_wg&s" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">MONTOS INGRESADOS</h5>
-                    <p class="card-text">Seleccione dos fechas de inicio y fin para determinar el dinero que ingresó en el banco en esa franja</p>
-                    <a href="MontosIngresados.jsp" class="btn btn-primary">Ver</a>
-                </div>
-            </div>
-
-            <div class="card" style="width: 18rem;">
-                <img src="https://www.worktango.com/wp-content/uploads/2022/09/Batch2_1711_5waystoengage_1280x720ArticleHeaderandHomepageThumbnail.jpg-800x450.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">REGISTRO DE APROBACIONES</h5>
-                    <p class="card-text">Seleccione un usuario administrador para ver los préstamos que ha aprobado y aquellos que rechazó</p>
-                    <a href="#" class="btn btn-primary">Ver</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
-    
-
-=======
     <main>
         <div class="container">
             <div>
@@ -189,7 +143,7 @@
             </div>
         </div>
     </main>
->>>>>>> Ariel
+
 
     <jsp:include page="Componentes/Footer.jsp"></jsp:include>
 </body>
