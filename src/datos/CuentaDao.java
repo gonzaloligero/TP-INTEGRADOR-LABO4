@@ -14,6 +14,8 @@ public interface CuentaDao {
 	public boolean bajaLogicaCuenta(int NumeroCuenta);
 	public boolean altaLogicaCuenta(int NumeroCuenta);
 	Cuenta obtenerUnaCuenta(int IDCuenta);
+	public ArrayList<Cuenta> listarCuentasTransferencia();
+
 }
 
 		

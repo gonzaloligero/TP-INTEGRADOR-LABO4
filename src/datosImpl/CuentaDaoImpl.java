@@ -224,6 +224,30 @@ public class CuentaDaoImpl implements CuentaDao{
 	
 	
 
+	@Override
+	public ArrayList<Cuenta> listarCuentasTransferencia() {
+		cn = new Conexion();
+		cn.Open();
+		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
+		
+		try {
+			ResultSet rs= cn.query("SELECT IDCuenta, NumeroCuenta, CBU FROM CUENTAS");
+			while(rs.next()) {
+				Cuenta regCuenta = new Cuenta();
+				regCuenta.setIDCuenta(rs.getInt("IDCuenta"));
+				regCuenta.setNumeroCuenta(rs.getInt("NumeroCuenta"));
+				regCuenta.setCBU(rs.getString("CBU"));
+				lista.add(regCuenta);
+			}
+		}catch (Exception e){	
+				System.out.println(e.getMessage());	
+		}finally {
+			cn.close();
+		}
+		
+		return lista;
+	}
+
 }
 
 

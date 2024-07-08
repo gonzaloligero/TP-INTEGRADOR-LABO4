@@ -96,17 +96,32 @@ public class MovimientoDaoImpl implements MovimientoDao {
 
 
 	@Override
-	public boolean insertarMovimiento(BigDecimal importe, int IDCuenta, int IDTipoMovimiento, String Detalle) {
+	public boolean realizarTransferencia(Movimiento transferencia) {
 		
 		boolean movimientoInsertado = false;
+		boolean saldoPositivo = false;
+		boolean saldoNegativo = false;
 		cn = new Conexion();
         cn.Open();
-          
+        
+        BigDecimal importe = transferencia.getImporte();
+
+        
         try {
-        	String queryMovimiento = "INSERT INTO MOVIMIENTOS(Fecha,Detalle,Importe,IDCuenta,IDTipoMovimiento)"
-	        		+ "VALUES(NOW(), '"+Detalle+"', "+ importe +","+ IDCuenta +", "+ IDTipoMovimiento +" );";
+        	String queryMovimiento = "INSERT INTO MOVIMIENTOS(Fecha,Detalle,Importe,IDCuentaEmisor, IDCuentaReceptor,IDTipoMovimiento)"
+	        		+ "VALUES(CURDATE(), '"+transferencia.getDetalle()+"', "+ importe +","+ transferencia.getIdCuentaEmisor() +", "+ transferencia.getIdCuentaReceptor() +  ", "+ 4 +" );";
       
+        	String querySaldoNegativo = "UPDATE CUENTAS SET Saldo = Saldo - " + importe + " WHERE NumeroCuenta = " + transferencia.getIdCuentaEmisor() + ";";
+        	
+        	String querySaldoPositivo = "UPDATE CUENTAS SET Saldo = Saldo + " + importe + " WHERE NumeroCuenta = " + transferencia.getIdCuentaReceptor() + ";";
+
+        	
 		 movimientoInsertado = cn.execute(queryMovimiento);	
+		 
+		 saldoPositivo = cn.execute(querySaldoPositivo);
+		 
+		 saldoNegativo = cn.execute(querySaldoNegativo);
+		 
 		
         }
         catch(Exception e){
@@ -116,8 +131,40 @@ public class MovimientoDaoImpl implements MovimientoDao {
             cn.close();
         }
         	
-        return movimientoInsertado;
+        if(movimientoInsertado == true && saldoPositivo == true && saldoNegativo == true) {
+        	return true;
+        }else {return false;}
+
 		 
+	}
+
+
+	@Override
+	public ArrayList<Movimiento> listarTransferenciasDeUnCliente(int dniCliente) {
+		cn = new Conexion();
+        cn.Open();
+        ArrayList<Movimiento> lista = new ArrayList<Movimiento>();
+        
+        try {
+            ResultSet rs = cn.query("SELECT M.Fecha, M.Detalle, M.Importe, M.IDCuentaEmisor, M.IDCuentaReceptor FROM MOVIMIENTOS AS M INNER JOIN CUENTAS AS C ON C.NumeroCuenta = M.IDCuentaEmisor INNER JOIN CLIENTES AS CL ON CL.DNI = C.DNICliente WHERE CL.DNI = " + dniCliente);
+            	while (rs.next()) {
+                Movimiento regMovimiento = new Movimiento();
+                regMovimiento.setIdMovimiento(rs.getInt("IDMovimiento"));
+                regMovimiento.setFecha(rs.getDate("Fecha"));
+                regMovimiento.setDetalle(rs.getString("Detalle"));
+                regMovimiento.setImporte(rs.getBigDecimal("Importe"));
+                regMovimiento.setIdCuentaEmisor(rs.getInt("IDCuentaEmisor"));
+                regMovimiento.setIdCuentaReceptor(rs.getInt("IDCuentaReceptor"));
+                
+                lista.add(regMovimiento);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            cn.close();
+        }
+		
+		return lista;
 	}
 
 	
