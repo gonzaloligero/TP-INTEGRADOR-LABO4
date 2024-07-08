@@ -22,7 +22,7 @@ public class CuentaDaoImpl implements CuentaDao{
 		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
 		
 		try {
-			ResultSet rs= cn.query("SELECT c.IDCuenta, c.DNICliente, c.FechaCreacion, c.NumeroCuenta, c.CBU, c.Saldo FROM cuentas as c INNER JOIN clientes as cl on cl.DNI = c.DNICliente WHERE cl.DNI = " + DNICliente);
+			ResultSet rs= cn.query("SELECT c.IDCuenta, c.DNICliente, c.FechaCreacion, c.NumeroCuenta, c.CBU, c.Saldo, c.IDTipoCuenta FROM cuentas as c INNER JOIN clientes as cl on cl.DNI = c.DNICliente WHERE cl.DNI = " + DNICliente);
 			while(rs.next()) {
 				Cuenta regCuenta = new Cuenta();
 				regCuenta.setIDCuenta(rs.getInt("c.IDCuenta"));
@@ -30,7 +30,8 @@ public class CuentaDaoImpl implements CuentaDao{
 				regCuenta.setFechaCreacion(rs.getDate("c.FechaCreacion"));
 				regCuenta.setNumeroCuenta(rs.getInt("c.NumeroCuenta"));
 				regCuenta.setCBU(rs.getString("c.CBU"));
-				regCuenta.setSaldo(rs.getDouble("c.Saldo"));  
+				regCuenta.setSaldo(rs.getDouble("c.Saldo")); 
+				regCuenta.setIDTipoCuenta(rs.getInt("c.IDTipoCuenta"));
 				lista.add(regCuenta);
 			}
 		}catch (Exception e){	
@@ -50,7 +51,7 @@ public class CuentaDaoImpl implements CuentaDao{
 		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
 		
 		try {
-			ResultSet rs= cn.query("SELECT c.IDCuenta, c.DNICliente, c.FechaCreacion, c.NumeroCuenta, c.CBU, c.Saldo, c.IDTipoCuenta FROM cuentas as c INNER JOIN clientes as cl on cl.DNI = c.DNICliente");
+			ResultSet rs= cn.query("SELECT c.IDCuenta, c.DNICliente, c.FechaCreacion, c.NumeroCuenta, c.CBU, c.Saldo, c.IDTipoCuenta, c.ESTADO FROM cuentas as c INNER JOIN clientes as cl on cl.DNI = c.DNICliente");
 			while(rs.next()) {
 				Cuenta regCuenta = new Cuenta();
 				regCuenta.setIDCuenta(rs.getInt("c.IDCuenta"));
@@ -60,6 +61,7 @@ public class CuentaDaoImpl implements CuentaDao{
 				regCuenta.setCBU(rs.getString("c.CBU"));
 				regCuenta.setSaldo(rs.getDouble("c.Saldo")); 
 				regCuenta.setIDTipoCuenta(rs.getInt("c.IDTipoCuenta"));
+				regCuenta.setEstado(rs.getBoolean("c.ESTADO"));
 				lista.add(regCuenta);
 			}
 		}catch (Exception e){	
