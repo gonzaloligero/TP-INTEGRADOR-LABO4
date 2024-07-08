@@ -15,7 +15,8 @@ import javax.servlet.http.HttpSession;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 import datosImpl.CuentaDaoImpl;
-//import datosImpl.PlazosPrestamoImpleDao;
+import datosImpl.PlazosPrestamoImpleDao;
+
 import datosImpl.PrestamoDaoImpl;
 import datosImpl.TipoPrestamoDaoImpl;
 import entidad.Cliente;
@@ -31,7 +32,7 @@ public class ServLetPrestamos extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private PrestamosNegocio prestamoNeg = new PrestamosNegImpl();
 	private PrestamoDaoImpl pc = new PrestamoDaoImpl();
-	//private PlazosPrestamoImpleDao ppi = new PlazosPrestamoImpleDao();
+	private PlazosPrestamoImpleDao ppi = new PlazosPrestamoImpleDao();
 	private CuentaDaoImpl cdi = new CuentaDaoImpl();
 	
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -70,13 +71,13 @@ public class ServLetPrestamos extends HttpServlet{
 	                    }
 	                	
 	                	List<Prestamos> lista2 = pc.obtenerTodosPrestamosCliente(cliente.getDNI());
-	                	//List<Plazos> lista3 = ppi.obtenerCuotasPorDNI(cliente.getDNI());
+	                	List<Plazos> lista3 = ppi.obtenerCuotasPorDNI(cliente.getDNI());
 	                	List<Cuenta> lista4 = cdi.obtenerCuentasCliente(cliente.getDNI());
 	                	
 	                	
 	                	request.setAttribute("listaPrestamosCliente", lista2);
 	                	
-	                	//request.setAttribute("listaPlazosCliente", lista3);
+	                	request.setAttribute("listaPlazosCliente", lista3);
 	                	request.setAttribute("listaCuentaCliente", lista4);
 	                	request.getRequestDispatcher("HomebankingPagoPrestamo.jsp").forward(request, response);
 	                	
@@ -97,7 +98,20 @@ public class ServLetPrestamos extends HttpServlet{
 	    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    	String action = request.getParameter("action");
 	        if (action != null) {
+	        	
+	        	
+                HttpSession session = request.getSession();
+                
+                Cliente cliente = (Cliente) session.getAttribute("cliente");
+
+                if (cliente == null) {
+                    response.sendRedirect("Login.jsp?sessionExpired=true");
+                    return;
+                }
+	        	
 	            switch (action) {
+	            
+	            
 	                case "agregar":
 	                	double montoPrestamo = Double.parseDouble(request.getParameter("montoPrestamo"));
 	                    int cuotas = Integer.parseInt(request.getParameter("cuotas"));
@@ -108,14 +122,7 @@ public class ServLetPrestamos extends HttpServlet{
 
 	                    double importeAPagar = calcularImporteAPagar(montoPrestamo, cuotas, tna);
 	                	// Obtener el cliente desde la sesión
-	                    HttpSession session = request.getSession();
-	                    
-	                    Cliente cliente = (Cliente) session.getAttribute("cliente");
-
-	                    if (cliente == null) {
-	                        response.sendRedirect("Login.jsp?sessionExpired=true");
-	                        return;
-	                    }
+	                
 	                	
 	                    Prestamos prestamoNuevo = new Prestamos();
 	                    prestamoNuevo.setIDTipoPrestamo(Integer.parseInt(request.getParameter("tipoPrestamo")));
@@ -144,7 +151,39 @@ public class ServLetPrestamos extends HttpServlet{
 	                    break;
 	                    
 	                case "Pagar":
-	                	// toda la logica 
+	                	int idPlazo = Integer.parseInt(request.getParameter("selectCuota"));
+						int idCuenta = Integer.parseInt(request.getParameter("selectCuenta"));
+
+						Plazos plazo = ppi.obtenerPorId(idPlazo);
+						Cuenta cuenta = cdi.obtenerUnaCuenta(idCuenta);
+
+						if (cuenta.getSaldo() >= plazo.getImporteAPagarCuotas()) {
+							cuenta.setSaldo(cuenta.getSaldo() - plazo.getImporteAPagarCuotas());
+							cdi.editarCuenta(cuenta);
+
+							plazo.setEstado(true);
+							ppi.actualizar(plazo);
+
+							session.setAttribute("mensaje", "El pago de la cuota se realizó con éxito.");
+						} else {
+							session.setAttribute("mensaje", "Saldo insuficiente para realizar el pago.");
+						}
+
+						List<Prestamos> lista2 = pc.obtenerTodosPrestamosCliente(cliente.getDNI());
+						List<Plazos> lista3 = ppi.obtenerCuotasPorDNI(cliente.getDNI());
+						List<Cuenta> lista4 = cdi.obtenerCuentasCliente(cliente.getDNI());
+						
+						request.setAttribute("listaPrestamosCliente", lista2);
+						request.setAttribute("listaPlazosCliente", lista3);
+						request.setAttribute("listaCuentaCliente", lista4);
+						request.getRequestDispatcher("HomebankingPagoPrestamo.jsp").forward(request, response);
+	                	 
+		                    
+		                    
+		                   
+	                	
+	                	
+	                	
 	                	
 	                	
 	                	

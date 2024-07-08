@@ -2,6 +2,7 @@ package controlador;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,6 +37,8 @@ public class ServletCuentas extends HttpServlet {
             switch (action) {
                 case "listarCuentasGral":
                     ArrayList<Cuenta> listaCuentas = cuentaNegocio.listarCuentasGral();
+                    Cuenta cuenta1 = new Cuenta();
+                    listaCuentas.add(cuenta1);
                     request.setAttribute("listaCuentas", listaCuentas);
                     request.getRequestDispatcher("ListaCuentas.jsp").forward(request, response);
                     break;
@@ -127,7 +130,7 @@ public class ServletCuentas extends HttpServlet {
                     request.setAttribute("mensaje", "No se pudo agregar la cuenta.");
                 }
             } catch (Exception e) {
-                request.setAttribute("mensaje", "Ocurriï¿½ un error: " + e.getMessage());
+                request.setAttribute("mensaje", "Ocurrió un error: " + e.getMessage());
             }
             request.getRequestDispatcher("AltaCuenta.jsp").forward(request, response);
         }
@@ -154,7 +157,7 @@ public class ServletCuentas extends HttpServlet {
             	
             }
             catch (Exception e) {
-                request.setAttribute("mensaje", "Ocurriï¿½ un error: " + e.getMessage());
+                request.setAttribute("mensaje", "Ocurrió un error: " + e.getMessage());
             }
                                    
             RequestDispatcher dispatcher = request.getRequestDispatcher("MenuAdministrador.jsp");

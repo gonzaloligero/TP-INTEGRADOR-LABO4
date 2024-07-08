@@ -17,7 +17,7 @@
         $('#table_id').DataTable();
             location.reload();
         });
-    });
+    );
 </script>
 
 </head>
