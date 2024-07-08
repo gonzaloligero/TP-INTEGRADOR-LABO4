@@ -94,63 +94,72 @@ public class CuentaDaoImpl implements CuentaDao{
 	    return cuentaEditada;
 	}
 
+	
 	@Override
-	public boolean agregarCuentaCliente(int DNICliente, int IDTipoCuenta){
-		    cn = new Conexion();
-		    cn.Open();
-		   		    
-		    boolean cuentaAgregada = false;
-		    Random random = new Random();
-		    
-		    System.out.print(DNICliente);
-		    System.out.print(IDTipoCuenta);
+	public boolean agregarCuentaCliente(int DNICliente, int IDTipoCuenta) {
+	    cn = new Conexion();
+	    cn.Open();
 
-		    try {
-		        // Verificar cuantas cuentas tiene el cliente
-		        ResultSet rsCount = cn.query("SELECT COUNT(*) AS CantidadCuentas FROM CUENTAS WHERE DNICliente = " + DNICliente);
-		        int cantidadCuentas = 0;
-		        if (rsCount.next()) {
-		            cantidadCuentas = rsCount.getInt("CantidadCuentas");
-		        }
-		        
-		        if (cantidadCuentas < 3 && cantidadCuentas > 0) {
-		            
-		            int numeroCuenta = 10000 + random.nextInt(90000000);  
-		            
-		            String cbu = new BigInteger(40, random).toString();  
-		        	
-		            while (cbu.length() < 8) {
-		                cbu = "0" + cbu;
-		            }
+	    boolean cuentaAgregada = false;
+	    Random random = new Random();
 
-		            if (cbu.length() > 8) {
-		                cbu = cbu.substring(0, 8);
-		            }
-		            
-		            CuentaDao obj = new CuentaDaoImpl();
-		            boolean valor = obj.ValidarCbuYNumeroDeCuenta(numeroCuenta, cbu);
-		            
-		            if(!valor) {
-		            
-		            String queryInsertCuenta = "INSERT INTO CUENTAS (DNICliente, FechaCreacion, NumeroCuenta, CBU, Saldo, IDTipoCuenta) " +
-		                                       "VALUES (" + DNICliente + ", CURDATE(), " + numeroCuenta + ", '" + cbu + "', 10000.00, " + IDTipoCuenta + ")";
-		            cuentaAgregada = cn.execute(queryInsertCuenta);
-		            return true;
-		            } else {  
-		            	System.out.println("Numero de cuenta o CBU repetido");
-		            };
-		            
-		        } else {
-		            throw new ClienteExcedeCantCuentas("El cliente ya tiene 3 cuentas asociadas.");
-		        }
-		    } catch (Exception e) {
-		        System.out.println(e.getMessage());
-		    } finally {
-		        cn.close();
-		    }
-		    
-		    return false;
+	    try {
+	        
+	        ResultSet rsCount = cn.query("SELECT COUNT(*) AS CantidadCuentas FROM CUENTAS WHERE DNICliente = " + DNICliente);
+	        int cantidadCuentas = 0;
+	        if (rsCount.next()) {
+	            cantidadCuentas = rsCount.getInt("CantidadCuentas");
+	        }
+
+	        if (cantidadCuentas < 3) {
+	            boolean uniqueValuesFound = false;
+	            int numeroCuenta = 0;
+	            String cbu = "";
+
+	            while (!uniqueValuesFound) {
+	                
+	                numeroCuenta = 10000000 + random.nextInt(90000000); 
+	                cbu = new BigInteger(40, random).toString();  
+
+	                while (cbu.length() < 8) {
+	                    cbu = "0" + cbu;
+	                }
+
+	                if (cbu.length() > 8) {
+	                    cbu = cbu.substring(0, 8);
+	                }
+
+	                // Verificar si el número de cuenta y CBU son únicos
+	                String query = "SELECT COUNT(*) AS CuentaExistente FROM CUENTAS WHERE NumeroCuenta = " + numeroCuenta + " OR CBU = '" + cbu + "'";
+	                ResultSet rsCheck = cn.query(query);
+	                if (rsCheck.next()) {
+	                    int cuentaExistente = rsCheck.getInt("CuentaExistente");
+	                    if (cuentaExistente == 0) {
+	                        uniqueValuesFound = true;
+	                    }
+	                }
+	            }
+
+	            
+	            String queryInsertCuenta = "INSERT INTO CUENTAS (DNICliente, FechaCreacion, NumeroCuenta, CBU, Saldo, IDTipoCuenta, ESTADO) " +
+	                                       "VALUES (" + DNICliente + ", CURDATE(), " + numeroCuenta + ", '" + cbu + "', 10000.00, " + IDTipoCuenta + ", 1)";
+	            cuentaAgregada = cn.execute(queryInsertCuenta);
+	            return cuentaAgregada;
+
+	        } else {
+	            throw new ClienteExcedeCantCuentas("El cliente ya tiene 3 cuentas asociadas.");
+	        }
+	    } catch (Exception e) {
+	        System.out.println(e.getMessage());
+	    } finally {
+	        cn.close();
+	    }
+
+	    return false;
 	}
+
+
+	
 
 	@Override
 	public boolean bajaLogicaCuenta(int NumeroCuenta) {
