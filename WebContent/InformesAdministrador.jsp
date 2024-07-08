@@ -110,7 +110,7 @@
                     <div class="card-body">
                         <h5 class="card-title">CASHFLOW</h5>
                         <p class="card-text">Reporte del dinero que se ha transferido el último tiempo con los clientes involucrados</p>
-                        <a href="#" class="btn btn-primary">Ver</a>
+                        <a href="ServletClientes?action=cashflow" class="btn btn-primary">Ver</a>
                     </div>
                 </div>
                 <!-- Card 6 -->
