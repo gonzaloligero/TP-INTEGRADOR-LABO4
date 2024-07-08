@@ -37,6 +37,16 @@ private MovimientoDao movimientoDao= new MovimientoDaoImpl();
 	public ArrayList<Movimiento> listarTransferenciasDeUnCliente(int dniCliente) {
 		return movimientoDao.listarTransferenciasDeUnCliente(dniCliente);
 	}
+
+	@Override
+	public float[] obtenerCashflow(int dniCliente) {
+		return movimientoDao.obtenerCashflow(dniCliente);
+	}
+
+	@Override
+	public boolean inyectarDinero(float saldo, int idCuenta) {
+		return movimientoDao.inyectarDinero(saldo, idCuenta);
+	}
 }
 	
 	
