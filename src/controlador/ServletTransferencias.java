@@ -2,6 +2,7 @@ package controlador;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -34,7 +35,7 @@ public class ServletTransferencias extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
         Cliente cliente = (Cliente) session.getAttribute("cliente");
-		
+		        
 		CuentaDaoImpl cdimp = new CuentaDaoImpl();
         int dniCliente = cliente.getDNI();
 
@@ -55,7 +56,6 @@ public class ServletTransferencias extends HttpServlet {
             String montoStr = request.getParameter("monto");
             BigDecimal importe = new BigDecimal(montoStr);
             transferencia.setImporte(importe);
-            System.out.println(importe);
             
             transferencia.setDetalle("Operación entre clientes");
             
@@ -78,8 +78,18 @@ public class ServletTransferencias extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-
-
+		
+        Cliente cliente = (Cliente) session.getAttribute("cliente");
+        int dniCliente = cliente.getDNI();
+        
+        System.out.print(cliente.getApellido());
+        
+		Movimiento transferencia = new Movimiento();
+	    MovimientoDaoImpl mdimp = new MovimientoDaoImpl();
+		
+	    ArrayList<Movimiento>listaTransferencias = mdimp.listarTransferenciasDeUnCliente(dniCliente);
+	    request.setAttribute("listaTransferenciasCliente", listaTransferencias);	
+        request.getRequestDispatcher("Homebanking.jsp").forward(request, response);
         
 		doGet(request, response);
 	}

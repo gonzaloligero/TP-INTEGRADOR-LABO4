@@ -138,5 +138,34 @@ public class MovimientoDaoImpl implements MovimientoDao {
 		 
 	}
 
+
+	@Override
+	public ArrayList<Movimiento> listarTransferenciasDeUnCliente(int dniCliente) {
+		cn = new Conexion();
+        cn.Open();
+        ArrayList<Movimiento> lista = new ArrayList<Movimiento>();
+        
+        try {
+            ResultSet rs = cn.query("SELECT M.Fecha, M.Detalle, M.Importe, M.IDCuentaEmisor, M.IDCuentaReceptor FROM MOVIMIENTOS AS M INNER JOIN CUENTAS AS C ON C.NumeroCuenta = M.IDCuentaEmisor INNER JOIN CLIENTES AS CL ON CL.DNI = C.DNICliente WHERE CL.DNI = " + dniCliente);
+            	while (rs.next()) {
+                Movimiento regMovimiento = new Movimiento();
+                regMovimiento.setIdMovimiento(rs.getInt("IDMovimiento"));
+                regMovimiento.setFecha(rs.getDate("Fecha"));
+                regMovimiento.setDetalle(rs.getString("Detalle"));
+                regMovimiento.setImporte(rs.getBigDecimal("Importe"));
+                regMovimiento.setIdCuentaEmisor(rs.getInt("IDCuentaEmisor"));
+                regMovimiento.setIdCuentaReceptor(rs.getInt("IDCuentaReceptor"));
+                
+                lista.add(regMovimiento);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            cn.close();
+        }
+		
+		return lista;
+	}
+
 	
 }
