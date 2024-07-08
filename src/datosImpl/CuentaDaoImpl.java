@@ -10,6 +10,7 @@ import datos.CuentaDao;
 import entidad.Cliente;
 import entidad.Cuenta;
 import excepciones.ClienteExcedeCantCuentas;
+import excepciones.CuentaErrorOperacion;
 
 public class CuentaDaoImpl implements CuentaDao{
 
@@ -145,25 +146,24 @@ public class CuentaDaoImpl implements CuentaDao{
 	}
 
 	@Override
-	public boolean bajaLogicaCuenta(int NumeroCuenta) {
-		 boolean cuentaDesactivado = false;
-			
-			cn = new Conexion();
-			cn.Open();		 
-			String query = "UPDATE CUENTAS SET ESTADO = 0 WHERE NumeroCuenta = "+NumeroCuenta;
-			try
-			 {
-				cuentaDesactivado=cn.execute(query);
-			 }
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-			finally
-			{
-				cn.close();
-			}
-			return cuentaDesactivado;
+	public boolean bajaLogicaCuenta(int NumeroCuenta) throws CuentaErrorOperacion {
+	    boolean cuentaDesactivado = false;
+	    
+	    cn = new Conexion();
+	    cn.Open();
+	    String query = "UPDATE CUENTAS SET ESTADO = 0 WHERE NumeroCuent = " + NumeroCuenta;
+	    try {
+	        cuentaDesactivado = cn.execute(query);
+	        if (!cuentaDesactivado) {
+	        	throw new CuentaErrorOperacion("Error al desactivar la cuenta con número: " + NumeroCuenta);
+	        }
+	    } catch (CuentaErrorOperacion e) {
+	    	 e.printStackTrace();
+	         throw e;
+	    } finally {
+	        cn.close();
+	    }
+	    return cuentaDesactivado;
 	}
 
 	@Override

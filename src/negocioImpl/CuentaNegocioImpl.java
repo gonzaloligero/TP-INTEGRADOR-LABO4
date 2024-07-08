@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import datos.CuentaDao;
 import datosImpl.CuentaDaoImpl;
 import entidad.Cuenta;
+import excepciones.CuentaErrorOperacion;
 import negocio.CuentaNegocio;
 
 
@@ -43,7 +44,7 @@ public class CuentaNegocioImpl implements CuentaNegocio {
 	}
 
 	@Override
-	public boolean bajaLogicaCuenta(int numeroCuenta) {
+	public boolean bajaLogicaCuenta(int numeroCuenta) throws CuentaErrorOperacion {
 		
 		return cuentaDao.bajaLogicaCuenta(numeroCuenta);
 	}

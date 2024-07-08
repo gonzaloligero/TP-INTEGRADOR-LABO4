@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import entidad.Cliente;
 import entidad.Cuenta;
 import excepciones.ClienteExcedeCantCuentas;
+import excepciones.CuentaErrorOperacion;
 import negocio.CuentaNegocio;
 import negocioImpl.CuentaNegocioImpl;
 
@@ -56,7 +57,12 @@ public class ServletCuentas extends HttpServlet {
                 case "eliminar":
                 	if(request.getParameter("numeroCuenta") != null) {
                 		int numeroCuenta = Integer.parseInt(request.getParameter("numeroCuenta"));
-                		cuentaNegocio.bajaLogicaCuenta(numeroCuenta);
+                		try {
+							cuentaNegocio.bajaLogicaCuenta(numeroCuenta);
+						} catch (CuentaErrorOperacion e) {
+						
+							e.getMessage();
+						}
                 	}             	
                     ArrayList<Cuenta> listaCuentasBaja = cuentaNegocio.listarCuentasGral();
                     request.setAttribute("listaCuentas", listaCuentasBaja);
