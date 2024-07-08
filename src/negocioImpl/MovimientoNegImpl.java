@@ -17,7 +17,7 @@ private MovimientoDao movimientoDao= new MovimientoDaoImpl();
 	
 	public MovimientoNegImpl() {}
 	
-	public ArrayList<Movimiento> listarMovimiento(){
+	public ArrayList<Movimiento> listarMovimientos(){
 		return(ArrayList<Movimiento>) movimientoDao.listarMovimientos();
 		
 	}
