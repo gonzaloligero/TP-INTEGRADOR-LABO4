@@ -16,7 +16,7 @@ import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 import datosImpl.CuentaDaoImpl;
 import datosImpl.PlazosPrestamoImpleDao;
-import datosImpl.PlazosPrestamoImpleDao;
+
 import datosImpl.PrestamoDaoImpl;
 import datosImpl.TipoPrestamoDaoImpl;
 import entidad.Cliente;
@@ -71,13 +71,13 @@ public class ServLetPrestamos extends HttpServlet{
 	                    }
 	                	
 	                	List<Prestamos> lista2 = pc.obtenerTodosPrestamosCliente(cliente.getDNI());
-	                	//List<Plazos> lista3 = ppi.obtenerCuotasPorDNI(cliente.getDNI());
+	                	List<Plazos> lista3 = ppi.obtenerCuotasPorDNI(cliente.getDNI());
 	                	List<Cuenta> lista4 = cdi.obtenerCuentasCliente(cliente.getDNI());
 	                	
 	                	
 	                	request.setAttribute("listaPrestamosCliente", lista2);
 	                	
-	                	//request.setAttribute("listaPlazosCliente", lista3);
+	                	request.setAttribute("listaPlazosCliente", lista3);
 	                	request.setAttribute("listaCuentaCliente", lista4);
 	                	request.getRequestDispatcher("HomebankingPagoPrestamo.jsp").forward(request, response);
 	                	

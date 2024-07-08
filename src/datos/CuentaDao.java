@@ -15,7 +15,7 @@ public interface CuentaDao {
 	public boolean altaLogicaCuenta(int NumeroCuenta);
 	Cuenta obtenerUnaCuenta(int IDCuenta);
 	public ArrayList<Cuenta> listarCuentasTransferencia();
-
+	public boolean ValidarCbuYNumeroDeCuenta(int NumeroCuenta, String Cbu);
 }
 
 		
