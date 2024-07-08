@@ -32,13 +32,13 @@ public class ServletMovimientos extends HttpServlet {
 
 	       
 			for (Movimiento movimiento : listaMovimiento ) {
-	            System.out.println(movimiento.toString());
+	            //System.out.println(movimiento.toString());
 	        }
 
 	        request.setAttribute("listaMovimientos", listaMovimiento);
 	        
 
-	        request.getRequestDispatcher("/ListaTransferencias.jsp").forward(request, response);
+	        request.getRequestDispatcher("/HomebankingMovimientos.jsp").forward(request, response);
 	    }
 
 	
