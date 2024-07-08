@@ -204,6 +204,42 @@ public class CuentaDaoImpl implements CuentaDao{
 			}
 			return cuentaActivado;
 	}
+	
+	
+	//Emma, no toca o te corto los dedos
+	
+	@Override
+	public Cuenta obtenerUnaCuenta(int IDCuenta) {
+	    cn = new Conexion();
+	    cn.Open();
+	    Cuenta cuenta = null;
+
+	    try {
+	        String query = "SELECT IDCuenta, DNICliente, FechaCreacion, NumeroCuenta, CBU, Saldo, IDTipoCuenta, Estado FROM CUENTAS WHERE IDCuenta = " + IDCuenta;
+	        ResultSet rs= cn.query(query);
+	        
+
+	        if (rs.next()) {
+	            cuenta = new Cuenta();
+	            cuenta.setIDCuenta(rs.getInt("IDCuenta"));
+	            cuenta.setDNICliente(rs.getInt("DNICliente"));
+	            cuenta.setFechaCreacion(rs.getDate("FechaCreacion"));
+	            cuenta.setNumeroCuenta(rs.getInt("NumeroCuenta"));
+	            cuenta.setCBU(rs.getString("CBU"));
+	            cuenta.setSaldo(rs.getDouble("Saldo"));
+	            cuenta.setIDTipoCuenta(rs.getInt("IDTipoCuenta"));
+	            cuenta.setEstado(rs.getBoolean("ESTADO"));
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        cn.close();
+	    }
+
+	    return cuenta;
+	}
+	
+	
 
 	@Override
 	public ArrayList<Cuenta> listarCuentasTransferencia() {

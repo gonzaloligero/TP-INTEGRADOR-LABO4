@@ -15,7 +15,9 @@ import entidad.Cliente;
 import entidad.Cuenta;
 import excepciones.ClienteExcedeCantCuentas;
 import negocio.CuentaNegocio;
+import negocio.MovimientoNegocio;
 import negocioImpl.CuentaNegocioImpl;
+import negocioImpl.MovimientoNegImpl;
 
 @WebServlet("/ServletCuentas")
 public class ServletCuentas extends HttpServlet {
@@ -86,8 +88,23 @@ public class ServletCuentas extends HttpServlet {
                     request.setAttribute("cuenta", cuentaEditar);
                     request.getRequestDispatcher("ModificarCuenta.jsp").forward(request, response);
  
-                    break;   
+                    break;
                     
+                case "fondos":
+                	ArrayList<Cuenta> listaFondos = cuentaNegocio.listarCuentasGral();
+                    request.setAttribute("listaFondos", listaFondos);
+                    request.getRequestDispatcher("SumarFondos.jsp").forward(request, response);
+                    break;
+                case "inyectar":
+                	ArrayList<Cuenta> listaFondosInyectar = cuentaNegocio.listarCuentasGral();
+                    request.setAttribute("listaFondos", listaFondosInyectar);
+                    int idCuenta = Integer.parseInt(request.getParameter("idCuenta"));
+                    float saldo = Float.parseFloat(request.getParameter("saldo"));
+                	MovimientoNegocio movimientoNegocio = new MovimientoNegImpl();
+                	movimientoNegocio.inyectarDinero(saldo, idCuenta);
+                    request.getRequestDispatcher("SumarFondos.jsp").forward(request, response);
+
+                break;
 
                 default:
                     response.sendRedirect("ListaCuentas.jsp");

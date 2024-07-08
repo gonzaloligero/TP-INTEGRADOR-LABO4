@@ -40,11 +40,14 @@
                                     </div>      
                                     <div class="mt-5">
                                         <a href="ServletMovimientos" class="btn btn-primary w-100 btn-admin">Transferencias</a>
-                                    </div>                      
+                                    </div>                                                 
                                 </div>
                                 <div class="col-md-3">
                                     <div class="mt-5">
                                         <a href="InformesAdministrador.jsp" class="btn btn-primary w-100 btn-admin">Informes</a>
+                                    </div>  
+                                             <div class="mt-5">
+                                        <a href="ServletCuentas?action=fondos" class="btn btn-primary w-100 btn-admin">Fondos</a>
                                     </div>                        
                                 </div>
                             </div>

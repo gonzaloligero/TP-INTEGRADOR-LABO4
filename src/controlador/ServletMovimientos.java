@@ -7,6 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import entidad.Cliente;
 import entidad.Movimiento;
 import negocio.MovimientoNegocio;
 import negocioImpl.MovimientoNegImpl;
@@ -32,13 +35,13 @@ public class ServletMovimientos extends HttpServlet {
 
 	       
 			for (Movimiento movimiento : listaMovimiento ) {
-	            System.out.println(movimiento.toString());
+	            //System.out.println(movimiento.toString());
 	        }
 
 	        request.setAttribute("listaMovimientos", listaMovimiento);
 	        
 
-	        request.getRequestDispatcher("/ListaTransferencias.jsp").forward(request, response);
+	        request.getRequestDispatcher("/HomebankingMovimientos.jsp").forward(request, response);
 	    }
 
 	
@@ -46,9 +49,19 @@ public class ServletMovimientos extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		
-		doGet(request, response);
-	}
+         String action = request.getParameter("action");
+         if(action.equals("cashflow")) {
+        	 MovimientoNegocio movimientoNegocio = new MovimientoNegImpl();
+    		 String clienteIdStr = request.getParameter("clienteId");
+    		 int clienteId = Integer.parseInt(clienteIdStr); 
+    		 float []vecMontos = movimientoNegocio.obtenerCashflow(clienteId);
+    		 
+    		 
+    		 request.setAttribute("dineroIngresado", vecMontos[0]);
+    		 request.setAttribute("dineroTransferido", vecMontos[1]);
+    	     request.getRequestDispatcher("Cashflow.jsp").forward(request, response);
+    		}
+         }
+		 
 
 }
