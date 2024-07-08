@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@page import="entidad.Cliente"%>
+<%@page import="entidad.Cuenta"%>
+<%@page import="entidad.Movimiento"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -97,10 +102,47 @@
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Página de Administración</h2>
+                        <h2>Historial de Movimientos</h2>
                     </div>
                 </div>
-                <!-- /. ROW  -->
+<form action="ServletTransferencias" method="get">
+    <input type="hidden" name="action" value="listarTransferencias">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>ID Movimiento</th>
+                <th>Fecha</th>
+                <th>Detalle</th>
+                <th>Importe</th>
+                <th>ID Cuenta Emisor</th>
+                <th>ID Cuenta Receptor</th>
+                <th>Tipo Movimiento</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% 
+            cliente.getDNI();
+            ArrayList<Movimiento> listaTransferencias = (ArrayList<Movimiento>) request.getAttribute("listaTransferenciasCliente");
+            if (listaTransferencias != null) {
+                for (Movimiento transferencias : listaTransferencias) {
+            %>
+            <tr>
+                <td><%= transferencias.getIdMovimiento() %></td>
+                <td><%= transferencias.getFecha() %></td>
+                <td><%= transferencias.getDetalle() %></td>
+                <td><%= transferencias.getImporte() %></td>
+                <td><%= transferencias.getIdCuentaEmisor() %></td>
+                <td><%= transferencias.getIdCuentaReceptor() %></td>
+            </tr>
+            <% 
+                }
+            }
+            %>
+        </tbody>
+    </table>
+</form>
+
+
                 <hr />
                 <!-- /. ROW  -->
             </div>

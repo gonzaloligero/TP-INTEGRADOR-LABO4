@@ -17,7 +17,7 @@ private MovimientoDao movimientoDao= new MovimientoDaoImpl();
 	
 	public MovimientoNegImpl() {}
 	
-	public ArrayList<Movimiento> listarMovimiento(){
+	public ArrayList<Movimiento> listarMovimientos(){
 		return(ArrayList<Movimiento>) movimientoDao.listarMovimientos();
 		
 	}
@@ -31,6 +31,11 @@ private MovimientoDao movimientoDao= new MovimientoDaoImpl();
 	@Override
 	public boolean realizarTransferencia(Movimiento transferencia) {
 		return movimientoDao.realizarTransferencia(transferencia);
+	}
+
+	@Override
+	public ArrayList<Movimiento> listarTransferenciasDeUnCliente(int dniCliente) {
+		return movimientoDao.listarTransferenciasDeUnCliente(dniCliente);
 	}
 }
 	

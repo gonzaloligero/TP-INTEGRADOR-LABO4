@@ -7,8 +7,9 @@ import entidad.Movimiento;
 
 public interface MovimientoNegocio {
 
-	public ArrayList <Movimiento> listarMovimiento();
+	public ArrayList <Movimiento> listarMovimientos();
 	public Movimiento listarUnMovimiento(int dniCliente);
 	public boolean realizarTransferencia(Movimiento transferencia);
+	public ArrayList<Movimiento>listarTransferenciasDeUnCliente(int dniCliente);
 
 }
