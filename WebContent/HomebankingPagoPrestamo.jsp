@@ -109,22 +109,21 @@
 
 						<h2>Pago de Prestamos</h2>
 						<form action="ServLetPrestamos" method="post">
-							<input type="hidden" name="action" value="Pagar"> 
-							<select
+							<input type="hidden" name="action" value="Pagar"> <select
 								id="selectPrestamo" name="selectPrestamo" class="form-control">
 								<%
 									List<Prestamos> prestamosList = (List<Prestamos>) request.getAttribute("listaPrestamosCliente");
 										if (prestamosList != null && !prestamosList.isEmpty()) {
 											for (Prestamos prestamo : prestamosList) {
-												if (prestamo.isEstado()) { 
+												if (prestamo.isEstado()) {
 								%>
 								<option value="<%=prestamo.getIDPrestamo()%>">Préstamo
 									ID
 									<%=prestamo.getIDPrestamo()%>
 								</option>
 								<%
-								}
 									}
+											}
 										} else {
 								%>
 								<option value="">No hay préstamos disponibles</option>
@@ -134,22 +133,21 @@
 							</select>
 
 							<div class="form-group">
-								<label for="selectCuota">Selecciona la cuota a pagar:</label> 
-								<select
+								<label for="selectCuota">Selecciona la cuota a pagar:</label> <select
 									id="selectCuota" name="selectCuota" class="form-control">
 									<%
 										List<Plazos> plazosList = (List<Plazos>) request.getAttribute("listaPlazosCliente");
 											if (plazosList != null && !plazosList.isEmpty()) {
 												for (Plazos plazos : plazosList) {
-													if(!plazos.isEstado()) { 
-													
+													if (!plazos.isEstado()) {
 									%>
-									<option value="<%=plazos.getIDPlazo()%>">Prestamo ID:<%=plazos.getIDPrestamo()%> Cuota a pagar
+									<option value="<%=plazos.getIDPlazo()%>">Prestamo ID:<%=plazos.getIDPrestamo()%>
+										Cuota a pagar
 										<%=plazos.getMesQuePaga()%> $<%=plazos.getImporteAPagarCuotas()%></option>
 
 									<%
-													}
 										}
+												}
 											} else {
 									%>
 									<option value="">No hay préstamos disponibles</option>
@@ -186,11 +184,25 @@
 							<button type="submit" class="btn btn-primary">Pagar
 								Cuota</button>
 						</form>
+				<%
+					String mensaje = (String) session.getAttribute("mensaje");
+						if (mensaje != null && !mensaje.isEmpty()) {
+				%>
+				<div>
+					<h4>
+						¡¡<%=mensaje%>!!
+					</h4>
 
+				</div>
+				<%
+					session.removeAttribute("mensaje");
+						}
+				%>
 
 
 					</div>
 				</div>
+
 				<!-- /. ROW  -->
 				<hr />
 				<!-- /. ROW  -->

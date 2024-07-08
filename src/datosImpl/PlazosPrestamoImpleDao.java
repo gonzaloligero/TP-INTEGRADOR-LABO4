@@ -128,7 +128,7 @@ public class PlazosPrestamoImpleDao implements PlazosPrestamoDao {
         boolean resultado = false;
         try {
         	
-     resultado = cn.execute("UPDATE Plazos SET IDPrestamo = " + plazo.getIDPrestamo() + ", MesQuePaga = " + plazo.getMesQuePaga() + ", ImporteAPagarCuotas = " + plazo.getImporteAPagarCuotas() + ", NroCuota = " + plazo.getNroCuota()+ ", Estado =" + (plazo.isEstado()? 1 : 0)+ "  WHERE IDPlazo =" + plazo.getIDPlazo());
+     resultado = cn.execute("UPDATE Plazos SET IDPrestamo = " + plazo.getIDPrestamo()  + ", ImporteAPagarCuotas = " + plazo.getImporteAPagarCuotas() + ", NroCuota = " + plazo.getNroCuota()+ ", Estado =" + (plazo.isEstado()? 1 : 0)+ "  WHERE IDPlazo =" + plazo.getIDPlazo());
         } finally {
             cn.close();
         }
