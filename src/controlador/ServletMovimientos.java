@@ -27,7 +27,7 @@ public class ServletMovimientos extends HttpServlet {
 		 MovimientoNegocio movimientoNegocio = new MovimientoNegImpl();
 	        
 
-	        ArrayList<Movimiento> listaMovimiento = movimientoNegocio.listarMovimiento();
+	        ArrayList<Movimiento> listaMovimiento = movimientoNegocio.listarMovimientos();
 	        
 
 	       
@@ -38,7 +38,7 @@ public class ServletMovimientos extends HttpServlet {
 	        request.setAttribute("listaMovimientos", listaMovimiento);
 	        
 
-	        request.getRequestDispatcher("/ListaClientes.jsp").forward(request, response);
+	        request.getRequestDispatcher("/ListaTransferencias.jsp").forward(request, response);
 	    }
 
 	

@@ -37,7 +37,10 @@
                                 <div class="col-md-3">
                                     <div class="mt-5">
                                         <a href="ServletCuentas?action=listarCuentasGral" class="btn btn-primary w-100 btn-admin">Cuentas</a>
-                                    </div>                         
+                                    </div>      
+                                    <div class="mt-5">
+                                        <a href="ServletMovimientos" class="btn btn-primary w-100 btn-admin">Transferencias</a>
+                                    </div>                      
                                 </div>
                                 <div class="col-md-3">
                                     <div class="mt-5">

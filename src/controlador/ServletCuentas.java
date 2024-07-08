@@ -113,7 +113,7 @@ public class ServletCuentas extends HttpServlet {
                     request.setAttribute("mensaje", "No se pudo agregar la cuenta.");
                 }
             } catch (Exception e) {
-                request.setAttribute("mensaje", "Ocurriï¿½ un error: " + e.getMessage());
+                request.setAttribute("mensaje", "Ocurrió un error: " + e.getMessage());
             }
             request.getRequestDispatcher("AltaCuenta.jsp").forward(request, response);
         }
@@ -140,7 +140,7 @@ public class ServletCuentas extends HttpServlet {
             	
             }
             catch (Exception e) {
-                request.setAttribute("mensaje", "Ocurriï¿½ un error: " + e.getMessage());
+                request.setAttribute("mensaje", "Ocurrió un error: " + e.getMessage());
             }
                                    
             RequestDispatcher dispatcher = request.getRequestDispatcher("MenuAdministrador.jsp");
