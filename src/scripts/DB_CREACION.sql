@@ -1,4 +1,3 @@
-
 CREATE DATABASE TPIntegradorLaboratorio4;
 
 USE TPIntegradorLaboratorio4;
@@ -114,6 +113,7 @@ CREATE TABLE CUENTAS (
     CBU VARCHAR(50) NOT NULL,
     Saldo DECIMAL(18,2) NOT NULL,
     IDTipoCuenta INT NOT NULL,
+    ESTADO BOOLEAN NOT NULL DEFAULT TRUE,
     
     CONSTRAINT fk_Cuentas_Tipo_Cuentas FOREIGN KEY (IDTipoCuenta) REFERENCES TIPO_CUENTAS(IDTipoCuenta),
     CONSTRAINT fk_Cuentas_Clientes FOREIGN KEY (DNICliente) REFERENCES CLIENTES(DNI),
@@ -145,15 +145,6 @@ CREATE TABLE MOVIMIENTOS (
     CONSTRAINT chk_Importe CHECK (Importe REGEXP '^[0-9]+(\\.[0-9]{1,2})?$')
 );
 
-
-
-
-
-
-INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Alta de cuenta');
-INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Alta de un préstamo');
-INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Pago de préstamo');
-INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Transferencia');
 
 
 
@@ -361,6 +352,8 @@ VALUES (14141414, 1, '2024-06-28', 987654321, '9876543209876543210987', 5000.00)
 
 
 
+
+
 DELIMITER //
 
 CREATE TRIGGER after_prestamo_update 
@@ -374,22 +367,20 @@ BEGIN
     DECLARE i INT DEFAULT 1;
 
     IF OLD.Estado = 0 AND NEW.Estado = 1 THEN
-       
+
         SELECT TNA / 12 INTO interes_mensual
         FROM TIPO_PRESTAMOS 
         WHERE IDTipoPrestamo = NEW.IDTipoPrestamo;
 
-       
+      
         SET monto = NEW.ImporteAPagar / NEW.Cuotas;
 
-       
         WHILE i <= NEW.Cuotas DO
             INSERT INTO PLAZOS (IDPrestamo, MesQuePaga, NroCuota, ImporteAPagarCuotas, Estado) 
             VALUES (NEW.IDPrestamo, DATE_FORMAT(DATE_ADD(NEW.Fecha, INTERVAL i MONTH), '%Y-%m'), i, monto, 0);
             SET i = i + 1;
         END WHILE;
 
-        
         SELECT Saldo INTO saldo_actual 
         FROM CUENTAS 
         WHERE DNICliente = NEW.DNICliente AND IDTipoCuenta = 1;
@@ -398,7 +389,7 @@ BEGIN
         SET Saldo = saldo_actual + NEW.MontoPedido 
         WHERE DNICliente = NEW.DNICliente AND IDTipoCuenta = 1;
 
-       
+      
         BEGIN
             DECLARE EXIT HANDLER FOR SQLEXCEPTION
             BEGIN
@@ -418,6 +409,5 @@ END;
 
 DELIMITER ;
 
---Borrar el Trigger:
--- DROP TRIGGER IF EXISTS after_prestamo_update;
 
+-- DROP TRIGGER IF EXISTS after_prestamo_update;

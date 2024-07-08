@@ -198,7 +198,7 @@ public class CuentaDaoImpl implements CuentaDao{
 	    Cuenta cuenta = null;
 
 	    try {
-	        String query = "SELECT IDCuenta, DNICliente, FechaCreacion, NumeroCuenta, CBU, Saldo, IDTipoCuenta FROM CUENTAS WHERE IDCuenta = " + IDCuenta;
+	        String query = "SELECT IDCuenta, DNICliente, FechaCreacion, NumeroCuenta, CBU, Saldo, IDTipoCuenta, Estado FROM CUENTAS WHERE IDCuenta = " + IDCuenta;
 	        ResultSet rs= cn.query(query);
 	        
 
