@@ -159,10 +159,11 @@ public class CuentaDaoImpl implements CuentaDao{
 	    
 	    cn = new Conexion();
 	    cn.Open();
-	    String query = "UPDATE CUENTAS SET ESTADO = 0 WHERE NumeroCuent = " + NumeroCuenta;
+	    String query = "UPDATE CUENTAS SET ESTADO = 0 WHERE NumeroCuenta = " + NumeroCuenta;
 	    try {
 	        cuentaDesactivado = cn.execute(query);
 	        if (!cuentaDesactivado) {
+	        	
 	        	throw new CuentaErrorOperacion("Error al desactivar la cuenta con número: " + NumeroCuenta);
 	        }
 	    } catch (CuentaErrorOperacion e) {
