@@ -81,13 +81,13 @@
                         <a href="Homebanking.jsp"><i class="fa fa-history"></i>Historial de Movimientos</a>
                     </li>
                     <li class="active-link">
-                        <a href="HomebankingTransferencias.jsp"><i class="fa fa-refresh"></i>Transferencias</a>
+                        <a href="ServletTransferencias?action=listarCuentas"><i class="fa fa-refresh"></i>Transferencias</a>
                     </li>
                     <li >
                         <a href="MostrarTipoPrestamosServlet"><i class="fa fa-edit"></i>Pedido de Préstamo</a>
                     </li>
                     <li>
-                        <a href="HomebankingPagoPrestamo.jsp"><i class="fa fa-qrcode"></i>Pago de Préstamos</a>
+                        <a href="ServLetPrestamos?action=PagarPrestamo"><i class="fa fa-qrcode"></i>Pago de Préstamos</a>
                     </li>
                     <li>
                         <a href="HomebankingInfomacionPersonal.jsp"><i class="fa fa-bar-chart-o"></i>Información Personal</a>
@@ -103,16 +103,31 @@
                         
                         
                         <h2>Transferir</h2>
-	<form action="ServletCuentas" method="get">
-    <input type="hidden" name="action" value="mostrarCuentasEnTransferencias">
+	<form action="ServletTransferencias" method="get">
+    <input type="hidden" name="action" value="transferencia">
     <input type="hidden" name="dniCliente" value="<%= cliente.getDNI() %>">
     
     <label for="cbu">CBU destino:</label>
-    <input type="text" id="cbu" name="cbu" required>
-
+    <select id="cuentaReceptora" name="cuentaReceptora">
+        <% 
+            ArrayList<Cuenta> listaCuentasReceptoras = (ArrayList<Cuenta>) request.getAttribute("listaCuentasTotales");
+            if (listaCuentasReceptoras != null) {
+                for (Cuenta cuenta : listaCuentasReceptoras) {
+        %>
+                    <option value="<%= cuenta.getNumeroCuenta() %>"><%= cuenta.getNumeroCuenta() %></option>
+        <% 		
+                }
+            }
+        %>
+    </select>
+    
+    <br><br>
+    
     <label for="monto">Monto a transferir:</label>
     <input type="number" id="monto" name="monto" step="0.01" required>
-
+    
+    <br><br>
+    
     <label for="cuentaOrigen">Selecciona la cuenta origen:</label>
     <select id="cuentaOrigen" name="cuentaOrigen">
         <% 
@@ -120,15 +135,19 @@
             if (listaCuentas != null) {
                 for (Cuenta cuenta : listaCuentas) {
         %>
-                    <option value="<%= cuenta.getCBU() %>"><%= cuenta.getNumeroCuenta() %></option>
-        <% 
+                    <option value="<%= cuenta.getNumeroCuenta() %>"><%= cuenta.getNumeroCuenta() %></option>
+        <% 		
                 }
             }
         %>
     </select>
-
-    <input type="submit" value="Seleccionar cuenta">
+    
+    <br><br>
+    
+    <input type="submit" value="Confirmar Transferencia">
 </form>
+
+
 
                         
                         

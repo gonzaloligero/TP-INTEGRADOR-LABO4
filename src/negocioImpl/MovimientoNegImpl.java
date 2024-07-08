@@ -17,7 +17,7 @@ private MovimientoDao movimientoDao= new MovimientoDaoImpl();
 	
 	public MovimientoNegImpl() {}
 	
-	public ArrayList<Movimiento> listarMovimiento(){
+	public ArrayList<Movimiento> listarMovimientos(){
 		return(ArrayList<Movimiento>) movimientoDao.listarMovimientos();
 		
 	}
@@ -29,9 +29,38 @@ private MovimientoDao movimientoDao= new MovimientoDaoImpl();
 	}
 
 	@Override
-	public boolean insertarMovimiento(Movimiento movimiento) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean realizarTransferencia(Movimiento transferencia) {
+		return movimientoDao.realizarTransferencia(transferencia);
 	}
-	
+
+	@Override
+	public ArrayList<Movimiento> listarTransferenciasDeUnCliente(int dniCliente) {
+		return movimientoDao.listarTransferenciasDeUnCliente(dniCliente);
+	}
+
+	@Override
+	public float[] obtenerCashflow(int dniCliente) {
+		return movimientoDao.obtenerCashflow(dniCliente);
+	}
+
+	@Override
+	public boolean inyectarDinero(float saldo, int idCuenta) {
+		return movimientoDao.inyectarDinero(saldo, idCuenta);
+	}
 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+

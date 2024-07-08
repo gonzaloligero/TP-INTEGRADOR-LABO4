@@ -54,9 +54,10 @@ public class CuentaNegocioImpl implements CuentaNegocio {
 		return cuentaDao.altaLogicaCuenta(numeroCuenta);
 	}
 
-	
-
-	
+	@Override
+	public ArrayList<Cuenta> listarCuentasTransferencia() {
+		return cuentaDao.listarCuentasTransferencia();
+	}
 
 	
 }

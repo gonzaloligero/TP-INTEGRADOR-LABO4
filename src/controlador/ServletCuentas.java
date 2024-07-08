@@ -2,6 +2,7 @@ package controlador;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,7 +16,9 @@ import entidad.Cuenta;
 import excepciones.ClienteExcedeCantCuentas;
 import excepciones.CuentaErrorOperacion;
 import negocio.CuentaNegocio;
+import negocio.MovimientoNegocio;
 import negocioImpl.CuentaNegocioImpl;
+import negocioImpl.MovimientoNegImpl;
 
 @WebServlet("/ServletCuentas")
 public class ServletCuentas extends HttpServlet {
@@ -35,6 +38,8 @@ public class ServletCuentas extends HttpServlet {
             switch (action) {
                 case "listarCuentasGral":
                     ArrayList<Cuenta> listaCuentas = cuentaNegocio.listarCuentasGral();
+                    Cuenta cuenta1 = new Cuenta();
+                    listaCuentas.add(cuenta1);
                     request.setAttribute("listaCuentas", listaCuentas);
                     request.getRequestDispatcher("ListaCuentas.jsp").forward(request, response);
                     break;
@@ -89,8 +94,23 @@ public class ServletCuentas extends HttpServlet {
                     request.setAttribute("cuenta", cuentaEditar);
                     request.getRequestDispatcher("ModificarCuenta.jsp").forward(request, response);
  
-                    break;   
+                    break;
                     
+                case "fondos":
+                	ArrayList<Cuenta> listaFondos = cuentaNegocio.listarCuentasGral();
+                    request.setAttribute("listaFondos", listaFondos);
+                    request.getRequestDispatcher("SumarFondos.jsp").forward(request, response);
+                    break;
+                case "inyectar":
+                	ArrayList<Cuenta> listaFondosInyectar = cuentaNegocio.listarCuentasGral();
+                    request.setAttribute("listaFondos", listaFondosInyectar);
+                    int idCuenta = Integer.parseInt(request.getParameter("idCuenta"));
+                    float saldo = Float.parseFloat(request.getParameter("saldo"));
+                	MovimientoNegocio movimientoNegocio = new MovimientoNegImpl();
+                	movimientoNegocio.inyectarDinero(saldo, idCuenta);
+                    request.getRequestDispatcher("SumarFondos.jsp").forward(request, response);
+
+                break;
 
                 default:
                     response.sendRedirect("ListaCuentas.jsp");
@@ -116,7 +136,7 @@ public class ServletCuentas extends HttpServlet {
                     request.setAttribute("mensaje", "No se pudo agregar la cuenta.");
                 }
             } catch (Exception e) {
-                request.setAttribute("mensaje", "Ocurriï¿½ un error: " + e.getMessage());
+                request.setAttribute("mensaje", "Ocurrió un error: " + e.getMessage());
             }
             request.getRequestDispatcher("AltaCuenta.jsp").forward(request, response);
         }
@@ -143,7 +163,7 @@ public class ServletCuentas extends HttpServlet {
             	
             }
             catch (Exception e) {
-                request.setAttribute("mensaje", "Ocurriï¿½ un error: " + e.getMessage());
+                request.setAttribute("mensaje", "Ocurrió un error: " + e.getMessage());
             }
                                    
             RequestDispatcher dispatcher = request.getRequestDispatcher("MenuAdministrador.jsp");

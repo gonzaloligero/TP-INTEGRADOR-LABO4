@@ -13,6 +13,8 @@ public interface CuentaNegocio {
 	public boolean editarCuenta(Cuenta cuenta);
 	public boolean bajaLogicaCuenta(int numeroCuenta) throws CuentaErrorOperacion;
 	public boolean altaLogicaCuenta(int numeroCuenta);
+	public ArrayList<Cuenta> listarCuentasTransferencia();
+
 }
 	
 	

@@ -14,17 +14,9 @@
     <jsp:include page="Componentes/NavBar.jsp"></jsp:include>
     <div class="container">
         <div class="w-100 pt-2 text-center">
-            <h1 class="mb-5">LISTA DE CUENTAS</h1>
+            <h1 class="mb-5">INYECCIÓN DE FONDOS</h1>
         </div>
-        <div>
-            <a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3" href="AltaCuenta.jsp">Agregar</a>          
-            <a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3 btn-fixed-size" href="MenuAdministrador.jsp">Volver</a>
 
-            <a class="btn bg-azul fw-bold bi bi-trash fs-5 mb-3" href="ServletCuentas?action=eliminar&id=0">Alta/Baja</a>
-
-             <a class="btn bg-azul fw-bold bi bi-search fs-5 mb-3" href="ListarCuentasDeCliente.jsp">Cuentas de un Cliente</a>
-
-        </div>
         <table id="table_id" class="table table-striped display text-center">
             <thead>
                 <tr>
@@ -38,7 +30,7 @@
             </thead>
             <tbody>
                 <% 
-                    ArrayList<Cuenta> listaCuentas = (ArrayList<Cuenta>) request.getAttribute("listaCuentas");
+                    ArrayList<Cuenta> listaCuentas = (ArrayList<Cuenta>) request.getAttribute("listaFondos");
                     if (listaCuentas != null) {
                         for (Cuenta cuenta : listaCuentas) { 
                 %>
@@ -48,10 +40,15 @@
                         <td><%= cuenta.getFechaCreacion() %></td>
                         <td><%= cuenta.getNumeroCuenta() %></td>
                         <td><%= cuenta.getCBU() %></td>
-                        <td><%= cuenta.getSaldo() %></td>
-                             
-                        </td>
-                    </tr>
+						<td>
+						    <form action="ServletCuentas" method="get">
+						        <input type="hidden" name="action" value="inyectar">
+						        <input type="hidden" name="idCuenta" value="<%= cuenta.getNumeroCuenta() %>">
+						        <input type="number" step="0.01" name="saldo" value="<%= cuenta.getSaldo() %>">
+						        <button type="submit" class="btn btn-primary btn-sm">Actualizar</button>
+						    </form>
+						</td>
+                  </tr>
                 <% 
                         } 
                     } else { 

@@ -14,6 +14,7 @@ public class Cuenta {
     private boolean Estado;
     
     
+    
     public Cuenta() { 	
     	this.IDCuenta = 0;
         this.DNICliente = 0;
@@ -22,7 +23,7 @@ public class Cuenta {
         this.CBU = "";
         this.Saldo = 0;
         this.IDTipoCuenta=0;
-        this.Estado = true;
+        this.Estado= false;
 	
     }
   
@@ -35,11 +36,12 @@ public class Cuenta {
         this.CBU = CBU;
         this.Saldo = Saldo;
         this.IDTipoCuenta=IDTipoCuenta;
-        this.Estado = estado;
+        this.Estado= estado;
     }
 
 
-    public int getIDCuenta() {
+
+	public int getIDCuenta() {
         return IDCuenta;
     }
 
@@ -94,23 +96,26 @@ public class Cuenta {
     public void setIDTipoCuenta(int IDTipoCuenta) {
         this.IDTipoCuenta = IDTipoCuenta;
     }
+       
     
     public boolean getEstado() {
     	return Estado;
     }
+    
+    
     public void setEstado(boolean estado) {
-        this.Estado = estado;
+    	this.Estado = estado;
     }
-    
-    
+
+
+	@Override
+	public String toString() {
+		return "Cuenta [IDCuenta=" + IDCuenta + ", DNICliente=" + DNICliente + ", FechaCreacion=" + FechaCreacion
+				+ ", NumeroCuenta=" + NumeroCuenta + ", CBU=" + CBU + ", Saldo=" + Saldo + ", IDTipoCuenta="
+				+ IDTipoCuenta + ", Estado=" + Estado ;
+	}
     
    
-    @Override
-	public String toString() {
-		return "Cuenta IDCuenta=" + IDCuenta + ", DNICliente=" + DNICliente + ", FechaCreacion=" + FechaCreacion
-				+ ", NumeroCuenta=" + NumeroCuenta + ", CBU=" + CBU + ", Saldo=" + Saldo + ", IDTipoCuenta="
-				+ IDTipoCuenta + ", Estado = " +Estado ;
-	}
-
+   
 }
 

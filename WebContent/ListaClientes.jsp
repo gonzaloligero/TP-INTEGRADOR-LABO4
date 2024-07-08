@@ -43,6 +43,21 @@
 			<a class="btn bg-azul fw-bold bi bi-arrow-left fs-5 mb-3" href="MenuAdministrador.jsp">Volver</a>
         </div>
         
+            
+
+<div class="container mt-4">
+    <form action="ServletClientes" method="get" class="d-flex align-items-center">
+        <div class="form-group mr-2">
+            <label for="buscarDNI" class="mr-2">Buscar por DNI:</label>
+            <input type="number" class="form-control col-auto"  name="dni" placeholder="Ingrese DNI">
+        </div>
+        <button type="submit" class="btn btn-primary mt-4 ms-2">Buscar</button>
+        <input type="hidden" name="action" value="buscarPorDni">
+    </form>
+</div>
+
+        
+        
         <div class="table-responsive">
             <table id="table_id" class="table table-striped table-sm display text-center">
                 <thead>

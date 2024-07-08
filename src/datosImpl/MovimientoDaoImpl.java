@@ -22,16 +22,16 @@ public class MovimientoDaoImpl implements MovimientoDao {
         ArrayList<Movimiento> lista = new ArrayList<Movimiento>();
 
         try {
-            ResultSet rs = cn.query("SELECT M.IDMovimiento, M.Fecha, M.Detalle, M.Importe, M.IDCuentaEmisor, M.IDCuentaReceptos ,TM.Nombre FROM MOVIMIENTOS as M INNER JOIN TIPO_MOVIMIENTOS as TM ON M.IDTipoMovimiento = TM.IDTipoMovimiento;");
+            ResultSet rs = cn.query("SELECT M.Fecha, M.Detalle, M.Importe, M.IDCuentaEmisor, M.IDCuentaReceptor, T.Nombre AS TipoMovimiento "
+            		+ "FROM MOVIMIENTOS as M JOIN TIPO_MOVIMIENTOS AS T ON M.IDTipoMovimiento = T.IDTipoMovimiento;");
             while (rs.next()) {
                 Movimiento regMovimiento = new Movimiento();
-                regMovimiento.setIdMovimiento(rs.getInt("IDMovimiento"));
                 regMovimiento.setFecha(rs.getDate("Fecha"));
                 regMovimiento.setDetalle(rs.getString("Detalle"));
                 regMovimiento.setImporte(rs.getBigDecimal("Importe"));
                 regMovimiento.setIdCuentaEmisor(rs.getInt("IDCuentaEmisor"));
                 regMovimiento.setIdCuentaReceptor(rs.getInt("IDCuentaReceptor"));
-                regMovimiento.setTipoMovimiento("Nombre");
+                regMovimiento.setTipoMovimiento(rs.getString("TipoMovimiento"));
                 
                 lista.add(regMovimiento);
             }
@@ -96,17 +96,32 @@ public class MovimientoDaoImpl implements MovimientoDao {
 
 
 	@Override
-	public boolean insertarMovimiento(BigDecimal importe, int IDCuenta, int IDTipoMovimiento, String Detalle) {
+	public boolean realizarTransferencia(Movimiento transferencia) {
 		
 		boolean movimientoInsertado = false;
+		boolean saldoPositivo = false;
+		boolean saldoNegativo = false;
 		cn = new Conexion();
         cn.Open();
-          
+        
+        BigDecimal importe = transferencia.getImporte();
+
+        
         try {
-        	String queryMovimiento = "INSERT INTO MOVIMIENTOS(Fecha,Detalle,Importe,IDCuenta,IDTipoMovimiento)"
-	        		+ "VALUES(NOW(), '"+Detalle+"', "+ importe +","+ IDCuenta +", "+ IDTipoMovimiento +" );";
+        	String queryMovimiento = "INSERT INTO MOVIMIENTOS(Fecha,Detalle,Importe,IDCuentaEmisor, IDCuentaReceptor,IDTipoMovimiento)"
+	        		+ "VALUES(CURDATE(), '"+transferencia.getDetalle()+"', "+ importe +","+ transferencia.getIdCuentaEmisor() +", "+ transferencia.getIdCuentaReceptor() +  ", "+ 4 +" );";
       
+        	String querySaldoNegativo = "UPDATE CUENTAS SET Saldo = Saldo - " + importe + " WHERE NumeroCuenta = " + transferencia.getIdCuentaEmisor() + ";";
+        	
+        	String querySaldoPositivo = "UPDATE CUENTAS SET Saldo = Saldo + " + importe + " WHERE NumeroCuenta = " + transferencia.getIdCuentaReceptor() + ";";
+
+        	
 		 movimientoInsertado = cn.execute(queryMovimiento);	
+		 
+		 saldoPositivo = cn.execute(querySaldoPositivo);
+		 
+		 saldoNegativo = cn.execute(querySaldoNegativo);
+		 
 		
         }
         catch(Exception e){
@@ -116,8 +131,95 @@ public class MovimientoDaoImpl implements MovimientoDao {
             cn.close();
         }
         	
-        return movimientoInsertado;
+        if(movimientoInsertado == true && saldoPositivo == true && saldoNegativo == true) {
+        	return true;
+        }else {return false;}
+
 		 
+	}
+
+
+	@Override
+	public ArrayList<Movimiento> listarTransferenciasDeUnCliente(int dniCliente) {
+		cn = new Conexion();
+        cn.Open();
+        ArrayList<Movimiento> lista = new ArrayList<Movimiento>();
+        
+        try {
+            ResultSet rs = cn.query("SELECT M.Fecha, M.Detalle, M.Importe, M.IDCuentaEmisor, M.IDCuentaReceptor FROM MOVIMIENTOS AS M INNER JOIN CUENTAS AS C ON C.NumeroCuenta = M.IDCuentaEmisor INNER JOIN CLIENTES AS CL ON CL.DNI = C.DNICliente WHERE CL.DNI = " + dniCliente);
+            	while (rs.next()) {
+                Movimiento regMovimiento = new Movimiento();
+                regMovimiento.setIdMovimiento(rs.getInt("IDMovimiento"));
+                regMovimiento.setFecha(rs.getDate("Fecha"));
+                regMovimiento.setDetalle(rs.getString("Detalle"));
+                regMovimiento.setImporte(rs.getBigDecimal("Importe"));
+                regMovimiento.setIdCuentaEmisor(rs.getInt("IDCuentaEmisor"));
+                regMovimiento.setIdCuentaReceptor(rs.getInt("IDCuentaReceptor"));
+                
+                lista.add(regMovimiento);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            cn.close();
+        }
+		
+		return lista;
+	}
+
+
+	@Override
+	public float[] obtenerCashflow(int dniCliente) {
+		float[]vecMontos = {};
+		float monto = 0;
+		
+		cn = new Conexion();
+		cn.Open();
+		
+		try {
+            ResultSet rs = cn.query("SELECT SUM(M.Importe) FROM MOVIMIENTOS AS M INNER JOIN CUENTAS AS C ON C.NumeroCuenta =  M.IDCuentaEmisor INNER JOIN CLIENTES AS CL ON CL.DNI = C.DNICliente WHERE CL.IDUsuario = " + dniCliente);
+            	while (rs.next()) {
+            	monto = (rs.getFloat("Importe"));
+            	vecMontos[0] = monto;
+          }
+            monto = 0;
+            rs = cn.query("SELECT SUM(M.Importe) FROM MOVIMIENTOS AS M INNER JOIN CUENTAS AS C ON C.NumeroCuenta =  M.IDCuentaReceptor INNER JOIN CLIENTES AS CL ON CL.DNI = C.DNICliente WHERE CL.IDUsuario = " + dniCliente);
+            while (rs.next()) {
+            	monto = (rs.getFloat("Importe"));
+            	vecMontos[1] = monto;
+          }	
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            cn.close();
+        }
+		
+		return vecMontos;
+	}
+
+
+	@Override
+	public boolean inyectarDinero(float saldo, int idCuenta) {
+		boolean dineroInyectado = false;
+		cn = new Conexion();
+		cn.Open();
+		
+		System.out.print(saldo);
+		System.out.print(idCuenta);
+		
+		try {
+			String queryDineroInyectado = "UPDATE CUENTAS SET Saldo = Saldo + " + 50 + " WHERE NumeroCuenta = " + idCuenta;
+			dineroInyectado = cn.execute(queryDineroInyectado);	
+                 
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            cn.close();
+        }
+		
+		if(dineroInyectado == true) {
+			return true;
+		}else {return false;}
 	}
 
 	

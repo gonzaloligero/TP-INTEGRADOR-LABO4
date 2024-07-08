@@ -102,10 +102,46 @@
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Home Banking</h2>
+                        <h2>Historial de Movimientos</h2>
                     </div>
                 </div>
-
+<form action="ServletTransferencias" method="get">
+    <input type="hidden" name="action" value="listarTransferencias">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>ID Movimiento</th>
+                <th>Fecha</th>
+                <th>Detalle</th>
+                <th>Importe</th>
+                <th>ID Cuenta Emisor</th>
+                <th>ID Cuenta Receptor</th>
+                <th>Tipo Movimiento</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% 
+            cliente.getDNI();
+            ArrayList<Movimiento> listaTransferencias = (ArrayList<Movimiento>) request.getAttribute("listaMovimientos");
+            if (listaTransferencias != null) {
+                for (Movimiento transferencias : listaTransferencias) {
+            %>
+            <tr>
+                <td><%= transferencias.getIdMovimiento() %></td>
+                <td><%= transferencias.getFecha() %></td>
+                <td><%= transferencias.getDetalle() %></td>
+                <td><%= transferencias.getImporte() %></td>
+                <td><%= transferencias.getIdCuentaEmisor() %></td>
+                <td><%= transferencias.getIdCuentaReceptor() %></td>
+                <td><%= transferencias.getTipoMovimiento() %></td>
+            </tr>
+            <% 
+                }
+            }
+            %>
+        </tbody>
+    </table>
+</form>
 
 
                 <hr />

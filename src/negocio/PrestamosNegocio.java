@@ -13,5 +13,7 @@ public interface PrestamosNegocio {
 	    public boolean eliminarPrestamo(int IDPrestamo);
 	    public Prestamos obtenerPrestamo(int IDPrestamo);
 	    public List<Prestamos> obtenerTodosLosPrestamos();
+	    Prestamos obtenerPrestamosCliente(int DNICliente);
+		List<Prestamos> obtenerTodosPrestamosCliente(int DNICliente);
 	
 }

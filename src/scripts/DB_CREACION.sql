@@ -88,6 +88,7 @@ CREATE TABLE PLAZOS (
     IDPrestamo INT,
     MesQuePaga VARCHAR(20) NOT NULL,
     NroCuota INT NOT NULL,
+    ImporteAPagarCuotas DECIMAL(10,2) NOT NULL,
     Estado BIT NOT NULL,
     CONSTRAINT fk_Plazos_Prestamos FOREIGN KEY (IDPrestamo) REFERENCES PRESTAMOS(IDPrestamo),
     CONSTRAINT chk_Mes CHECK (MesQuePaga NOT REGEXP '[^a-zA-Z]'),
@@ -112,13 +113,13 @@ CREATE TABLE CUENTAS (
     CBU VARCHAR(50) NOT NULL,
     Saldo DECIMAL(18,2) NOT NULL,
     IDTipoCuenta INT NOT NULL,
+    ESTADO BOOLEAN NOT NULL DEFAULT TRUE,
     
     CONSTRAINT fk_Cuentas_Tipo_Cuentas FOREIGN KEY (IDTipoCuenta) REFERENCES TIPO_CUENTAS(IDTipoCuenta),
     CONSTRAINT fk_Cuentas_Clientes FOREIGN KEY (DNICliente) REFERENCES CLIENTES(DNI),
     CONSTRAINT chk_CBU CHECK (CBU REGEXP '^[0-9.,]+$'),
     CONSTRAINT chk_Saldo CHECK (Saldo REGEXP '^[0-9]+(\\.[0-9]{1,6})?$')
 );
-
 
 CREATE TABLE TIPO_MOVIMIENTOS (
     IDTipoMovimiento INT PRIMARY KEY AUTO_INCREMENT,
@@ -144,13 +145,6 @@ CREATE TABLE MOVIMIENTOS (
 );
 
 
-
-
-
-INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Alta de cuenta');
-INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Alta de un préstamo');
-INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Pago de préstamo');
-INSERT INTO TIPO_MOVIMIENTOS (Nombre) VALUES ('Transferencia');
 
 
 -- Inserts para la tabla PROVINCIAS
@@ -309,47 +303,49 @@ INSERT INTO PRESTAMOS (IDPrestamo, IDTipoPrestamo, DNICliente, MontoPedido, Impo
 
 
 
-INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo,ESTADO)
 VALUES (11111111, 1, '2024-06-28', 123456789, '1234567801234567890104', 10000.00);
-INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
-VALUES (11111111, 2, '2024-06-28', 123456789, '1234567801234567890106', 10000.00);
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo,ESTADO)
+VALUES (11111111, 2, '2024-06-28', 987654321, '1234567801234567890106', 10000.00);
 
 
 
 
 
-INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
-VALUES (22222222, 1, '2024-06-28', 987654321, '9876543209876543210987', 5000.00);
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo,ESTADO)
+VALUES (22222222, 1, '2024-06-28', 987654321, '9876543209876543210987', 5000.00,1);
 
 
-INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
-VALUES (44444444, 2, '2024-06-28', 246810123, '2468101202468101230108', 15000.00);
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo,ESTADO)
+VALUES (44444444, 2, '2024-06-28', 246810123, '2468101202468101230108', 15000.00,1);
 
-INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
-VALUES (77777777, 1, '2024-06-28', 123456789, '1234567801234567890109', 10000.00);
-INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
-VALUES (77777777, 2, '2024-06-28', 123456789, '1234567801234567890110', 10000.00);
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo,ESTADO)
+VALUES (77777777, 1, '2024-06-28', 789123456, '1234567801234567890109', 10000.00,1);
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo,ESTADO)
+VALUES (77777777, 2, '2024-06-28', 654321987, '1234567801234567890110', 10000.00,1);
 
-INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
-VALUES (88888888, 1, '2024-06-28', 987654321, '9876543209876543210985', 5000.00);
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo,ESTADO)
+VALUES (88888888, 1, '2024-06-28', 987654321, '9876543209876543210985', 5000.00,1);
 
-INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
-VALUES (99999999, 1, '2024-06-28', 246810123, '2468101202468101230124', 15000.00);
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo,ESTADO)
+VALUES (99999999, 1, '2024-06-28', 246810123, '2468101202468101230124', 15000.00,1);
 
-INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
-VALUES (10101010, 1, '2024-06-28', 987654321, '9876543209876543210987', 5000.00);
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo,ESTADO)
+VALUES (10101010, 1, '2024-06-28', 987654321, '9876543209876543210987', 5000.00,1);
 
 
-INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
-VALUES (12121212, 1, '2024-06-28', 246810123, '2468101202468101230125', 15000.00);
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo,ESTADO)
+VALUES (12121212, 1, '2024-06-28', 246810123, '2468101202468101230125', 15000.00,1);
 
-INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
-VALUES (12121212, 2, '2024-06-28', 123456789, '1234567801234567890127', 10000.00);
-INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
-VALUES (14141414, 2, '2024-06-28', 123456789, '1234567801234567890129', 10000.00);
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo,ESTADO)
+VALUES (12121212, 2, '2024-06-28', 321018642, '1234567801234567890127', 10000.00,1);
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo,ESTADO)
+VALUES (14141414, 2, '2024-06-28', 456789123, '1234567801234567890129', 10000.00,1);
 
-INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
-VALUES (14141414, 1, '2024-06-28', 987654321, '9876543209876543210987', 5000.00);
+INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo,ESTADO)
+VALUES (14141414, 1, '2024-06-28', 321987654, '9876543209876543210987', 5000.00,1);
+
+
 
 
 
@@ -358,6 +354,7 @@ VALUES (14141414, 1, '2024-06-28', 987654321, '9876543209876543210987', 5000.00)
 
 
 DELIMITER //
+
 CREATE TRIGGER after_prestamo_update 
 AFTER UPDATE ON PRESTAMOS 
 FOR EACH ROW 
@@ -365,40 +362,51 @@ BEGIN
     DECLARE cuota DECIMAL(10, 2);
     DECLARE saldo_actual DECIMAL(18, 2);
     DECLARE interes_mensual DECIMAL(10, 2);
+    DECLARE monto DECIMAL(10, 2);
     DECLARE i INT DEFAULT 1;
 
     IF OLD.Estado = 0 AND NEW.Estado = 1 THEN
-       
+
         SELECT TNA / 12 INTO interes_mensual
         FROM TIPO_PRESTAMOS 
         WHERE IDTipoPrestamo = NEW.IDTipoPrestamo;
 
-     
-        SET cuota = NEW.MontoPedido * (interes_mensual / 100) / (1 - POW(1 + (interes_mensual / 100), -NEW.Cuotas));
-        
       
+        SET monto = NEW.ImporteAPagar / NEW.Cuotas;
+
         WHILE i <= NEW.Cuotas DO
-            INSERT INTO PLAZOS (IDPrestamo, MesQuePaga, NroCuota, Estado) 
-            VALUES (NEW.IDPrestamo, DATE_FORMAT(DATE_ADD(NEW.Fecha, INTERVAL i MONTH), '%Y-%m'), i, 0);
+            INSERT INTO PLAZOS (IDPrestamo, MesQuePaga, NroCuota, ImporteAPagarCuotas, Estado) 
+            VALUES (NEW.IDPrestamo, DATE_FORMAT(DATE_ADD(NEW.Fecha, INTERVAL i MONTH), '%Y-%m'), i, monto, 0);
             SET i = i + 1;
         END WHILE;
 
-        
         SELECT Saldo INTO saldo_actual 
         FROM CUENTAS 
         WHERE DNICliente = NEW.DNICliente AND IDTipoCuenta = 1;
 
-      
         UPDATE CUENTAS 
         SET Saldo = saldo_actual + NEW.MontoPedido 
         WHERE DNICliente = NEW.DNICliente AND IDTipoCuenta = 1;
 
-        
-        INSERT INTO MOVIMIENTOS (Fecha, Detalle, Importe, IDCuenta, IDTipoMovimiento) 
-        VALUES (NEW.Fecha, CONCAT('Préstamo aprobado - ID: ', NEW.IDPrestamo), NEW.MontoPedido, 
-                (SELECT IDCuenta FROM CUENTAS WHERE DNICliente = NEW.DNICliente LIMIT 1), 
-                (SELECT IDTipoMovimiento FROM TIPO_MOVIMIENTOS WHERE Nombre = 'Alta de un préstamo'));
+      
+        BEGIN
+            DECLARE EXIT HANDLER FOR SQLEXCEPTION
+            BEGIN
+                
+                SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error en el trigger: no se pudo insertar en MOVIMIENTOS';
+            END;
+
+            INSERT INTO MOVIMIENTOS (Fecha, Detalle, Importe, IDCuentaEmisor, IDTipoMovimiento) 
+            VALUES (NEW.Fecha, CONCAT('Préstamo aprobado - ID: ', NEW.IDPrestamo), NEW.MontoPedido, 
+                    (SELECT IDCuenta FROM CUENTAS WHERE DNICliente = NEW.DNICliente AND IDTipoCuenta = 1 LIMIT 1), 
+                    2);
+        END;
     END IF;
 END;
+
 //
+
 DELIMITER ;
+
+
+-- DROP TRIGGER IF EXISTS after_prestamo_update;

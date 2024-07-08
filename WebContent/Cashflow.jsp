@@ -69,6 +69,7 @@
             </div>
         </div>
 
+		<form action="ServletMovimientos" method="POST">
         <div class="row">
             <div class="col">
                 <table id="tablaCashflow" class="table table-bordered">
@@ -81,15 +82,15 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>$1,500</td>
-                            <td>$2,000</td>
-                            <td>$3,500</td>
-                        </tr>
+				            <td><%= String.format("$%.2f", request.getAttribute("dineroIngresado")) %></td>
+				            <td><%= String.format("$%.2f", request.getAttribute("dineroTransferido")) %></td>
+				            <td>$3,500</td>
+				        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-
+		</form>
         <div class="row mt-3">
             <div class="col">
                 <a href="InformesAdministrador.jsp" class="btn btn-primary">Volver</a>
