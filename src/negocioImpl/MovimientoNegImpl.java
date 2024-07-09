@@ -1,5 +1,6 @@
 package negocioImpl;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import datos.MovimientoDao;
@@ -46,6 +47,11 @@ private MovimientoDao movimientoDao= new MovimientoDaoImpl();
 	@Override
 	public boolean inyectarDinero(float saldo, int idCuenta) {
 		return movimientoDao.inyectarDinero(saldo, idCuenta);
+	}
+
+	@Override
+	public float montosPorFecha(Date fecha1, Date fecha2) {
+		return movimientoDao.montosPorFecha(fecha1, fecha2);
 	}
 }
 	

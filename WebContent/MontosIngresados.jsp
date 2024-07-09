@@ -39,10 +39,12 @@
     <div class="container mt-5">
         <div class="row mb-3">
             <div class="col">
-                <h1>Selecciona las Fechas</h1>
+                <h1>Montos ingresados en IT Bank por fecha</h1>
             </div>
         </div>
         
+        <form action="ServletMovimientos" method="post">
+		<input type="hidden" name="action" value="montos">
         <div class="row mb-3">
             <div class="col-md-6">
                 <div class="form-group">
@@ -67,13 +69,12 @@
         <div class="row">
             <div class="col">
                 <ul class="list-group">
-                    <li class="list-group-item">Monto 1</li>
-                    <li class="list-group-item">Monto 2</li>
-                    <li class="list-group-item">Monto 3</li>
-                </ul>
+				    <li class="list-group-item">Monto Total: ${montoTotal}</li>
+				</ul>
+
             </div>
         </div>
-        
+        </form>>
         <div class="row mt-3">
             <div class="col">
                 <a href="InformesAdministrador.jsp" class="btn btn-primary">Volver</a>
