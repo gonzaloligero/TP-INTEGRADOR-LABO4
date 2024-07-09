@@ -59,5 +59,11 @@ public class CuentaNegocioImpl implements CuentaNegocio {
 		return cuentaDao.listarCuentasTransferencia();
 	}
 
+	@Override
+	public ArrayList<Cuenta> listarCuentasPorTipo(double saldoMin, double saldoMax) {
+	    return cuentaDao.listarCuentasPorTipo(saldoMin, saldoMax);
+	}
+
+
 	
 }
