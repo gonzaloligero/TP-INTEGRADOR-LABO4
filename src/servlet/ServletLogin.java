@@ -14,6 +14,7 @@ import datosImpl.ClienteDaoImpl;
 import datosImpl.UsuarioDaoImpl;
 import entidad.Cliente;
 import entidad.Usuario;
+import excepciones.UsuarioNoEncontradoException;
 
 /**
  * Servlet implementation class ServletLogin
@@ -50,7 +51,14 @@ public class ServletLogin extends HttpServlet {
 	            String contrasenia = request.getParameter("contrasenia");
 
 	            if (email != null && !email.isEmpty() && contrasenia != null && !contrasenia.isEmpty()) {
-	                usuario = usuarioDao.obtenerUsuarioLogin(email, contrasenia);
+	                try {
+						usuario = usuarioDao.obtenerUsuarioLogin(email, contrasenia);
+					} catch (UsuarioNoEncontradoException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						request.setAttribute("errorMensaje", e.getMessage());
+			            request.getRequestDispatcher("Login.jsp").forward(request, response);
+					}
 	            }
 
 	            HttpSession session = request.getSession();

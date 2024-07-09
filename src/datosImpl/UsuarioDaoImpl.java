@@ -1,6 +1,8 @@
 package datosImpl;
 
 import entidad.Usuario;
+import excepciones.UsuarioNoEncontradoException;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -48,7 +50,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
         return false;
     }
     
-    public Usuario obtenerUsuarioLogin(String email, String contrasenia) {
+    public Usuario obtenerUsuarioLogin(String email, String contrasenia) throws UsuarioNoEncontradoException {
         cn = new Conexion();
         cn.Open();
         Usuario usuario = null;
@@ -64,7 +66,10 @@ public class UsuarioDaoImpl implements UsuarioDao {
                 usuario.setPassword(rs.getString("Contraseña"));
                 usuario.setUserType(rs.getInt("TipoUsuario"));
                 // Otras asignaciones si es necesario
+            }else {
+                throw new UsuarioNoEncontradoException("Usuario o contraseña incorrectos");
             }
+            
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

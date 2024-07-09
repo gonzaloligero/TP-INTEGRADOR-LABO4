@@ -25,7 +25,7 @@ public class ServletMovimientos extends HttpServlet {
         }
 
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		 MovimientoNegocio movimientoNegocio = new MovimientoNegImpl();
 	        
