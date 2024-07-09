@@ -94,7 +94,7 @@ public class ServLetPrestamos extends HttpServlet{
     			String fechaInicioStr = request.getParameter("fechaInicio");
     			String fechaFinStr = request.getParameter("fechaFin");
     			
-    			
+    			request.setAttribute("listaPrestamos", listaPrestamo);
     			request.getRequestDispatcher("/PrestamosPorFecha.jsp").forward(request, response);
 				
 				break;

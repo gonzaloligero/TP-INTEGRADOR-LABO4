@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="entidad.Prestamos"%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -67,15 +69,53 @@
             </div>
         </div>
         
-        <div class="row">
-            <div class="col">
-                <ul class="list-group">
-                    <li class="list-group-item">Préstamo 1</li>
-                    <li class="list-group-item">Préstamo 2</li>
-                    <li class="list-group-item">Préstamo 3</li>
-                </ul>
-            </div>
+                <table id="table_id" class="table table-striped display text-center">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>TIPO</th>
+                    <th>DNI CLIENTE</th>
+                    <th>MONTO PEDIDO</th>
+                    <th>IMPORTE A PAGAR</th>
+                    <th>CUOTAS</th>
+                    <th>FECHA</th>
+                    <th>ESTADO</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% 
+                    ArrayList<Prestamos> listaPrestamos = (ArrayList<Prestamos>) request.getAttribute("listaPrestamos");
+                    if (listaPrestamos != null) {
+                        for (Prestamos item : listaPrestamos) { 
+                %>
+                    <tr>
+                        <td><%= item.getIDPrestamo() %></td>
+                        <td><%= item.getIDTipoPrestamo() %></td>
+                        <td><%= item.getDNICliente() %></td>
+                        <td><%= item.getMontoPedido() %></td>
+                        <td><%= item.getImporteAPagar() %></td>
+                        <td><%= item.getCuotas() %></td>                     
+                        <td><%= item.getFecha() %></td>                            
+                        <td><%= item.isEstado() %></td>                            
+                        
+                    </tr>
+                <% 
+                        } 
+                    } else { 
+                %>
+                    <tr>
+                        <td colspan="7">No hay cuentas disponibles</td>
+                    </tr>
+                <% 
+                    } 
+                %>
+            </tbody>
+        </table>
+    </div>
+        
+        
         </div>
+
         </form>
         
         <div class="row mt-3">
