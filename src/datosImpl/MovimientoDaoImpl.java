@@ -168,22 +168,22 @@ public class MovimientoDaoImpl implements MovimientoDao {
 
 	@Override
 	public float[] obtenerCashflow(int dniCliente) {
-		float[]vecMontos = {};
+		float[]vecMontos = new float[2];
 		float monto = 0;
 		
 		cn = new Conexion();
 		cn.Open();
 		
 		try {
-            ResultSet rs = cn.query("SELECT SUM(M.Importe) FROM MOVIMIENTOS AS M INNER JOIN CUENTAS AS C ON C.NumeroCuenta =  M.IDCuentaEmisor INNER JOIN CLIENTES AS CL ON CL.DNI = C.DNICliente WHERE CL.IDUsuario = " + dniCliente);
+            ResultSet rs = cn.query("SELECT SUM(M.Importe) AS TotalRecibido FROM MOVIMIENTOS AS M INNER JOIN CUENTAS AS C ON C.NumeroCuenta =  M.IDCuentaEmisor INNER JOIN CLIENTES AS CL ON CL.DNI = C.DNICliente WHERE CL.DNI = " + dniCliente);
             	while (rs.next()) {
-            	monto = (rs.getFloat("Importe"));
+            	monto = (rs.getFloat("TotalRecibido"));
             	vecMontos[0] = monto;
           }
             monto = 0;
-            rs = cn.query("SELECT SUM(M.Importe) FROM MOVIMIENTOS AS M INNER JOIN CUENTAS AS C ON C.NumeroCuenta =  M.IDCuentaReceptor INNER JOIN CLIENTES AS CL ON CL.DNI = C.DNICliente WHERE CL.IDUsuario = " + dniCliente);
+            rs = cn.query("SELECT SUM(M.Importe) AS TotalEntregado FROM MOVIMIENTOS AS M INNER JOIN CUENTAS AS C ON C.NumeroCuenta =  M.IDCuentaReceptor INNER JOIN CLIENTES AS CL ON CL.DNI = C.DNICliente WHERE CL.DNI = " + dniCliente);
             while (rs.next()) {
-            	monto = (rs.getFloat("Importe"));
+            	monto = (rs.getFloat("TotalEntregado"));
             	vecMontos[1] = monto;
           }	
         } catch (Exception e) {
