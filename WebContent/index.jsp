@@ -4,12 +4,9 @@
 <html>
 
 <head>
-  <!-- Basic -->
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- Mobile Metas -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Site Metas -->
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
@@ -17,21 +14,15 @@
 
   <title> ITBank </title>
 
-  <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="CSS//bootstrap.css" />
 
-  <!-- fonts style -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-  <!--owl slider stylesheet -->
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 
-  <!-- font awesome style -->
   <link href="CSS/font-awesome.min.css" rel="stylesheet" />
 
-  <!-- Custom styles for this template -->
   <link href="CSS/style2.css" rel="stylesheet" />
-  <!-- responsive style -->
   <link href="CSS/responsive.css" rel="stylesheet" />
 
 </head>
@@ -46,7 +37,6 @@
       </div>
     </div>
 
-    <!-- header section strats -->
     <header class="header_section">
       <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
@@ -91,8 +81,7 @@
         </nav>
       </div>
     </header>
-    <!-- end header section -->
-    <!-- slider section -->
+
     <section class="slider_section ">
       <div id="customCarousel1" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
@@ -186,11 +175,10 @@
       </div>
 
     </section>
-    <!-- end slider section -->
   </div>
 
 
-  <!-- service section -->
+ 
 
   <section class="service_section layout_padding">
     <div class="service_container" id="Servicios">
@@ -269,10 +257,7 @@
     </div>
   </section>
 
-  <!-- end service section -->
 
-
-  <!-- about section -->
 
 <section class="about_section layout_padding">
   <div class="container" id="Nosotros">
@@ -311,9 +296,7 @@
 </section>
 
 
-  <!-- end about section -->
 
-  <!-- why section -->
 
   <section class="why_section layout_padding">
     <div class="container">
@@ -561,7 +544,7 @@
     <div class="container">
       <div class="heading_container heading_center psudo_white_primary mb_45">
         <h2>
-          Nuestros Clientes<span>Que Compraron nuestro Software</span>
+          Nuestros Clientes <span>Que confiaron en nuestro Software</span>
         </h2>
       </div>
       <div class="carousel-wrap ">
@@ -569,22 +552,22 @@
           <div class="item">
             <div class="box">
               <div class="img-box">
-                <img src="images/client1.jpg" alt="" class="box-img">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFZmuHKpMH0xCoJ7T0pW_d5idFXwZezdqNZg&s" alt="" class="box-img">
               </div>
               <div class="detail-box">
                 <div class="client_id">
                   <div class="client_info">
                     <h6>
-                      Tamara Herrera
+                      Lionel Messi
                     </h6>
                     <p>
-                      Profesora de Laboratorio 4
+                      Jugador legendario de fútbol
                     </p>
                   </div>
                   <i class="fa fa-quote-left" aria-hidden="true"></i>
                 </div>
                 <p>
-                  El HomeBanking de Finexo ha transformado la forma en que manejamos nuestras finanzas. Las transferencias y solicitudes de préstamos son rápidas y sencillas, y el soporte técnico siempre está disponible para ayudarnos </p>
+                  Mi vida cambió desde el momento en que conocí este servicio. Su equipo de desarrollo es más fuerte que la defensa del Barcelona de Guardiola. Agradezco en especial al muchacho Ariel por sus clases de tenis </p>
               </div>
             </div>
           </div>
@@ -676,19 +659,19 @@
               <a href="">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                 <span>
-                  Localidad
+                  Avenida Klostertown 2000
                 </span>
               </a>
               <a href="">
                 <i class="fa fa-phone" aria-hidden="true"></i>
                 <span>
-                  Call +01 1234567890
+                  +01 1234567890
                 </span>
               </a>
               <a href="">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
                 <span>
-                  demo@gmail.com
+                  proyectoitbank@gmail.com
                 </span>
               </a>
             </div>
@@ -711,10 +694,10 @@
         <div class="col-md-6 col-lg-3 info_col">
           <div class="info_detail">
             <h4>
-              Info
+              Bienvenidos
             </h4>
             <p>
-              necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful
+              Somos un equipo de programadores de la UTN con energía y ganas de crecer en el ambiente IT
             </p>
           </div>
         </div>
@@ -728,28 +711,28 @@
                 Home
               </a>
               <a class="" href="about.html">
-                About
+                Sobre nosotros
               </a>
               <a class="" href="service.html">
-                Services
+                Servicios
               </a>
               <a class="" href="why.html">
-                Why Us
+                Contáctanos
               </a>
               <a class="" href="team.html">
-                Team
+                Equipo
               </a>
             </div>
           </div>
         </div>
         <div class="col-md-6 col-lg-3 info_col ">
           <h4>
-            Subscribe
+            Suscribite
           </h4>
           <form action="#">
-            <input type="text" placeholder="Enter email" />
+            <input type="text" placeholder="Ingresa tu email" />
             <button type="submit">
-              Subscribe
+              Suscribite
             </button>
           </form>
         </div>
@@ -757,9 +740,7 @@
     </div>
   </section>
 
-  <!-- end info section -->
 
-  <!-- footer section -->
   <section class="footer_section">
     <div class="container">
       <p>
@@ -768,24 +749,16 @@
       </p>
     </div>
   </section>
-  <!-- footer section -->
 
-  <!-- jQery -->
   <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-  <!-- popper js -->
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
   </script>
-  <!-- bootstrap js -->
   <script type="text/javascript" src="js/bootstrap.js"></script>
-  <!-- owl slider -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
   </script>
-  <!-- custom js -->
   <script type="text/javascript" src="js/custom.js"></script>
-  <!-- Google Map -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
   </script>
-  <!-- End Google Map -->
 
 </body>
 
