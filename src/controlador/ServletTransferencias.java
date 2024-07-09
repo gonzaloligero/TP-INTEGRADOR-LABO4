@@ -19,6 +19,7 @@ import entidad.Cliente;
 import entidad.Cuenta;
 import entidad.Movimiento;
 import entidad.TipoPrestamos;
+import excepciones.SaldoInsuficienteException;
 
 
 @WebServlet("/ServletTransferencias")
@@ -53,28 +54,43 @@ public class ServletTransferencias extends HttpServlet {
         String action = request.getParameter("action");
 
         if ("transferencia".equals(action)) {
-            String montoStr = request.getParameter("monto");
-            BigDecimal importe = new BigDecimal(montoStr);
-            transferencia.setImporte(importe);
-            
-            transferencia.setDetalle("Operación entre clientes");
-            
-            int idCuentaEmisor = Integer.parseInt(request.getParameter("cuentaOrigen"));
-            transferencia.setIdCuentaEmisor(idCuentaEmisor);
-            
-            int idCuentaReceptor = Integer.parseInt(request.getParameter("cuentaReceptora"));
-            transferencia.setIdCuentaReceptor(idCuentaReceptor);
-            
-            transferencia.setIdMovimiento(1);
-            
-            mdimp.realizarTransferencia(transferencia);
-            
-            request.getRequestDispatcher("HomebankingTransferencias.jsp").forward(request, response);
-        }
-        request.getRequestDispatcher("HomebankingTransferencias.jsp").forward(request, response);
+        	String montoStr = request.getParameter("monto");
+			BigDecimal importe = new BigDecimal(montoStr);
+			transferencia.setImporte(importe);
+
+			transferencia.setDetalle("Operación entre clientes");
+			Cuenta cuentaEmisor = cdimp.obtenerUnaCuenta(Integer.parseInt(request.getParameter("cuentaOrigen")));
+			int idCuentaEmisor = cuentaEmisor.getNumeroCuenta();
+			transferencia.setIdCuentaEmisor(idCuentaEmisor);
+
+			int idCuentaReceptor = Integer.parseInt(request.getParameter("cuentaReceptora"));
+			transferencia.setIdCuentaReceptor(idCuentaReceptor);
+
+			transferencia.setIdMovimiento(1);
+
+			try {
+				retirar(cuentaEmisor, importe.doubleValue());
+				mdimp.realizarTransferencia(transferencia);
+				session.setAttribute("mensaje", "Transferencia realizada con éxito.");
+			} catch (SaldoInsuficienteException e) {
+				session.setAttribute("mensaje", e.getMessage());
+			}
+
+			request.getRequestDispatcher("HomebankingTransferencias.jsp").forward(request, response);
+		} else {
+			request.getRequestDispatcher("HomebankingTransferencias.jsp").forward(request, response);
+		}
  
 	}
 
+	public void retirar(Cuenta cuenta, double monto) throws SaldoInsuficienteException {
+		if (cuenta.getSaldo() < monto) {
+			throw new SaldoInsuficienteException("No hay suficiente saldo para retirar " + monto);
+		}
+		cuenta.setSaldo(cuenta.getSaldo() - monto);
+	}
+	
+	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -93,5 +109,8 @@ public class ServletTransferencias extends HttpServlet {
         
 		doGet(request, response);
 	}
+	
+	
+
 
 }

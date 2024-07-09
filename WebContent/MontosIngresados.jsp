@@ -74,7 +74,7 @@
 
             </div>
         </div>
-        </form>>
+        </form>
         <div class="row mt-3">
             <div class="col">
                 <a href="InformesAdministrador.jsp" class="btn btn-primary">Volver</a>

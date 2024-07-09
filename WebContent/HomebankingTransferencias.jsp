@@ -114,7 +114,7 @@
             if (listaCuentasReceptoras != null) {
                 for (Cuenta cuenta : listaCuentasReceptoras) {
         %>
-                    <option value="<%= cuenta.getNumeroCuenta() %>"><%= cuenta.getNumeroCuenta() %></option>
+                    <option value="<%= cuenta.getNumeroCuenta() %>"><%= cuenta.getCBU() %></option>
         <% 		
                 }
             }
@@ -135,7 +135,8 @@
             if (listaCuentas != null) {
                 for (Cuenta cuenta : listaCuentas) {
         %>
-                    <option value="<%= cuenta.getNumeroCuenta() %>"><%= cuenta.getNumeroCuenta() %></option>
+                    <option value="<%= cuenta.getIDCuenta() %>">Cuenta N°:
+										<%=cuenta.getNumeroCuenta()%> saldo $<%=cuenta.getSaldo()%></option>
         <% 		
                 }
             }
@@ -149,7 +150,20 @@
 
 
 
-                        
+                     <%
+					String mensaje = (String) session.getAttribute("mensaje");
+						if (mensaje != null && !mensaje.isEmpty()) {
+				%>
+				<div>
+					<h4>
+						¡¡<%=mensaje%>!!
+					</h4>
+
+				</div>
+				<%
+					session.removeAttribute("mensaje");
+						}
+				%>   
                         
                     </div>
                 </div>

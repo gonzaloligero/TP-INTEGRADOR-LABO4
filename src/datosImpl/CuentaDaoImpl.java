@@ -83,7 +83,7 @@ public class CuentaDaoImpl implements CuentaDao{
 	    Conexion cn = new Conexion();
 	    cn.Open();    
 
-	    String query = "UPDATE Cuentas SET Saldo='" + cuenta.getSaldo() + "' WHERE IDCuenta='" + cuenta.getIDCuenta() + "'";
+	    String query = "UPDATE Cuentas SET Saldo=" + cuenta.getSaldo() + " WHERE IDCuenta=" + cuenta.getIDCuenta();
 
 	    
 	    try {	    	
