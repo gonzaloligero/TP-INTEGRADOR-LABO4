@@ -51,14 +51,13 @@ public class ServletMovimientos extends HttpServlet {
          String action = request.getParameter("action");
          if(action.equals("cashflow")) {
         	 MovimientoNegocio movimientoNegocio = new MovimientoNegImpl();
-    		 String clienteIdStr = request.getParameter("clienteId");
-    		 int clienteId = Integer.parseInt(clienteIdStr); 
+    		 String clienteIdStr = request.getParameter("clienteDNI");
+        	 int clienteId = Integer.parseInt(request.getParameter("clienteDNI"));
+    	   		 
     		 float []vecMontos = movimientoNegocio.obtenerCashflow(clienteId);
-    		 
-    		 
     		 request.setAttribute("dineroIngresado", vecMontos[0]);
     		 request.setAttribute("dineroTransferido", vecMontos[1]);
-    	     request.getRequestDispatcher("Cashflow.jsp").forward(request, response);
+    	     request.getRequestDispatcher("ServletClientes?action=cashflow").forward(request, response);
     		}else if(action.equals("montos")) {
     			MovimientoNegocio movimientoNegocio = new MovimientoNegImpl();
     			String fechaInicioStr = request.getParameter("fechaInicio");
