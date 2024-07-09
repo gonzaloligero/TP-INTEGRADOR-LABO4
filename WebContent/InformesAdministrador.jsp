@@ -102,6 +102,15 @@
                         <a href="#" class="btn btn-primary">Ver</a>
                     </div>
                 </div>
+                 <div class="card" style="width: 18rem;">
+                    <img src="https://elviajedelcliente.com/wp-content/uploads/2020/07/portada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">TIPOS DE CLIENTES</h5>
+                        <p class="card-text">Detalle de los tipos de clientes, según el dinero en cuentas</p>
+                        <a href="TiposDeClientes.jsp" class="btn btn-primary">Ver</a>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </main>

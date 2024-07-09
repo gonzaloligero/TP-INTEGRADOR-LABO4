@@ -111,6 +111,27 @@ public class ServletCuentas extends HttpServlet {
                     request.getRequestDispatcher("SumarFondos.jsp").forward(request, response);
 
                 break;
+                
+                case "listarPorCategoria":
+                    String tipoCliente = request.getParameter("categoria");
+                    ArrayList<Cuenta> listaCuentasPorCategoria = new ArrayList<>();
+                    
+                    switch (tipoCliente) {
+                        case "Bronce":
+                            listaCuentasPorCategoria = cuentaNegocio.listarCuentasPorTipo(0, 1000000);
+                            break;
+                        case "Plata":
+                            listaCuentasPorCategoria = cuentaNegocio.listarCuentasPorTipo(1000000, 2500000);
+                            break;
+                        case "Oro":
+                            listaCuentasPorCategoria = cuentaNegocio.listarCuentasPorTipo(2500000, Double.MAX_VALUE);
+                            break;
+                    }
+                    
+                    request.setAttribute("listaCuentas", listaCuentasPorCategoria);
+                    request.setAttribute("categoriaSeleccionada", tipoCliente);
+                    request.getRequestDispatcher("TiposDeClientes.jsp").forward(request, response);
+                    break;
 
                 default:
                     response.sendRedirect("ListaCuentas.jsp");
