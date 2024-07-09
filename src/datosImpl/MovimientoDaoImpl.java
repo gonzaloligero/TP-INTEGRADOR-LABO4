@@ -208,7 +208,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 		System.out.print(idCuenta);
 		
 		try {
-			String queryDineroInyectado = "UPDATE CUENTAS SET Saldo = Saldo + " + 50 + " WHERE NumeroCuenta = " + idCuenta;
+			String queryDineroInyectado = "UPDATE CUENTAS SET Saldo = Saldo + " + saldo + " WHERE NumeroCuenta = " + idCuenta;
 			dineroInyectado = cn.execute(queryDineroInyectado);	
                  
         } catch (Exception e) {

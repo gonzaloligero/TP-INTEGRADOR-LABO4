@@ -29,21 +29,17 @@ public class ServletMovimientos extends HttpServlet {
 		
 		 MovimientoNegocio movimientoNegocio = new MovimientoNegImpl();
 	        
-
-	        ArrayList<Movimiento> listaMovimiento = movimientoNegocio.listarMovimientos();
+		 
+			 ArrayList<Movimiento> listaMovimiento = movimientoNegocio.listarMovimientos();	       
+				for (Movimiento movimiento : listaMovimiento ) {
+		            System.out.println(movimiento.toString());
+		        }
+		        request.setAttribute("listaMovimientos", listaMovimiento);	        
+		        request.getRequestDispatcher("/ListaTransferencias.jsp").forward(request, response);
+		 
+		       
 	        
-
-	       
-			for (Movimiento movimiento : listaMovimiento ) {
-	            //System.out.println(movimiento.toString());
-	        }
-
-	        request.setAttribute("listaMovimientos", listaMovimiento);
-	        
-
-	        request.getRequestDispatcher("/HomebankingMovimientos.jsp").forward(request, response);
 	    }
-
 	
 
 	
