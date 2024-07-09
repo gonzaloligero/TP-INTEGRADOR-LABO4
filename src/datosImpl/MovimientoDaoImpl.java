@@ -220,5 +220,29 @@ public class MovimientoDaoImpl implements MovimientoDao {
 		}else {return false;}
 	}
 
+
+	@Override
+	public float montosPorFecha(Date fecha1, Date fecha2) {
+		
+		cn = new Conexion();
+		cn.Open();
+		float importe = 0;
+		
+		try {
+			ResultSet rs = cn.query("SELECT SUM(Importe) AS Total FROM MOVIMIENTOS WHERE Fecha BETWEEN '" + fecha1 + "' AND '" + fecha2 + "'");
+            	while (rs.next()) {
+            	importe = (rs.getFloat("Total"));
+
+          }
+           
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            cn.close();
+        }
+		
+		return importe;
+	}
+
 	
 }

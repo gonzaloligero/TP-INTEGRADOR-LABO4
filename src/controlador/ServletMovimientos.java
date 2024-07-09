@@ -1,5 +1,8 @@
 package controlador;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -56,8 +59,31 @@ public class ServletMovimientos extends HttpServlet {
     		 request.setAttribute("dineroIngresado", vecMontos[0]);
     		 request.setAttribute("dineroTransferido", vecMontos[1]);
     	     request.getRequestDispatcher("Cashflow.jsp").forward(request, response);
+    		}else if(action.equals("montos")) {
+    			MovimientoNegocio movimientoNegocio = new MovimientoNegImpl();
+    			String fechaInicioStr = request.getParameter("fechaInicio");
+    			String fechaFinStr = request.getParameter("fechaFin");
+    			java.sql.Date sqlFecha1 = null;
+    		    java.sql.Date sqlFecha2 = null;
+    			float montos = 0;
+    			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    			java.util.Date utilFecha1;
+    			java.util.Date utilFecha2;
+				try {
+					utilFecha1 = dateFormat.parse(fechaInicioStr);
+		            utilFecha2 = dateFormat.parse(fechaFinStr);
+		            sqlFecha1 = new java.sql.Date(utilFecha1.getTime());
+	                sqlFecha2 = new java.sql.Date(utilFecha2.getTime());
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+    		    montos = movimientoNegocio.montosPorFecha(sqlFecha1, sqlFecha2);
+    		    request.setAttribute("montoTotal", montos);
+		        request.getRequestDispatcher("/MontosIngresados.jsp").forward(request, response);
+    		    
     		}
-         }
+         	
+	}
 		 
 
 }
