@@ -11,6 +11,7 @@ import entidad.Cliente;
 import entidad.Cuenta;
 import excepciones.ClienteExcedeCantCuentas;
 import excepciones.CuentaErrorOperacion;
+import excepciones.ParametroInvalido;
 
 public class CuentaDaoImpl implements CuentaDao{
 
@@ -154,9 +155,9 @@ public class CuentaDaoImpl implements CuentaDao{
 	}
 
 	@Override
-	public boolean bajaLogicaCuenta(int NumeroCuenta) throws CuentaErrorOperacion {
-	    boolean cuentaDesactivado = false;
-	    
+	public boolean bajaLogicaCuenta(int NumeroCuenta) throws CuentaErrorOperacion{
+	    		
+		boolean cuentaDesactivado = false;    
 	    cn = new Conexion();
 	    cn.Open();
 	    String query = "UPDATE CUENTAS SET ESTADO = 0 WHERE NumeroCuenta = " + NumeroCuenta;

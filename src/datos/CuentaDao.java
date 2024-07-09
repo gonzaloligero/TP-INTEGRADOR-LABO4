@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import entidad.Cuenta;
 import excepciones.ClienteExcedeCantCuentas;
 import excepciones.CuentaErrorOperacion;
+import excepciones.ParametroInvalido;
 
 
 public interface CuentaDao {

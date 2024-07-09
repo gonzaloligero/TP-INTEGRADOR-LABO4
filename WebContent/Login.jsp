@@ -139,6 +139,15 @@
 		     <input type="submit" name="btnIniciarSesion" value="Iniciar Sesión" class="btnPrincipal">
 		     
 		 </form>
+		 <%
+	        String errorMensaje = (String) request.getAttribute("errorMensaje");
+	        if (errorMensaje != null) {
+	    %>
+	        <p style="color: red;"><%= errorMensaje %></p>
+	    <%
+	        }
+	    %>
+		 
 	 </section>
 	
    </main>  
