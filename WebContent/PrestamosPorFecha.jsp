@@ -44,6 +44,8 @@
             </div>
         </div>
         
+        <form action="ServLetPrestamos" method="get">
+		<input type="hidden" name="action" value="prestamos_por_fecha">
         <div class="row mb-3">
             <div class="col-md-6">
                 <div class="form-group">
@@ -74,6 +76,7 @@
                 </ul>
             </div>
         </div>
+        </form>
         
         <div class="row mt-3">
             <div class="col">

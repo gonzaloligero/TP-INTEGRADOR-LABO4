@@ -2,6 +2,7 @@ package controlador;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +25,9 @@ import entidad.Cuenta;
 import entidad.Prestamos;
 import excepciones.SaldoInsuficienteException;
 import entidad.Plazos;
+import negocio.MovimientoNegocio;
 import negocio.PrestamosNegocio;
+import negocioImpl.MovimientoNegImpl;
 import negocioImpl.PrestamosNegImpl;
 
 @WebServlet("/ServLetPrestamos")
@@ -62,27 +65,40 @@ public class ServLetPrestamos extends HttpServlet{
 
 				//Pagina HomebankingPagoPrestamo.jsp
 			case "PagarPrestamo":
-				HttpSession session = request.getSession();
+					HttpSession session = request.getSession();
 
-				Cliente cliente = (Cliente) session.getAttribute("cliente");
+					Cliente cliente = (Cliente) session.getAttribute("cliente");
 
-				if (cliente == null) {
-					response.sendRedirect("Login.jsp?sessionExpired=true");
-					return;
-				}
+					if (cliente == null) {
+						response.sendRedirect("Login.jsp?sessionExpired=true");
+						return;
+					}
 
-				List<Prestamos> lista2 = pc.obtenerTodosPrestamosCliente(cliente.getDNI());
-				List<Plazos> lista3 = ppi.obtenerCuotasPorDNI(cliente.getDNI());
-				List<Cuenta> lista4 = cdi.obtenerCuentasCliente(cliente.getDNI());
+					List<Prestamos> lista2 = pc.obtenerTodosPrestamosCliente(cliente.getDNI());
+					List<Plazos> lista3 = ppi.obtenerCuotasPorDNI(cliente.getDNI());
+					List<Cuenta> lista4 = cdi.obtenerCuentasCliente(cliente.getDNI());
 
 
-				request.setAttribute("listaPrestamosCliente", lista2);
+					request.setAttribute("listaPrestamosCliente", lista2);
 
-				request.setAttribute("listaPlazosCliente", lista3);
-				request.setAttribute("listaCuentaCliente", lista4);
-				request.getRequestDispatcher("HomebankingPagoPrestamo.jsp").forward(request, response);
+					request.setAttribute("listaPlazosCliente", lista3);
+					request.setAttribute("listaCuentaCliente", lista4);
+					request.getRequestDispatcher("HomebankingPagoPrestamo.jsp").forward(request, response);
 
 				break;
+				
+			case "prestamos_por_fecha":
+				PrestamosNegImpl prestamoNeg = new PrestamosNegImpl();
+				ArrayList<Prestamos> listaPrestamo = (ArrayList<Prestamos>) prestamoNeg.obtenerTodosLosPrestamos();
+				System.out.println(listaPrestamo);
+    			String fechaInicioStr = request.getParameter("fechaInicio");
+    			String fechaFinStr = request.getParameter("fechaFin");
+    			
+    			
+    			request.getRequestDispatcher("/PrestamosPorFecha.jsp").forward(request, response);
+				
+				break;
+				
 
 
 

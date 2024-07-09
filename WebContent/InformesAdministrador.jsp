@@ -81,7 +81,7 @@
                     <div class="card-body">
                         <h5 class="card-title">PRÉSTAMOS POR FECHA</h5>
                         <p class="card-text">Seleccione mes y año para rastrear los préstamos que han sido solicitados en ese momento</p>
-                        <a href="#" class="btn btn-primary">Ver</a>
+                        <a href="PrestamosPorFecha.jsp" class="btn btn-primary">Ver</a>
                     </div>
                 </div>
                 <!-- Card 7 -->
