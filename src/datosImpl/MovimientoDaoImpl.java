@@ -244,5 +244,28 @@ public class MovimientoDaoImpl implements MovimientoDao {
 		return importe;
 	}
 
+
+	@Override
+	public int rastrearTransferencias(Date fecha1, Date fecha2, float monto) {
+		cn = new Conexion();
+		cn.Open();
+		int cantidadTransferencias = 0;
+		
+		try {
+			ResultSet rs = cn.query("SELECT COUNT(*) AS CantidadTransferencias FROM MOVIMIENTOS WHERE Fecha BETWEEN '" + fecha1 + "' AND '" + fecha2 + "' AND Importe >= " + monto);
+            	while (rs.next()) {
+            	cantidadTransferencias = (rs.getInt("CantidadTransferencias"));
+
+          }
+           
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            cn.close();
+        }
+		
+		return cantidadTransferencias;
+	}
+
 	
 }
