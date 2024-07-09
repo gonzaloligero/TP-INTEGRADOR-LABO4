@@ -83,7 +83,7 @@ public class CuentaDaoImpl implements CuentaDao{
 	    Conexion cn = new Conexion();
 	    cn.Open();    
 
-	    String query = "UPDATE Cuentas SET Saldo='" + cuenta.getSaldo() + "' WHERE IDCuenta='" + cuenta.getIDCuenta() + "'";
+	    String query = "UPDATE Cuentas SET Saldo=" + cuenta.getSaldo() + " WHERE IDCuenta=" + cuenta.getIDCuenta();
 
 	    
 	    try {	    	
@@ -292,6 +292,37 @@ public class CuentaDaoImpl implements CuentaDao{
 	    
 	    return flag;
 	}
+	@Override
+	public ArrayList<Cuenta> listarCuentasPorTipo(double saldoMin, double saldoMax) {
+	    cn = new Conexion();
+	    cn.Open();
+	    ArrayList<Cuenta> lista = new ArrayList<>();
+	    
+	    try {
+	        String query = "SELECT c.IDCuenta, c.DNICliente, c.FechaCreacion, c.NumeroCuenta, c.CBU, c.Saldo, c.IDTipoCuenta, c.ESTADO " +
+	                       "FROM cuentas c " +
+	                       "WHERE c.Saldo >= " + saldoMin + " AND c.Saldo < " + saldoMax + " AND c.ESTADO = 1";
+	        ResultSet rs = cn.query(query);
+	        while (rs.next()) {
+	            Cuenta cuenta = new Cuenta();
+	            cuenta.setIDCuenta(rs.getInt("IDCuenta"));
+	            cuenta.setDNICliente(rs.getInt("DNICliente"));
+	            cuenta.setFechaCreacion(rs.getDate("FechaCreacion"));
+	            cuenta.setNumeroCuenta(rs.getInt("NumeroCuenta"));
+	            cuenta.setCBU(rs.getString("CBU"));
+	            cuenta.setSaldo(rs.getDouble("Saldo"));
+	            cuenta.setIDTipoCuenta(rs.getInt("IDTipoCuenta"));
+	            cuenta.setEstado(rs.getBoolean("ESTADO"));
+	            lista.add(cuenta);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        cn.close();
+	    }
+	    return lista;
+	}
+
 
 
 }

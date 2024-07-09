@@ -44,7 +44,9 @@
         <input type="hidden" name="action" value="buscarPorDni">
     </form>
 </div>     
-        
+        <div>
+			<a class="btn bg-azul fw-bold bi bi-arrow-left fs-5 mb-3" href="MenuAdministrador.jsp">Volver</a>
+        </div>
         <div class="table-responsive">
             <table id="table_id" class="table table-striped table-sm display text-center">
                 <thead>
@@ -54,8 +56,10 @@
                         <th>Importe</th>
                         <th>Cuenta emisora</th>
                         <th>Cuenta receptora</th>
+
                     </tr>
                 </thead>
+                <form action="ServletMovimientos" method="get">
                 <tbody>
                     <% 
                         ArrayList<Movimiento> listaTransferencias = new ArrayList<Movimiento>();
@@ -68,7 +72,8 @@
                             <td><%= transferencia.getDetalle() %></td>
                             <td><%= transferencia.getImporte() %></td>
                             <td><%= transferencia.getIdCuentaEmisor() %></td>
-                            <td><%= transferencia.getIdCuentaReceptor() %></td>                        </tr>
+                            <td><%= transferencia.getIdCuentaReceptor() %></td>
+                      </tr>
                     <% 
                             } 
                         } else { 
@@ -81,11 +86,10 @@
                     %>
                 </tbody>
             </table>
+            </form>
         </div>
     </div>
-	<div class="container">
-				<a href="MenuAdministrador.jsp" class="btn btn-secondary">Volver</a>
-			</div>
+
     <jsp:include page="Componentes/Footer.jsp"></jsp:include>
 
     

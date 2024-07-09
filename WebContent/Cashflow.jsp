@@ -10,6 +10,11 @@
     <title>Selección de Cliente - Banco XYZ</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <script>
+    document.getElementById('clienteDNI').addEventListener('change', function() {
+        console.log(this.value);
+    });
+	</script>
     
     <style>
         body {
@@ -44,32 +49,33 @@
 </head>
 <body>
     <div class="container mt-5">
-        <div class="row mb-3">
-            <div class="col">
-                <form id="selectClienteForm" action="ServletClientes" method="GET">
-                    <div class="form-group">
-                        <label for="clientes">Seleccione cliente:</label>
-                        <select id="clientes" class="form-control" name="clienteId">
-
-                            <% 
-                                ArrayList<Cliente> listaClientes = (ArrayList<Cliente>) request.getAttribute("listaClientes");
-                                if (listaClientes != null) {
-                                    for (Cliente cliente : listaClientes) {
-                            %>
-							<option value="<%= cliente.getIDUsuario() %>"> <%= cliente.getDNI() %> - <%= cliente.getNombre() %> <%= cliente.getApellido() %></option>
-                            <% 
-                                    }
+    <div class="row mb-3">
+        <div class="col">
+            <form id="selectClienteForm" action="ServletMovimientos" method="post">
+			 <input type="hidden" name="action" value="cashflow">
+                <div class="form-group">
+                    <label for="clienteDNI">Seleccione cliente:</label>
+                    <select id="clienteDNI" class="form-control" name="clienteDNI">
+                        <% 
+                            ArrayList<Cliente> listaClientes = (ArrayList<Cliente>) request.getAttribute("listaClientes");
+                            if (listaClientes != null) {
+                                for (Cliente cliente : listaClientes) {
+                        %>
+                        <option value="<%= cliente.getDNI() %>"> <%= cliente.getDNI() %> - <%= cliente.getNombre() %> <%= cliente.getApellido() %></option>
+                        <% 
                                 }
-                            %>
-                        </select>
-                    </div>
-                    <input type="hidden" name="action" value="cashflow">
-                    <button type="submit" class="btn btn-primary">Ver Cashflow</button>
-                </form>
-            </div>
+                            }
+                        %>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Seleccionar Cliente</button>
+            </form>
         </div>
+    </div>
 
-		<form action="ServletMovimientos" method="POST">
+    <form action="ServletMovimientos" method="post">
+        <input type="hidden" name="action" value="cashflow">
+        <input type="hidden" name="clienteDNI" value="<%= request.getParameter("clienteDNI") %>">
         <div class="row">
             <div class="col">
                 <table id="tablaCashflow" class="table table-bordered">
@@ -82,21 +88,28 @@
                     </thead>
                     <tbody>
                         <tr>
-				            <td><%= String.format("$%.2f", request.getAttribute("dineroIngresado")) %></td>
-				            <td><%= String.format("$%.2f", request.getAttribute("dineroTransferido")) %></td>
-				            <td>$3,500</td>
-				        </tr>
+                            <td><%= String.format("$%.2f", request.getAttribute("dineroIngresado") != null ? (float) request.getAttribute("dineroIngresado") : 0.0f ) %></td>
+                            <td><%= String.format("$%.2f", request.getAttribute("dineroTransferido") != null ? (float) request.getAttribute("dineroTransferido") : 0.0f ) %></td>
+                            <%
+                                float dineroIngresado = request.getAttribute("dineroIngresado") != null ? (float) request.getAttribute("dineroIngresado") : 0.0f;
+                                float dineroTransferido = request.getAttribute("dineroTransferido") != null ? (float) request.getAttribute("dineroTransferido") : 0.0f;
+                                float total = dineroIngresado + dineroTransferido;
+                            %>
+                            <td><%= String.format("$%.2f", total) %></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-		</form>
-        <div class="row mt-3">
-            <div class="col">
-                <a href="InformesAdministrador.jsp" class="btn btn-primary">Volver</a>
-            </div>
+    </form>
+
+    <div class="row mt-3">
+        <div class="col">
+            <a href="InformesAdministrador.jsp" class="btn btn-primary">Volver</a>
         </div>
     </div>
+</div>
+    
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>

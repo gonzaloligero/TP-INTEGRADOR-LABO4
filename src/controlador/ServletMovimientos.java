@@ -1,5 +1,8 @@
 package controlador;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -25,25 +28,21 @@ public class ServletMovimientos extends HttpServlet {
         }
 
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		 MovimientoNegocio movimientoNegocio = new MovimientoNegImpl();
 	        
-
-	        ArrayList<Movimiento> listaMovimiento = movimientoNegocio.listarMovimientos();
+		 
+			 ArrayList<Movimiento> listaMovimiento = movimientoNegocio.listarMovimientos();	       
+				for (Movimiento movimiento : listaMovimiento ) {
+		            System.out.println(movimiento.toString());
+		        }
+		        request.setAttribute("listaMovimientos", listaMovimiento);	        
+		        request.getRequestDispatcher("/ListaTransferencias.jsp").forward(request, response);
+		 
+		       
 	        
-
-	       
-			for (Movimiento movimiento : listaMovimiento ) {
-	            //System.out.println(movimiento.toString());
-	        }
-
-	        request.setAttribute("listaMovimientos", listaMovimiento);
-	        
-
-	        request.getRequestDispatcher("/HomebankingMovimientos.jsp").forward(request, response);
 	    }
-
 	
 
 	
@@ -52,16 +51,38 @@ public class ServletMovimientos extends HttpServlet {
          String action = request.getParameter("action");
          if(action.equals("cashflow")) {
         	 MovimientoNegocio movimientoNegocio = new MovimientoNegImpl();
-    		 String clienteIdStr = request.getParameter("clienteId");
-    		 int clienteId = Integer.parseInt(clienteIdStr); 
+    		 String clienteIdStr = request.getParameter("clienteDNI");
+        	 int clienteId = Integer.parseInt(request.getParameter("clienteDNI"));
+    	   		 
     		 float []vecMontos = movimientoNegocio.obtenerCashflow(clienteId);
-    		 
-    		 
     		 request.setAttribute("dineroIngresado", vecMontos[0]);
     		 request.setAttribute("dineroTransferido", vecMontos[1]);
-    	     request.getRequestDispatcher("Cashflow.jsp").forward(request, response);
+    	     request.getRequestDispatcher("ServletClientes?action=cashflow").forward(request, response);
+    		}else if(action.equals("montos")) {
+    			MovimientoNegocio movimientoNegocio = new MovimientoNegImpl();
+    			String fechaInicioStr = request.getParameter("fechaInicio");
+    			String fechaFinStr = request.getParameter("fechaFin");
+    			java.sql.Date sqlFecha1 = null;
+    		    java.sql.Date sqlFecha2 = null;
+    			float montos = 0;
+    			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    			java.util.Date utilFecha1;
+    			java.util.Date utilFecha2;
+				try {
+					utilFecha1 = dateFormat.parse(fechaInicioStr);
+		            utilFecha2 = dateFormat.parse(fechaFinStr);
+		            sqlFecha1 = new java.sql.Date(utilFecha1.getTime());
+	                sqlFecha2 = new java.sql.Date(utilFecha2.getTime());
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+    		    montos = movimientoNegocio.montosPorFecha(sqlFecha1, sqlFecha2);
+    		    request.setAttribute("montoTotal", montos);
+		        request.getRequestDispatcher("/MontosIngresados.jsp").forward(request, response);
+    		    
     		}
-         }
+         	
+	}
 		 
 
 }

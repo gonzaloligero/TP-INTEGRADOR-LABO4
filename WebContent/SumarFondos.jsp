@@ -16,7 +16,9 @@
         <div class="w-100 pt-2 text-center">
             <h1 class="mb-5">INYECCIÓN DE FONDOS</h1>
         </div>
-
+		<div>
+			<a class="btn bg-azul fw-bold bi bi-arrow-left fs-5 mb-3" href="MenuAdministrador.jsp">Volver</a>
+        </div>
         <table id="table_id" class="table table-striped display text-center">
             <thead>
                 <tr>
@@ -62,6 +64,7 @@
             </tbody>
         </table>
     </div>
+  
     <jsp:include page="Componentes/Footer.jsp"></jsp:include>
 </body>
 </html>

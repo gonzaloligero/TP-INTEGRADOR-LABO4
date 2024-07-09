@@ -64,45 +64,7 @@
             <div>
                 <a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3 btn-fixed-size" href="MenuAdministrador.jsp">Volver</a>
             </div>
-            <div class="card-group">
-                <!-- Card 1 -->
-                <div class="card" style="width: 18rem;">
-                    <img src="https://19640noticias.com/download/multimedia.normal.816c7f6b82a8e57f.QXJnZW50aW5hX25vcm1hbC53ZWJw.webp" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">CLIENTES POR PROVINCIA</h5>
-                        <p class="card-text">Reporte sobre la cantidad de clientes discriminado por cada provincia de la Argentina</p>
-                        <a href="#" class="btn btn-primary">Ver</a>
-                    </div>
-                </div>
-                <!-- Card 2 -->
-                <div class="card" style="width: 18rem;">
-                    <img src="https://conceptoabc.com/wp-content/uploads/2021/05/deudor.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">CLIENTES DEUDORES</h5>
-                        <p class="card-text">Listado con los clientes que solicitaron préstamos. Cantidad de cuotas pagadas y aún debidas.</p>
-                        <a href="#" class="btn btn-primary">Ver</a>
-                    </div>
-                </div>
-                <!-- Card 3 -->
-                <div class="card" style="width: 18rem;">
-                    <img src="https://www.weareteachers.com/wp-content/uploads/GettyImages-471617812.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">CLIENTES EXTRANJEROS</h5>
-                        <p class="card-text">Detalle de los clientes asociados al banco y no nacidos en la Argentina</p>
-                        <a href="#" class="btn btn-primary">Ver</a>
-                    </div>
-                </div>
-                <!-- Card 4 -->
-                <div class="card" style="width: 18rem;">
-                    <img src="https://media.licdn.com/dms/image/D4E22AQGGGEcD-wNcaQ/feedshare-shrink_800/0/1707994069994?e=2147483647&v=beta&t=ydsV3qd_9DtwvRBneKHkudYHv0Rr6oFqTNCj6Rh1PAM" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">PRÉSTAMOS SOLICITADOS</h5>
-                        <p class="card-text">Informe sobre la cantidad de préstamos solicitados el último mes y su estado actual (aprobado/desaprobado)</p>
-                        <a href="#" class="btn btn-primary">Ver</a>
-                    </div>
-                </div>
-            </div>
-
+            
             <div class="card-group">
                 <!-- Card 5 -->
                 <div class="card" style="width: 18rem;">
@@ -128,7 +90,7 @@
                     <div class="card-body">
                         <h5 class="card-title">MONTOS INGRESADOS</h5>
                         <p class="card-text">Seleccione dos fechas de inicio y fin para determinar el dinero que ingresó en el banco en esa franja</p>
-                        <a href="#" class="btn btn-primary">Ver</a>
+                        <a href="MontosIngresados.jsp" class="btn btn-primary">Ver</a>
                     </div>
                 </div>
                 <!-- Card 8 -->
@@ -140,6 +102,15 @@
                         <a href="#" class="btn btn-primary">Ver</a>
                     </div>
                 </div>
+                 <div class="card" style="width: 18rem;">
+                    <img src="https://elviajedelcliente.com/wp-content/uploads/2020/07/portada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">TIPOS DE CLIENTES</h5>
+                        <p class="card-text">Detalle de los tipos de clientes, según el dinero en cuentas</p>
+                        <a href="TiposDeClientes.jsp" class="btn btn-primary">Ver</a>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </main>

@@ -22,8 +22,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
         ArrayList<Movimiento> lista = new ArrayList<Movimiento>();
 
         try {
-            ResultSet rs = cn.query("SELECT M.Fecha, M.Detalle, M.Importe, M.IDCuentaEmisor, M.IDCuentaReceptor, T.Nombre AS TipoMovimiento "
-            		+ "FROM MOVIMIENTOS as M JOIN TIPO_MOVIMIENTOS AS T ON M.IDTipoMovimiento = T.IDTipoMovimiento;");
+            ResultSet rs = cn.query("SELECT  M.Fecha, M.Detalle, M.Importe, M.IDCuentaEmisor, M.IDCuentaReceptor FROM MOVIMIENTOS as M");
             while (rs.next()) {
                 Movimiento regMovimiento = new Movimiento();
                 regMovimiento.setFecha(rs.getDate("Fecha"));
@@ -31,7 +30,6 @@ public class MovimientoDaoImpl implements MovimientoDao {
                 regMovimiento.setImporte(rs.getBigDecimal("Importe"));
                 regMovimiento.setIdCuentaEmisor(rs.getInt("IDCuentaEmisor"));
                 regMovimiento.setIdCuentaReceptor(rs.getInt("IDCuentaReceptor"));
-                regMovimiento.setTipoMovimiento(rs.getString("TipoMovimiento"));
                 
                 lista.add(regMovimiento);
             }
@@ -170,22 +168,22 @@ public class MovimientoDaoImpl implements MovimientoDao {
 
 	@Override
 	public float[] obtenerCashflow(int dniCliente) {
-		float[]vecMontos = {};
+		float[]vecMontos = new float[2];
 		float monto = 0;
 		
 		cn = new Conexion();
 		cn.Open();
 		
 		try {
-            ResultSet rs = cn.query("SELECT SUM(M.Importe) FROM MOVIMIENTOS AS M INNER JOIN CUENTAS AS C ON C.NumeroCuenta =  M.IDCuentaEmisor INNER JOIN CLIENTES AS CL ON CL.DNI = C.DNICliente WHERE CL.IDUsuario = " + dniCliente);
+            ResultSet rs = cn.query("SELECT SUM(M.Importe) AS TotalRecibido FROM MOVIMIENTOS AS M INNER JOIN CUENTAS AS C ON C.NumeroCuenta =  M.IDCuentaEmisor INNER JOIN CLIENTES AS CL ON CL.DNI = C.DNICliente WHERE CL.DNI = " + dniCliente);
             	while (rs.next()) {
-            	monto = (rs.getFloat("Importe"));
+            	monto = (rs.getFloat("TotalRecibido"));
             	vecMontos[0] = monto;
           }
             monto = 0;
-            rs = cn.query("SELECT SUM(M.Importe) FROM MOVIMIENTOS AS M INNER JOIN CUENTAS AS C ON C.NumeroCuenta =  M.IDCuentaReceptor INNER JOIN CLIENTES AS CL ON CL.DNI = C.DNICliente WHERE CL.IDUsuario = " + dniCliente);
+            rs = cn.query("SELECT SUM(M.Importe) AS TotalEntregado FROM MOVIMIENTOS AS M INNER JOIN CUENTAS AS C ON C.NumeroCuenta =  M.IDCuentaReceptor INNER JOIN CLIENTES AS CL ON CL.DNI = C.DNICliente WHERE CL.DNI = " + dniCliente);
             while (rs.next()) {
-            	monto = (rs.getFloat("Importe"));
+            	monto = (rs.getFloat("TotalEntregado"));
             	vecMontos[1] = monto;
           }	
         } catch (Exception e) {
@@ -208,7 +206,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 		System.out.print(idCuenta);
 		
 		try {
-			String queryDineroInyectado = "UPDATE CUENTAS SET Saldo = Saldo + " + 50 + " WHERE NumeroCuenta = " + idCuenta;
+			String queryDineroInyectado = "UPDATE CUENTAS SET Saldo = Saldo + " + saldo + " WHERE NumeroCuenta = " + idCuenta;
 			dineroInyectado = cn.execute(queryDineroInyectado);	
                  
         } catch (Exception e) {
@@ -220,6 +218,30 @@ public class MovimientoDaoImpl implements MovimientoDao {
 		if(dineroInyectado == true) {
 			return true;
 		}else {return false;}
+	}
+
+
+	@Override
+	public float montosPorFecha(Date fecha1, Date fecha2) {
+		
+		cn = new Conexion();
+		cn.Open();
+		float importe = 0;
+		
+		try {
+			ResultSet rs = cn.query("SELECT SUM(Importe) AS Total FROM MOVIMIENTOS WHERE Fecha BETWEEN '" + fecha1 + "' AND '" + fecha2 + "'");
+            	while (rs.next()) {
+            	importe = (rs.getFloat("Total"));
+
+          }
+           
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            cn.close();
+        }
+		
+		return importe;
 	}
 
 	
