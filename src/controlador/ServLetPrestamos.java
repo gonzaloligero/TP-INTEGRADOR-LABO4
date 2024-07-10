@@ -2,6 +2,8 @@ package controlador;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -88,16 +90,34 @@ public class ServLetPrestamos extends HttpServlet{
 				break;
 				
 			case "prestamos_por_fecha":
-				PrestamosNegImpl prestamoNeg = new PrestamosNegImpl();
-				ArrayList<Prestamos> listaPrestamo = (ArrayList<Prestamos>) prestamoNeg.obtenerTodosLosPrestamos();
-				System.out.println(listaPrestamo);
-    			String fechaInicioStr = request.getParameter("fechaInicio");
-    			String fechaFinStr = request.getParameter("fechaFin");
-    			
-    			request.setAttribute("listaPrestamos", listaPrestamo);
-    			request.getRequestDispatcher("/PrestamosPorFecha.jsp").forward(request, response);
-				
-				break;
+			    PrestamosNegImpl prestamoNeg = new PrestamosNegImpl();
+			    ArrayList<Prestamos> listaPrestamo = (ArrayList<Prestamos>) prestamoNeg.obtenerTodosLosPrestamos();
+			    ArrayList<Prestamos> listaFiltrada = new ArrayList<>();
+			    System.out.println(listaPrestamo);
+			    
+			    String fechaInicioStr = request.getParameter("fechaInicio");
+			    String fechaFinStr = request.getParameter("fechaFin");
+			    
+			    LocalDate fechaI = LocalDate.parse(fechaInicioStr);
+			    LocalDate fechaF = LocalDate.parse(fechaFinStr);
+			    
+			    for (Prestamos item : listaPrestamo) {
+			        
+			        java.sql.Date fechaPrestamoDate = (java.sql.Date) item.getFecha();
+			        
+			       
+			        LocalDate fechaPrestamo = fechaPrestamoDate.toLocalDate();
+			        
+			        if ((fechaPrestamo.isEqual(fechaI) || fechaPrestamo.isAfter(fechaI)) && 
+			            (fechaPrestamo.isEqual(fechaF) || fechaPrestamo.isBefore(fechaF))) {
+			            listaFiltrada.add(item);
+			        }
+			    }
+			    
+			    request.setAttribute("listaPrestamos", listaFiltrada);
+			    request.getRequestDispatcher("/PrestamosPorFecha.jsp").forward(request, response);
+			    
+			    break;
 				
 
 

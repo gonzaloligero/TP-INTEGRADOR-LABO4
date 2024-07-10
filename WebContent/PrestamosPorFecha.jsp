@@ -52,13 +52,13 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="fechaInicio">Fecha de Inicio</label>
-                    <input type="date" class="form-control" id="fechaInicio" name="fechaInicio">
+                    <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="fechaFin">Fecha de Fin</label>
-                    <input type="date" class="form-control" id="fechaFin" name="fechaFin">
+                    <input type="date" class="form-control" id="fechaFin" name="fechaFin" required>
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@
                 <table id="table_id" class="table table-striped display text-center">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    
                     <th>TIPO</th>
                     <th>DNI CLIENTE</th>
                     <th>MONTO PEDIDO</th>
@@ -89,7 +89,7 @@
                         for (Prestamos item : listaPrestamos) { 
                 %>
                     <tr>
-                        <td><%= item.getIDPrestamo() %></td>
+                        
                         <td><%= item.getIDTipoPrestamo() %></td>
                         <td><%= item.getDNICliente() %></td>
                         <td><%= item.getMontoPedido() %></td>
