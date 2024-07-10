@@ -17,5 +17,6 @@ public interface MovimientoDao {
 	public float montosPorFecha(Date fecha1, Date fecha2);
 	public int rastrearTransferencias(Date fecha1, Date fecha2, float monto);
 	public ArrayList<Movimiento> listarMovimientosPorCliente(int dni);
+	boolean realizarPagoPrestamo(Movimiento transferencia);
 	
 }

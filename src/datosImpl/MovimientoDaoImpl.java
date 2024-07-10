@@ -51,7 +51,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
             ResultSet rs = cn.query("SELECT M.IDTipoMovimiento, M.Fecha, M.Detalle, M.Importe, M.IDCuentaEmisor, M.IDCuentaReceptor, T.Nombre AS TipoMovimiento   \r\n" + 
             		"FROM MOVIMIENTOS as M  \r\n" + 
             		"JOIN TIPO_MOVIMIENTOS AS T ON M.IDTipoMovimiento = T.IDTipoMovimiento \r\n" + 
-            		"join CUENTAS as C on M.IDCuentaEmisor = C.NumeroCuenta or M.IDCuentaEmisor = C.IDCuenta\r\n" + 
+            		"join CUENTAS as C on M.IDCuentaEmisor = C.NumeroCuenta or M.IDCuentaReceptor = C.NumeroCuenta\r\n" + 
             		"Where C.DNICliente =" + dni);
             while (rs.next()) {
                 Movimiento regMovimiento = new Movimiento();
@@ -166,6 +166,55 @@ public class MovimientoDaoImpl implements MovimientoDao {
 
 		 
 	}
+	
+	
+	@Override
+	public boolean realizarPagoPrestamo(Movimiento transferencia) {
+		
+		boolean movimientoInsertado = false;
+		boolean saldoPositivo = false;
+		boolean saldoNegativo = false;
+		cn = new Conexion();
+        cn.Open();
+        
+        BigDecimal importe = transferencia.getImporte();
+
+        
+        try {
+        	String queryMovimiento = "INSERT INTO MOVIMIENTOS(Fecha,Detalle,Importe,IDCuentaEmisor, IDCuentaReceptor,IDTipoMovimiento)"
+	        		+ "VALUES(CURDATE(), '"+transferencia.getDetalle()+"', "+ importe +","+ transferencia.getIdCuentaEmisor() +", "+ transferencia.getIdCuentaReceptor() +  ", "+ 3 +" );";
+      
+        	String querySaldoNegativo = "UPDATE CUENTAS SET Saldo = Saldo - " + importe + " WHERE NumeroCuenta = " + transferencia.getIdCuentaEmisor() + ";";
+        	
+        	String querySaldoPositivo = "UPDATE CUENTAS SET Saldo = Saldo + " + importe + " WHERE NumeroCuenta = " + transferencia.getIdCuentaReceptor() + ";";
+
+        	
+		 movimientoInsertado = cn.execute(queryMovimiento);	
+		 
+		 saldoPositivo = cn.execute(querySaldoPositivo);
+		 
+		 saldoNegativo = cn.execute(querySaldoNegativo);
+		 
+		
+        }
+        catch(Exception e){
+        	System.out.println(e.getMessage());
+        }
+        finally {
+            cn.close();
+        }
+        	
+        if(movimientoInsertado == true && saldoPositivo == true && saldoNegativo == true) {
+        	return true;
+        }else {return false;}
+
+		 
+	}
+	
+	
+	
+	
+	
 
 
 	@Override

@@ -1,12 +1,14 @@
 package controlador;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,12 +20,14 @@ import javax.servlet.http.HttpSession;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 import datosImpl.CuentaDaoImpl;
+import datosImpl.MovimientoDaoImpl;
 import datosImpl.PlazosPrestamoImpleDao;
 
 import datosImpl.PrestamoDaoImpl;
 import datosImpl.TipoPrestamoDaoImpl;
 import entidad.Cliente;
 import entidad.Cuenta;
+import entidad.Movimiento;
 import entidad.Prestamos;
 import excepciones.SaldoInsuficienteException;
 import entidad.Plazos;
@@ -190,7 +194,8 @@ public class ServLetPrestamos extends HttpServlet{
 			case "Pagar":
 				int idPlazo = Integer.parseInt(request.getParameter("selectCuota"));
 				int idCuenta = Integer.parseInt(request.getParameter("selectCuenta"));
-
+				Movimiento movimiento = new Movimiento();
+				MovimientoDaoImpl MDI = new MovimientoDaoImpl();
 				Plazos plazo = ppi.obtenerPorId(idPlazo);
 				Cuenta cuenta = cdi.obtenerUnaCuenta(idCuenta);
 
@@ -199,6 +204,23 @@ public class ServLetPrestamos extends HttpServlet{
 					cdi.editarCuenta(cuenta);
 					plazo.setEstado(true);
 					ppi.actualizar(plazo);
+					
+					BigDecimal importe = new BigDecimal(plazo.getImporteAPagarCuotas());
+					movimiento.setIdCuentaEmisor(cuenta.getNumeroCuenta());
+					movimiento.setIdCuentaReceptor(11111111);
+					movimiento.setImporte(importe);
+					movimiento.setDetalle("Pago de cuota de préstamo N°"+plazo.getNroCuota());
+					
+					// Obtener la fecha actual
+			        LocalDate localDate = LocalDate.now();
+
+			       
+			        java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
+					
+					movimiento.setFecha(sqlDate);
+					movimiento.setIdMovimiento(3);
+					MDI.realizarPagoPrestamo(movimiento);
+					
 					session.setAttribute("mensaje", "El pago de la cuota se realizó con éxito.");
 				} catch (SaldoInsuficienteException e) {
 					session.setAttribute("mensaje", e.getMessage());
