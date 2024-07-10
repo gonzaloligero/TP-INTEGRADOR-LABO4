@@ -64,6 +64,16 @@ public class CuentaNegocioImpl implements CuentaNegocio {
 	    return cuentaDao.listarCuentasPorTipo(saldoMin, saldoMax);
 	}
 
+	@Override
+	public ArrayList<Cuenta> listaTipoCuentasResumenNeg() {
+		return cuentaDao.listaTipoCuentasResumen();
+	}
+
+	@Override
+	public ArrayList<Cuenta> listaCuentasResumen() {
+		return cuentaDao.listaCuentasResumen();
+	}
+
 
 	
 }

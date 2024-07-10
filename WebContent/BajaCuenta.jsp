@@ -12,6 +12,7 @@
 
     <jsp:include page="Componentes/head.jsp"></jsp:include>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <jsp:include page="Componentes/script_paginado.jsp"></jsp:include>
     <script type="text/javascript">
     $(document).ready(function() {
         $('#table_id').DataTable();
