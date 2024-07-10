@@ -323,6 +323,32 @@ public class CuentaDaoImpl implements CuentaDao{
 	    return lista;
 	}
 
+	@Override
+	public ArrayList<Cuenta> listaTipoCuentasResumen() {
+		Conexion cn = new Conexion();
+	    cn.Open();
+	    ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
+
+	    String query = "SELECT TC.IDTipoCuenta, TC.Tipo, SUM(C.Saldo) AS SaldoTotal " +
+	                   "FROM CUENTAS C " +
+	                   "JOIN TIPO_CUENTAS TC ON C.IDTipoCuenta = TC.IDTipoCuenta " +
+	                   "GROUP BY TC.IDTipoCuenta, TC.Tipo;";
+
+	    try (ResultSet rs = cn.query(query)) {
+	        while (rs.next()) {
+	            Cuenta cuentaResumen = new Cuenta();
+	            cuentaResumen.setIDTipoCuenta(rs.getInt("IDTipoCuenta"));
+	            cuentaResumen.setSaldo(rs.getDouble("SaldoTotal"));
+	            lista.add(cuentaResumen);
+	        }
+	    } catch (Exception e) {
+	        System.out.println(e.getMessage());
+	    } finally {
+	        cn.close();
+	    }
+	    return lista;
+	}
+
 
 
 }

@@ -2,6 +2,8 @@ package datos;
 
 import java.util.ArrayList;
 
+import com.sun.javafx.collections.MappingChange.Map;
+
 import entidad.Cuenta;
 import excepciones.ClienteExcedeCantCuentas;
 import excepciones.CuentaErrorOperacion;
@@ -19,6 +21,7 @@ public interface CuentaDao {
 	public ArrayList<Cuenta> listarCuentasTransferencia();
 	public boolean ValidarCbuYNumeroDeCuenta(int NumeroCuenta, String Cbu);
 	public ArrayList<Cuenta> listarCuentasPorTipo(double saldoMin, double saldoMax);
+	public ArrayList<Cuenta> listaTipoCuentasResumen();
 }
 
 		

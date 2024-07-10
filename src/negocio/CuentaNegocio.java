@@ -15,6 +15,7 @@ public interface CuentaNegocio {
 	public boolean altaLogicaCuenta(int numeroCuenta);
 	public ArrayList<Cuenta> listarCuentasTransferencia();
 	public ArrayList<Cuenta> listarCuentasPorTipo(double saldoMin, double saldoMax);
+	public ArrayList<Cuenta> listaTipoCuentasResumenNeg();
 }
 	
 	

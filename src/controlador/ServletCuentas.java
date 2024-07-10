@@ -136,6 +136,12 @@ public class ServletCuentas extends HttpServlet {
                 default:
                     response.sendRedirect("ListaCuentas.jsp");
                     break;
+                    
+                case "Resumen":
+            		ArrayList<Cuenta> listaCuentaResumen = cuentaNegocio.listaTipoCuentasResumenNeg();
+            		request.setAttribute("listaCuentaResumen", listaCuentaResumen);
+            		request.getRequestDispatcher("ListaResumenTipoDeCuenta.jsp").forward(request, response); 
+                break;
             }
         } else {
             response.sendRedirect("ListaCuentas.jsp");
