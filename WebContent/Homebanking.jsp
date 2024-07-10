@@ -80,7 +80,7 @@
             <div class="sidebar-collapse collapse">
                 <ul class="nav" id="main-menu">
                     <li class="active-link">
-                        <a href="ServletMovimientos"><i class="fa fa-history"></i>Historial de Movimientos</a>
+                        <a href="ServletMovimientos?action=listaMovimientos"><i class="fa fa-history"></i>Historial de Movimientos</a>
                     </li>
                     <li>                   
                         <a href="ServletTransferencias?action=listarCuentas"><i class="fa fa-refresh"></i>Transferencias</a>

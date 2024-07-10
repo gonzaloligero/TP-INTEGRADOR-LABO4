@@ -16,4 +16,5 @@ public interface MovimientoNegocio {
 	public boolean inyectarDinero(float saldo, int idCuenta);
 	public float montosPorFecha(Date fecha1, Date fecha2);
 	public int rastrearTransferencias(Date fecha1, Date fecha2, float monto);
+	ArrayList<Movimiento> listarMovimientosPorCliente(int dni);
 }
