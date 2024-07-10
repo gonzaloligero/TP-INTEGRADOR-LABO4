@@ -29,20 +29,54 @@ public class ServletMovimientos extends HttpServlet {
 
 	
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		 MovimientoNegocio movimientoNegocio = new MovimientoNegImpl();
-	        
-		 
-			 ArrayList<Movimiento> listaMovimiento = movimientoNegocio.listarMovimientos();	       
-				for (Movimiento movimiento : listaMovimiento ) {
-		            System.out.println(movimiento.toString());
-		        }
-		        request.setAttribute("listaMovimientos", listaMovimiento);	        
-		        request.getRequestDispatcher("/ListaTransferencias.jsp").forward(request, response);
-		 
-		       
-	        
-	    }
+        MovimientoNegocio movimientoNegocio = new MovimientoNegImpl();
+        String action = request.getParameter("action");
+        HttpSession session = request.getSession();         
+        Cliente cliente = (Cliente) session.getAttribute("cliente");
+
+        if (action != null) {
+            switch (action) {
+                case "listaMovimientos":
+                    if (cliente != null) {
+                        int dni = cliente.getDNI();
+                        ArrayList<Movimiento> listaMovimientoUsuario = movimientoNegocio.listarMovimientosPorCliente(dni);
+                        request.setAttribute("listaMovimientos", listaMovimientoUsuario);	        
+                        request.getRequestDispatcher("/HomebankingMovimientos.jsp").forward(request, response); 
+                    }
+                    break;
+                    
+                case "transf":
+                    ArrayList<Movimiento> listaMovimiento = movimientoNegocio.listarMovimientos();	       
+                    for (Movimiento movimiento : listaMovimiento) {
+                        System.out.println(movimiento.toString());
+                    }
+                    request.setAttribute("listaMovimientos", listaMovimiento);	        
+                    request.getRequestDispatcher("/ListaTransferencias.jsp").forward(request, response);
+                    break;
+
+                case "buscarPorTM":
+                    if (cliente != null) {
+                        int dni = cliente.getDNI();
+                        ArrayList<Movimiento> listaMovimientoUsuario = movimientoNegocio.listarMovimientosPorCliente(dni);
+                        int tipoMovimiento = Integer.parseInt(request.getParameter("tipoMovimiento"));
+                        
+                        ArrayList<Movimiento> listaFiltrada = new ArrayList<>();
+                        for (Movimiento reg : listaMovimientoUsuario) {
+                            if (reg.getIdMovimiento() == tipoMovimiento) {
+                                listaFiltrada.add(reg);
+                            }
+                        }
+                        request.setAttribute("listaMovimientos", listaFiltrada);
+                        request.getRequestDispatcher("/HomebankingMovimientos.jsp").forward(request, response);
+                    }
+                    break;
+
+                default:
+                    
+                    break;
+            }
+        }
+    }
 	
 
 	

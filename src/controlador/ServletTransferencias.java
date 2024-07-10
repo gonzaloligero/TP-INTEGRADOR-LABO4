@@ -2,6 +2,8 @@ package controlador;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,8 @@ import entidad.Cuenta;
 import entidad.Movimiento;
 import entidad.TipoPrestamos;
 import excepciones.SaldoInsuficienteException;
+import negocio.MovimientoNegocio;
+import negocioImpl.MovimientoNegImpl;
 
 
 @WebServlet("/ServletTransferencias")
@@ -94,18 +98,46 @@ public class ServletTransferencias extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		
-        Cliente cliente = (Cliente) session.getAttribute("cliente");
-        int dniCliente = cliente.getDNI();
+        String action = request.getParameter("action");
         
-        System.out.print(cliente.getApellido());
+        if(!action.equals("rastreador")) {
+        	Cliente cliente = (Cliente) session.getAttribute("cliente");
+            int dniCliente = cliente.getDNI();
+
+    		Movimiento transferencia = new Movimiento();
+    	    MovimientoDaoImpl mdimp = new MovimientoDaoImpl();
+    		
+    	    ArrayList<Movimiento>listaTransferencias = mdimp.listarTransferenciasDeUnCliente(dniCliente);
+    	    request.setAttribute("listaTransferenciasCliente", listaTransferencias);	
+            request.getRequestDispatcher("Homebanking.jsp").forward(request, response);
+        }
         
-		Movimiento transferencia = new Movimiento();
-	    MovimientoDaoImpl mdimp = new MovimientoDaoImpl();
-		
-	    ArrayList<Movimiento>listaTransferencias = mdimp.listarTransferenciasDeUnCliente(dniCliente);
-	    request.setAttribute("listaTransferenciasCliente", listaTransferencias);	
-        request.getRequestDispatcher("Homebanking.jsp").forward(request, response);
+        
+        if(action.equals("rastreador")) {
+       	 MovimientoNegocio movimientoNegocio = new MovimientoNegImpl();
+       	String fechaInicioStr = request.getParameter("fechaInicio");
+		String fechaFinStr = request.getParameter("fechaFin");
+		String cantidadStr = request.getParameter("cantidad");
+		float dinero = Float.parseFloat(cantidadStr);
+		java.sql.Date sqlFecha1 = null;
+	    java.sql.Date sqlFecha2 = null;
+		int montosTotales = 0;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date utilFecha1;
+		java.util.Date utilFecha2;
+		try {
+			utilFecha1 = dateFormat.parse(fechaInicioStr);
+			utilFecha2 = dateFormat.parse(fechaFinStr);
+	        sqlFecha1 = new java.sql.Date(utilFecha1.getTime());
+	        sqlFecha2 = new java.sql.Date(utilFecha2.getTime());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+        montosTotales = movimientoNegocio.rastrearTransferencias(sqlFecha1, sqlFecha2, dinero);
+        request.setAttribute("transferenciasTotales", montosTotales);
+        request.getRequestDispatcher("/RastreadorTransferencias.jsp").forward(request, response);
+        }
+        
         
 		doGet(request, response);
 	}

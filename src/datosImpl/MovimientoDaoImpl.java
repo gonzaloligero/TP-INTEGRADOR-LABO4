@@ -41,6 +41,37 @@ public class MovimientoDaoImpl implements MovimientoDao {
         return lista;
     }
 
+    public ArrayList<Movimiento> listarMovimientosPorCliente(int dni) {
+
+        cn = new Conexion();
+        cn.Open();
+        ArrayList<Movimiento> lista = new ArrayList<Movimiento>();
+
+        try {
+            ResultSet rs = cn.query("SELECT M.IDTipoMovimiento, M.Fecha, M.Detalle, M.Importe, M.IDCuentaEmisor, M.IDCuentaReceptor, T.Nombre AS TipoMovimiento \r\n" + 
+            		"FROM MOVIMIENTOS as M \r\n" + 
+            		"JOIN TIPO_MOVIMIENTOS AS T ON M.IDTipoMovimiento = T.IDTipoMovimiento \r\n" + 
+            		"join CUENTAS as C on M.IDCuentaEmisor = C.IDCuenta\r\n" + 
+            		"Where C.DNICliente = " + dni);
+            while (rs.next()) {
+                Movimiento regMovimiento = new Movimiento();
+                regMovimiento.setIdMovimiento(rs.getInt("IDTipoMovimiento"));
+                regMovimiento.setFecha(rs.getDate("Fecha"));
+                regMovimiento.setDetalle(rs.getString("Detalle"));
+                regMovimiento.setImporte(rs.getBigDecimal("Importe"));
+                regMovimiento.setIdCuentaEmisor(rs.getInt("IDCuentaEmisor"));
+                regMovimiento.setIdCuentaReceptor(rs.getInt("IDCuentaReceptor"));
+                regMovimiento.setTipoMovimiento(rs.getString("TipoMovimiento"));
+                
+                lista.add(regMovimiento);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            cn.close();
+        }
+        return lista;
+    }
 
 	@Override
 	public Movimiento listarUnMovimiento(int dniCliente) {
@@ -242,6 +273,29 @@ public class MovimientoDaoImpl implements MovimientoDao {
         }
 		
 		return importe;
+	}
+
+
+	@Override
+	public int rastrearTransferencias(Date fecha1, Date fecha2, float monto) {
+		cn = new Conexion();
+		cn.Open();
+		int cantidadTransferencias = 0;
+		
+		try {
+			ResultSet rs = cn.query("SELECT COUNT(*) AS CantidadTransferencias FROM MOVIMIENTOS WHERE Fecha BETWEEN '" + fecha1 + "' AND '" + fecha2 + "' AND Importe >= " + monto);
+            	while (rs.next()) {
+            	cantidadTransferencias = (rs.getInt("CantidadTransferencias"));
+
+          }
+           
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            cn.close();
+        }
+		
+		return cantidadTransferencias;
 	}
 
 	

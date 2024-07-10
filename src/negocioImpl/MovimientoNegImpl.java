@@ -53,6 +53,17 @@ private MovimientoDao movimientoDao= new MovimientoDaoImpl();
 	public float montosPorFecha(Date fecha1, Date fecha2) {
 		return movimientoDao.montosPorFecha(fecha1, fecha2);
 	}
+
+	@Override
+	public int rastrearTransferencias(Date fecha1, Date fecha2, float monto) {
+		return movimientoDao.rastrearTransferencias(fecha1, fecha2, monto);
+	}
+	
+	@Override
+	public ArrayList<Movimiento> listarMovimientosPorCliente(int dni) {
+		// TODO Auto-generated method stub
+		return(ArrayList<Movimiento>) movimientoDao.listarMovimientosPorCliente(dni);
+	}
 }
 	
 	
