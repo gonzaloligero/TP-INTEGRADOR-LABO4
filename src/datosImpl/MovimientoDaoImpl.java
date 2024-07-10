@@ -48,11 +48,11 @@ public class MovimientoDaoImpl implements MovimientoDao {
         ArrayList<Movimiento> lista = new ArrayList<Movimiento>();
 
         try {
-            ResultSet rs = cn.query("SELECT M.IDTipoMovimiento, M.Fecha, M.Detalle, M.Importe, M.IDCuentaEmisor, M.IDCuentaReceptor, T.Nombre AS TipoMovimiento \r\n" + 
-            		"FROM MOVIMIENTOS as M \r\n" + 
+            ResultSet rs = cn.query("SELECT M.IDTipoMovimiento, M.Fecha, M.Detalle, M.Importe, M.IDCuentaEmisor, M.IDCuentaReceptor, T.Nombre AS TipoMovimiento   \r\n" + 
+            		"FROM MOVIMIENTOS as M  \r\n" + 
             		"JOIN TIPO_MOVIMIENTOS AS T ON M.IDTipoMovimiento = T.IDTipoMovimiento \r\n" + 
-            		"join CUENTAS as C on M.IDCuentaEmisor = C.IDCuenta\r\n" + 
-            		"Where C.DNICliente = " + dni);
+            		"join CUENTAS as C on M.IDCuentaEmisor = C.NumeroCuenta or M.IDCuentaEmisor = C.IDCuenta\r\n" + 
+            		"Where C.DNICliente =" + dni);
             while (rs.next()) {
                 Movimiento regMovimiento = new Movimiento();
                 regMovimiento.setIdMovimiento(rs.getInt("IDTipoMovimiento"));
