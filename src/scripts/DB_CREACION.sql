@@ -1,4 +1,4 @@
---07/07/2024
+-- 10/07/2024
 
 CREATE DATABASE TPIntegradorLaboratorio4;
 
@@ -148,18 +148,6 @@ CREATE TABLE MOVIMIENTOS (
 );
 
 
--- Insertar una cuenta con saldo 3000000 para el cliente con DNI 22222222
-INSERT INTO CUENTAS (DNICliente, FechaCreacion, NumeroCuenta, CBU, Saldo, IDTipoCuenta, ESTADO) 
-VALUES (22222222, CURDATE(), 12345678, '48596587', 3000000.00, 1, TRUE);
-
--- Insertar una cuenta con saldo 2550000 para el cliente con DNI 88888888
-INSERT INTO CUENTAS (DNICliente, FechaCreacion, NumeroCuenta, CBU, Saldo, IDTipoCuenta, ESTADO) 
-VALUES (88888888, CURDATE(), 87654321, '09877543', 2550000.00, 1, TRUE);
-
--- Insertar una cuenta con saldo 2800000 para el cliente con DNI 14141414
-INSERT INTO CUENTAS (DNICliente, FechaCreacion, NumeroCuenta, CBU, Saldo, IDTipoCuenta, ESTADO) 
-VALUES (14141414, CURDATE(), 56789012, '56789201', 2800000.00, 2, TRUE);
-
 
 -- Inserts para la tabla PROVINCIAS
 INSERT INTO PROVINCIAS (Nombre) VALUES ('Buenos Aires');
@@ -286,7 +274,6 @@ INSERT INTO CLIENTES (DNI, CUIL, Nombre, Apellido, Sexo, Nacionalidad, FechaNaci
 -- Inserts para la tabla TELEFONOS (asumiendo DNICliente adecuado)
 INSERT INTO TELEFONOS (DNICliente, NumeroTelefonico) VALUES (11111111, '1122334455');
 INSERT INTO TELEFONOS (DNICliente, NumeroTelefonico) VALUES (22222222, '1122446688');
-
 INSERT INTO TELEFONOS (DNICliente, NumeroTelefonico) VALUES (77777777, '1177991122');
 INSERT INTO TELEFONOS (DNICliente, NumeroTelefonico) VALUES (88888888, '1188002233');
 INSERT INTO TELEFONOS (DNICliente, NumeroTelefonico) VALUES (99999999, '1199113344');
@@ -357,8 +344,17 @@ VALUES (14141414, 2, '2024-06-28', 123456789, '67890129', 10000.00);
 INSERT INTO CUENTAS (DNICliente, IDTipoCuenta, FechaCreacion, NumeroCuenta, CBU, Saldo)
 VALUES (14141414, 1, '2024-06-28', 987654321, '43210987', 5000.00);
 
+INSERT INTO CUENTAS (DNICliente, FechaCreacion, NumeroCuenta, CBU, Saldo, IDTipoCuenta, ESTADO) 
+VALUES (22222222, CURDATE(), 12345678, '48596587', 3000000.00, 1, TRUE);
 
+INSERT INTO CUENTAS (DNICliente, FechaCreacion, NumeroCuenta, CBU, Saldo, IDTipoCuenta, ESTADO) 
+VALUES (88888888, CURDATE(), 87654321, '09877543', 2550000.00, 1, TRUE);
 
+INSERT INTO CUENTAS (DNICliente, FechaCreacion, NumeroCuenta, CBU, Saldo, IDTipoCuenta, ESTADO) 
+VALUES (14141414, CURDATE(), 56789012, '56789201', 2800000.00, 2, TRUE);
+
+INSERT INTO CUENTAS (DNICliente, FechaCreacion, NumeroCuenta, CBU, Saldo, IDTipoCuenta, ESTADO) 
+VALUES (10101010, CURDATE(), 55447628, '97739201', 1800000.00, 2, TRUE);
 
 
 
