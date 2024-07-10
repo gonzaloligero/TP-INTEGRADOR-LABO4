@@ -18,8 +18,7 @@
         </div>
         <div>
             <a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3" href="AltaCuenta.jsp">Agregar</a>          
-            <a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3 btn-fixed-size" href="MenuAdministrador.jsp">Volver</a>
-
+            <a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3 btn-fixed-size" href="MenuAdministrador.jsp">Volver</a>         
             <a class="btn bg-azul fw-bold bi bi-trash fs-5 mb-3" href="ServletCuentas?action=eliminar&id=0">Alta/Baja</a>
 
              <a class="btn bg-azul fw-bold bi bi-search fs-5 mb-3" href="ListarCuentasDeCliente.jsp">Cuentas de un Cliente</a>
@@ -34,6 +33,7 @@
                     <th>Número de Cuenta</th>
                     <th>CBU</th>
                     <th>Saldo</th>
+                    <th>Acción</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,8 +49,11 @@
                         <td><%= cuenta.getNumeroCuenta() %></td>
                         <td><%= cuenta.getCBU() %></td>
                         <td><%= cuenta.getSaldo() %></td>
-                             
-                        </td>
+                        <td>
+                          <a href="ServletCuentas?action=eliminar&id=0" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                           <a href="ServletCuentas?action=editar&id=<%=cuenta.getIDCuenta() %>" class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a>
+                        </td>    
+                        
                     </tr>
                 <% 
                         } 

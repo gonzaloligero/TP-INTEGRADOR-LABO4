@@ -349,6 +349,34 @@ public class CuentaDaoImpl implements CuentaDao{
 	    return lista;
 	}
 
+	@Override
+	public ArrayList<Cuenta> listaCuentasResumen() {
+		 Conexion cn = new Conexion();
+		    cn.Open();
+		    ArrayList<Cuenta> lista = new ArrayList<>();
+
+		    String query = "SELECT C.DNICliente, C.FechaCreacion, C.Saldo, C.Estado, TC.IDTipoCuenta " +
+		                   "FROM CUENTAS C " +
+		                   "JOIN TIPO_CUENTAS TC ON C.IDTipoCuenta = TC.IDTipoCuenta ";
+
+		    try (ResultSet rs = cn.query(query)) {
+		        while (rs.next()) {
+		            Cuenta cuentaResumen = new Cuenta();
+		            cuentaResumen.setDNICliente(rs.getInt("DNICliente"));
+		            cuentaResumen.setFechaCreacion(rs.getDate("FechaCreacion"));
+		            cuentaResumen.setSaldo(rs.getDouble("Saldo"));
+		            cuentaResumen.setEstado(rs.getBoolean("Estado"));
+		            cuentaResumen.setIDTipoCuenta(rs.getInt("IDTipoCuenta"));
+		            lista.add(cuentaResumen);
+		        }
+		    } catch (Exception e) {
+		        System.out.println(e.getMessage());
+		    } finally {
+		        cn.close();
+		    }
+		    return lista;
+	}
+
 
 
 }

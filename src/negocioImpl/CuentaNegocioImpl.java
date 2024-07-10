@@ -69,6 +69,11 @@ public class CuentaNegocioImpl implements CuentaNegocio {
 		return cuentaDao.listaTipoCuentasResumen();
 	}
 
+	@Override
+	public ArrayList<Cuenta> listaCuentasResumen() {
+		return cuentaDao.listaCuentasResumen();
+	}
+
 
 	
 }

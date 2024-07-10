@@ -3,6 +3,7 @@ package controlador;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+
 
 import entidad.Cliente;
 import entidad.Cuenta;
@@ -138,10 +141,17 @@ public class ServletCuentas extends HttpServlet {
                     break;
                     
                 case "Resumen":
-            		ArrayList<Cuenta> listaCuentaResumen = cuentaNegocio.listaTipoCuentasResumenNeg();
-            		request.setAttribute("listaCuentaResumen", listaCuentaResumen);
-            		request.getRequestDispatcher("ListaResumenTipoDeCuenta.jsp").forward(request, response); 
-                break;
+                    List<ArrayList<Cuenta>> listaPrincipal = new ArrayList<>();
+                    ArrayList<Cuenta> listaCuentaResumen = cuentaNegocio.listaTipoCuentasResumenNeg();
+                    listaPrincipal.add(listaCuentaResumen);
+
+                    ArrayList<Cuenta> listaCuentasResumen = cuentaNegocio.listaCuentasResumen();
+                    listaPrincipal.add(listaCuentasResumen);
+
+                    request.setAttribute("listaPrincipal", listaPrincipal);
+                    request.getRequestDispatcher("ListaResumenTipoDeCuenta.jsp").forward(request, response);
+                    break;
+     
             }
         } else {
             response.sendRedirect("ListaCuentas.jsp");
