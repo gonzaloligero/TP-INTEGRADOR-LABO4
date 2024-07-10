@@ -124,7 +124,7 @@
     <br><br>
     
     <label for="monto">Monto a transferir:</label>
-    <input type="number" id="monto" name="monto" step="0.01" required>
+    <input type="number" id="monto" name="monto" step="0.01" min="1" required>
     
     <br><br>
     

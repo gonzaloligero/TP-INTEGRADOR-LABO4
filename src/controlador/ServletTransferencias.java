@@ -47,6 +47,9 @@ public class ServletTransferencias extends HttpServlet {
         Movimiento transferencia = new Movimiento();
         MovimientoDaoImpl mdimp = new MovimientoDaoImpl();
         
+        
+        
+        
         List<Cuenta> lista = cdimp.obtenerCuentasCliente(dniCliente);
         request.setAttribute("listaCuentasCliente", lista);		
         List<Cuenta> listaReceptora = cdimp.listarCuentasTransferencia();
