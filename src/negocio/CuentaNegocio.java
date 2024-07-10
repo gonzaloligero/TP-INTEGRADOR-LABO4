@@ -14,7 +14,7 @@ public interface CuentaNegocio {
 	public boolean bajaLogicaCuenta(int numeroCuenta) throws CuentaErrorOperacion;
 	public boolean altaLogicaCuenta(int numeroCuenta);
 	public ArrayList<Cuenta> listarCuentasTransferencia();
-
+	public ArrayList<Cuenta> listarCuentasPorTipo(double saldoMin, double saldoMax);
 }
 	
 	

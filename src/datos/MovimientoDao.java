@@ -15,4 +15,5 @@ public interface MovimientoDao {
 	public float[] obtenerCashflow(int dniCliente);
 	public boolean inyectarDinero(float saldo, int idCuenta);
 	public float montosPorFecha(Date fecha1, Date fecha2);
+	public int rastrearTransferencias(Date fecha1, Date fecha2, float monto);
 }

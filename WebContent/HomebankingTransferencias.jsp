@@ -136,7 +136,7 @@
                 for (Cuenta cuenta : listaCuentas) {
         %>
                     <option value="<%= cuenta.getIDCuenta() %>">Cuenta N°:
-										<%=cuenta.getNumeroCuenta()%> saldo $<%=cuenta.getSaldo()%></option>
+										<%=cuenta.getCBU()%> saldo $<%=cuenta.getSaldo()%></option>
         <% 		
                 }
             }

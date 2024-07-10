@@ -71,7 +71,7 @@
                     <img src="https://images.squarespace-cdn.com/content/v1/5714c56a7c65e4da9938003d/1588347561425-09P0DO81CIPOOSY8ZXIQ/cash-flow-illustration-laptop-money-graph-chart-vector-68966608.jpg?format=1000w" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">CASHFLOW</h5>
-                        <p class="card-text">Reporte del dinero que se ha transferido el último tiempo con los clientes involucrados</p>
+                        <p class="card-text">Seleccione un cliente para ver el reporte del dinero que se ha transferido en el último tiempo con los clientes involucrados y el total de efectivo</p>
                         <a href="ServletClientes?action=cashflow" class="btn btn-primary">Ver</a>
                     </div>
                 </div>
@@ -97,11 +97,20 @@
                 <div class="card" style="width: 18rem;">
                     <img src="https://www.worktango.com/wp-content/uploads/2022/09/Batch2_1711_5waystoengage_1280x720ArticleHeaderandHomepageThumbnail.jpg-800x450.png" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">REGISTRO DE APROBACIONES</h5>
-                        <p class="card-text">Detalle sobre usuarios que han aprobado préstamos, su monto, fecha y estado actual</p>
-                        <a href="#" class="btn btn-primary">Ver</a>
+                        <h5 class="card-title">RASTREADOR DE TRANSFERENCIAS POR MONTO</h5>
+                        <p class="card-text">Detalle sobre las transferencias que superan un valor especifico en una franja seleccionada</p>
+                        <a href="RastreadorTransferencias.jsp" class="btn btn-primary">Ver</a>
                     </div>
                 </div>
+                 <div class="card" style="width: 18rem;">
+                    <img src="https://elviajedelcliente.com/wp-content/uploads/2020/07/portada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">TIPOS DE CLIENTES</h5>
+                        <p class="card-text">Detalle de los tipos de clientes, según el dinero en las cuentas, discriminados en categorías o niveles como bronce, plata y oro</p>
+                        <a href="TiposDeClientes.jsp" class="btn btn-primary">Ver</a>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </main>
