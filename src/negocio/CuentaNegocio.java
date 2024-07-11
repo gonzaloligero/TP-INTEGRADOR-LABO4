@@ -1,7 +1,8 @@
 package negocio;
 
-import java.util.ArrayList;
 
+import java.util.ArrayList;
+import java.sql.Date;
 import entidad.Cuenta;
 import excepciones.CuentaErrorOperacion;
 
@@ -15,8 +16,7 @@ public interface CuentaNegocio {
 	public boolean altaLogicaCuenta(int numeroCuenta);
 	public ArrayList<Cuenta> listarCuentasTransferencia();
 	public ArrayList<Cuenta> listarCuentasPorTipo(double saldoMin, double saldoMax);
-	public ArrayList<Cuenta> listaTipoCuentasResumenNeg();
-	public ArrayList<Cuenta> listaCuentasResumen();
+	public ArrayList<Cuenta> listaCuentasResumen(Date fecha1, Date fecha2, int tipo);
 }
 	
 	

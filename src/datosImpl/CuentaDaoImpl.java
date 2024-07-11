@@ -1,8 +1,11 @@
 package datosImpl;
 
 import java.math.BigInteger;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -324,42 +327,25 @@ public class CuentaDaoImpl implements CuentaDao{
 	}
 
 	@Override
-	public ArrayList<Cuenta> listaTipoCuentasResumen() {
+	public ArrayList<Cuenta> listaCuentasResumen(Date fecha1, Date fecha2, int tipo) {
+		   
 		Conexion cn = new Conexion();
-	    cn.Open();
-	    ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
-
-	    String query = "SELECT TC.IDTipoCuenta, TC.Tipo, SUM(C.Saldo) AS SaldoTotal " +
-	                   "FROM CUENTAS C " +
-	                   "JOIN TIPO_CUENTAS TC ON C.IDTipoCuenta = TC.IDTipoCuenta " +
-	                   "GROUP BY TC.IDTipoCuenta, TC.Tipo;";
-
-	    try (ResultSet rs = cn.query(query)) {
-	        while (rs.next()) {
-	            Cuenta cuentaResumen = new Cuenta();
-	            cuentaResumen.setIDTipoCuenta(rs.getInt("IDTipoCuenta"));
-	            cuentaResumen.setSaldo(rs.getDouble("SaldoTotal"));
-	            lista.add(cuentaResumen);
-	        }
-	    } catch (Exception e) {
-	        System.out.println(e.getMessage());
-	    } finally {
-	        cn.close();
-	    }
-	    return lista;
-	}
-
-	@Override
-	public ArrayList<Cuenta> listaCuentasResumen() {
-		 Conexion cn = new Conexion();
 		    cn.Open();
+		    
 		    ArrayList<Cuenta> lista = new ArrayList<>();
-
+		    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		    
+		    String fechaInicio = sdf.format(fecha1);
+		    String fechaFin = sdf.format(fecha2);
+			    
 		    String query = "SELECT C.DNICliente, C.FechaCreacion, C.Saldo, C.Estado, TC.IDTipoCuenta " +
-		                   "FROM CUENTAS C " +
-		                   "JOIN TIPO_CUENTAS TC ON C.IDTipoCuenta = TC.IDTipoCuenta ";
+                    "FROM CUENTAS C " +
+                    "JOIN TIPO_CUENTAS TC ON C.IDTipoCuenta = TC.IDTipoCuenta " +
+                    "WHERE C.FechaCreacion BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "' " +
+                    "AND TC.IDTipoCuenta = " + tipo;
 
-		    try (ResultSet rs = cn.query(query)) {
+		    try {
+		         ResultSet rs = cn.query(query); 
 		        while (rs.next()) {
 		            Cuenta cuentaResumen = new Cuenta();
 		            cuentaResumen.setDNICliente(rs.getInt("DNICliente"));
@@ -376,7 +362,6 @@ public class CuentaDaoImpl implements CuentaDao{
 		    }
 		    return lista;
 	}
-
 
 
 }
