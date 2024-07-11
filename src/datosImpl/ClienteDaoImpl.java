@@ -292,7 +292,8 @@ public class ClienteDaoImpl implements ClienteDao{
 	        cuentaDao = new CuentaDaoImpl();
 	        
 	        cuentaDao.agregarCuentaCliente(cliente.getDNI(),2);
-	        
+	        cuentaDao.agregarCuentaCliente(cliente.getDNI(),1);
+
 	        
 
 	    } catch (Exception e) {    

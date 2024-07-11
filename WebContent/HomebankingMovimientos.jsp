@@ -114,7 +114,6 @@
 							<label for="tipoMovimiento">Tipo de movimientos:</label> <select
 								class="form-control" name="tipoMovimiento" id="tipoMovimiento"
 								required>
-								<option value="1">Alta de cuenta</option>
 								<option value="2">Alta de un préstamo</option>
 								<option value="3">Pago de préstamo</option>
 								<option value="4">Transferencia</option>

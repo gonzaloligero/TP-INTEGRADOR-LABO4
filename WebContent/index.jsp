@@ -97,11 +97,7 @@
                     <p>
                       Para la gestión integral de tu banco, te presentamos nuestro software, el cual ofrece a tus clientes la funcionalidad de Home Banking, permitiéndoles realizar una amplia variedad de operaciones de manera fácil y segura
                     </p>
-                    <div class="btn-box">
-                      <a href="" class="btn1">
-                        Contactar
-                      </a>
-                    </div>
+                    
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -118,17 +114,13 @@
                 <div class="col-md-6 ">
                   <div class="detail-box">
                     <h1>
-                      Pedi tu Demo<br>
+                      Pedi tu préstamo<br>
                       ITBank
                     </h1>
                     <p>
-                      Solicita tu demo hoy mismo y descubre cómo nuestro software puede transformar la experiencia de gestión y operación de tu banco.
+                      Solicita tu préstamo hoy mismo y descubrí cómo nuestro software puede ayudarte a cumplir tu sueño.
                     </p>
-                    <div class="btn-box">
-                      <a href="" class="btn1">
-                        solicitar
-                      </a>
-                    </div>
+                    
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -145,17 +137,13 @@
                 <div class="col-md-6 ">
                   <div class="detail-box">
                     <h1>
-                      HomeBanking <br>
-                      ITbank
+                      Una bienvenida a tus cuentas <br>
+                      
                     </h1>
                     <p>
-                      Para la gestión integral de tu banco, te presentamos nuestro software, el cual ofrece a tus clientes la funcionalidad de Home Banking, permitiéndoles realizar una amplia variedad de operaciones de manera fácil y segura
+                      Para la gestión integral de tus cuentas, te presentamos nuestro software. Solicitá unirte a IT Bank y recibí $10.000 de bienvenida.
                     </p>
-                    <div class="btn-box">
-                      <a href="" class="btn1">
-                        Contactar
-                      </a>
-                    </div>
+                    
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -202,11 +190,9 @@
                   Cuentas Bancarias
                 </h5>
                 <p>
-                  Cada cliente puede gestionar sus cuentas, solicitar préstamos, realizar transferencias y mucho más. ¡Solicita una demo hoy mismo!
+                  Cada cliente puede gestionar sus cuentas, solicitar préstamos, realizar transferencias y mucho más. ¡Solicita tu cuenta hoy mismo!
                 </p>
-                <a href="">
-                  Read More
-                </a>
+                
               </div>
             </div>
           </div>
@@ -220,11 +206,9 @@
                   Seguridad
                 </h5>
                 <p>
-                  Fue realizado por Alumnos de la carrera de Programacion de la UTN, para la Materia Laboratorio 4
+                  Fue realizado por Alumnos de la carrera de Programacion de la UTN, para la Materia Laboratorio 4. Descubrí la experiencia de IT Bank.
                 </p>
-                <a href="">
-                  Visitar
-                </a>
+                
               </div>
             </div>
           </div>
@@ -238,21 +222,15 @@
     Soporte Experto
   </h5>
   <p>
-    Nuestros expertos están disponibles para brindarte apoyo y resolver tus dudas, asegurando una experiencia fluida y eficiente. Confía en nosotros para optimizar la gestión de tus operaciones bancarias.
+    Nuestros expertos están disponibles para brindarte apoyo y resolver tus dudas, asegurando una experiencia fluida y eficiente.
   </p>
-  <a href="">
-    Leer Más
-  </a>
+  
 </div>
 
             </div>
           </div>
         </div>
-        <div class="btn-box">
-          <a href="">
-            Ver Todo
-          </a>
-        </div>
+        
       </div>
     </div>
   </section>
@@ -286,9 +264,7 @@
           <p>
             Nuestro equipo de expertos está listo para ayudarte a alcanzar tus objetivos financieros, ofreciendo asesoría personalizada y un soporte continuo.
           </p>
-          <a href="">
-            Leer Más
-          </a>
+          
         </div>
       </div>
     </div>
@@ -302,7 +278,7 @@
     <div class="container">
         <div class="heading_container heading_center">
             <h2>
-                Why Choose <span>Us</span>
+                Por qué elegir <span>IT Bank</span>
             </h2>
         </div>
         <div class="why_container">
@@ -312,7 +288,7 @@
                 </div>
                 <div class="detail-box">
                     <h5>
-                        Expert Management
+                        Experiencia
                     </h5>
                     <p>
                         Nuestro equipo de gestión está compuesto por expertos con años de experiencia en la industria financiera. Nos aseguramos de que cada decisión esté bien informada y orientada a maximizar el valor para nuestros clientes. Con nosotros, tu dinero está en manos seguras y profesionales.
@@ -325,7 +301,7 @@
                 </div>
                 <div class="detail-box">
                     <h5>
-                        Secure Investment
+                        Seguridad
                     </h5>
                     <p>
                         Ofrecemos oportunidades de inversión seguras y confiables, diseñadas para proteger tu capital mientras generas rendimientos significativos. Nuestro enfoque en la seguridad y la estabilidad te brinda la tranquilidad que necesitas para invertir con confianza.
@@ -338,7 +314,7 @@
                 </div>
                 <div class="detail-box">
                     <h5>
-                        Instant Trading
+                        Transacciones
                     </h5>
                     <p>
                         Con nuestras plataformas de trading instantáneo, puedes realizar transacciones rápidamente y sin complicaciones. Ya sea que estés comprando o vendiendo, nuestra tecnología avanzada asegura que tus operaciones se ejecuten al instante y con precisión.
@@ -351,7 +327,7 @@
                 </div>
                 <div class="detail-box">
                     <h5>
-                        Happy Customers
+                        Clientes
                     </h5>
                     <p>
                         La satisfacción de nuestros clientes es nuestra mayor prioridad. Nos enorgullecemos de ofrecer un servicio excepcional y de construir relaciones duraderas basadas en la confianza y el respeto. Escuchamos tus necesidades y trabajamos incansablemente para superar tus expectativas.
@@ -359,186 +335,117 @@
                 </div>
             </div>
         </div>
-        <div class="btn-box">
-            <a href="">
-                Read More
-            </a>
-        </div>
+        
     </div>
 </section>
 
-  <!-- end why section -->
 
-  <!-- team section -->
   <section class="team_section layout_padding">
     <div class="container-fluid" id="team_java">
       <div class="heading_container heading_center">
         <h2 class="">
-          Nuestro <span> Team Operación Java n°3</span>
+          Nuestro <span> Team Operación Java</span>
         </h2>
       </div>
 
       <div class="team_container">
-        <div class="row">
-          <div class="col-lg-3 col-sm-6">
-            <div class="box ">
-              <div class="img-box">
-                <img src="images/team-1.jpg" class="img1" alt="">
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Gonzalo Ligero
-                </h5>
-                <p>
-                  Programador UTN
-                </p>
-              </div>
-              <div class="social_box">
-               
-                <a href="#">
-                  <i class="fa fa-linkedin" aria-hidden="true"></i>
-                </a>
-               
-              </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-2 col-sm-6">
+            <div class="box">
+                <div class="img-box">
+                    <img src="images/team-1.jpg" class="img1" alt="">
+                </div>
+                <div class="detail-box">
+                    <h5>Gonzalo Ligero</h5>
+                    <p>Programador UTN</p>
+                </div>
+                <div class="social_box">
+                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                </div>
             </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="box ">
-              <div class="img-box">
-                <img src="images/team-2.jpg" class="img1" alt="">
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Emmanuel Dearmas
-                </h5>
-                <p>
-                  Programador UTN
-                </p>
-              </div>
-              <div class="social_box">
-                <a href="#">
-                  <i class="fa fa-facebook" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                  <i class="fa fa-twitter" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                  <i class="fa fa-linkedin" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                  <i class="fa fa-instagram" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                  <i class="fa fa-youtube-play" aria-hidden="true"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="box ">
-              <div class="img-box">
-                <img src="images/team-4.jpg" class="img1" alt="">
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Ariel Rodriguez
-                </h5>
-                <p>
-                  Programador UTN
-                </p>
-              </div>
-              <div class="social_box">
-                <a href="#">
-                  <i class="fa fa-facebook" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                  <i class="fa fa-twitter" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                  <i class="fa fa-linkedin" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                  <i class="fa fa-instagram" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                  <i class="fa fa-youtube-play" aria-hidden="true"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="box ">
-              <div class="img-box">
-                <img src="images/team-3.jpg" class="img1" alt="">
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Maximiliano Soria
-                </h5>
-                <p>
-                  Programador UTN
-                </p>
-              </div>
-              <div class="social_box">
-                <a href="#">
-                  <i class="fa fa-facebook" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                  <i class="fa fa-twitter" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                  <i class="fa fa-linkedin" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                  <i class="fa fa-instagram" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                  <i class="fa fa-youtube-play" aria-hidden="true"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="box ">
-              <div class="img-box">
-                <img src="images/team-5.jpg" class="img1" alt="">
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Gaston Garcia
-                </h5>
-                <p>
-                  Programador UTN
-                </p>
-              </div>
-              <div class="social_box">
-                <a href="#">
-                  <i class="fa fa-facebook" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                  <i class="fa fa-twitter" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                  <i class="fa fa-linkedin" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                  <i class="fa fa-instagram" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                  <i class="fa fa-youtube-play" aria-hidden="true"></i>
-                </a>
-              </div>
-            </div>
-            
-          </div>
         </div>
-      </div>
+        <div class="col-lg-2 col-sm-6">
+            <div class="box">
+                <div class="img-box">
+                    <img src="images/team-2.jpg" class="img1" alt="">
+                </div>
+                <div class="detail-box">
+                    <h5>Emmanuel Dearmas</h5>
+                    <p>Programador UTN</p>
+                </div>
+                <div class="social_box">
+                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-sm-6">
+            <div class="box">
+                <div class="img-box">
+                    <img src="images/team-4.jpg" class="img1" alt="">
+                </div>
+                <div class="detail-box">
+                    <h5>Ariel Rodriguez</h5>
+                    <p>Programador UTN</p>
+                </div>
+                <div class="social_box">
+                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-sm-6">
+            <div class="box">
+                <div class="img-box">
+                    <img src="images/team-3.jpg" class="img1" alt="">
+                </div>
+                <div class="detail-box">
+                    <h5>Maximiliano Soria</h5>
+                    <p>Programador UTN</p>
+                </div>
+                <div class="social_box">
+                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-sm-6">
+            <div class="box">
+                <div class="img-box">
+                    <img src="images/team-5.jpg" class="img1" alt="">
+                </div>
+                <div class="detail-box">
+                    <h5>Gaston Garcia</h5>
+                    <p>Programador UTN</p>
+                </div>
+                <div class="social_box">
+                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+      
     </div>
   </section>
-  <!-- end team section -->
 
-
-  <!-- client section -->
 
   <section class="client_section layout_padding" id="Clientes">
     <div class="container">
@@ -642,10 +549,7 @@
     </div>
   </section>
 
-  <!-- end client section -->
 
-
-  <!-- info section -->
 
   <section class="info_section layout_padding2">
     <div class="container">

@@ -88,7 +88,7 @@
 				<ul class="nav" id="main-menu">
 					<li><a href="Homebanking.jsp"><i class="fa fa-history"></i>Historial
 							de Movimientos</a></li>
-					<li><a href="ServletTransferencias?action=listarCuentas"><i
+					<li><a href="ServletMovimientos?action=listaMovimientos"><i
 							class="fa fa-refresh"></i>Transferencias</a></li>
 					<li><a href="MostrarTipoPrestamosServlet"><i
 							class="fa fa-edit"></i>Pedido de Préstamo</a></li>
