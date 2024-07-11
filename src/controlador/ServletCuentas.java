@@ -72,7 +72,9 @@ public class ServletCuentas extends HttpServlet {
 							cuentaNegocio.bajaLogicaCuenta(numeroCuenta);
 						} catch (CuentaErrorOperacion e) {
 						
-							e.getMessage();
+							request.setAttribute("errorMensaje", e.getMessage());
+				            request.getRequestDispatcher("BajaCuenta.jsp").forward(request, response);
+				            return;
 						}
                 	}             	
                     ArrayList<Cuenta> listaCuentasBaja = cuentaNegocio.listarCuentasGral();
