@@ -38,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label for="categoria">Seleccione Tipo de Cuenta:</label>
-                <select class="form-control" id="categoria" name="categoria">
+                <select class="form-control" id="categoria" name="categoria" required>
                     <option value="">Seleccione el tipo de cuenta</option>
                     <option value="1">Caja de Ahorro</option>
                     <option value="2">Cuenta Corriente</option>
