@@ -1,4 +1,5 @@
 package negocioImpl;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import datos.CuentaDao;
@@ -65,13 +66,8 @@ public class CuentaNegocioImpl implements CuentaNegocio {
 	}
 
 	@Override
-	public ArrayList<Cuenta> listaTipoCuentasResumenNeg() {
-		return cuentaDao.listaTipoCuentasResumen();
-	}
-
-	@Override
-	public ArrayList<Cuenta> listaCuentasResumen() {
-		return cuentaDao.listaCuentasResumen();
+	public ArrayList<Cuenta> listaCuentasResumen(Date fecha1, Date fecha2, int tipo) {
+		return cuentaDao.listaCuentasResumen(fecha1, fecha2, tipo);
 	}
 
 
