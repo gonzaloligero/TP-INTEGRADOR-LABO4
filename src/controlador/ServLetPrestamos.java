@@ -29,6 +29,7 @@ import entidad.Cliente;
 import entidad.Cuenta;
 import entidad.Movimiento;
 import entidad.Prestamos;
+import excepciones.FechaNoValida;
 import excepciones.SaldoInsuficienteException;
 import entidad.Plazos;
 import negocio.MovimientoNegocio;
@@ -97,13 +98,29 @@ public class ServLetPrestamos extends HttpServlet{
 			    PrestamosNegImpl prestamoNeg = new PrestamosNegImpl();
 			    ArrayList<Prestamos> listaPrestamo = (ArrayList<Prestamos>) prestamoNeg.obtenerTodosLosPrestamos();
 			    ArrayList<Prestamos> listaFiltrada = new ArrayList<>();
-			    System.out.println(listaPrestamo);
+			    
 			    
 			    String fechaInicioStr = request.getParameter("fechaInicio");
 			    String fechaFinStr = request.getParameter("fechaFin");
 			    
 			    LocalDate fechaI = LocalDate.parse(fechaInicioStr);
 			    LocalDate fechaF = LocalDate.parse(fechaFinStr);
+			    LocalDate fechaActual = LocalDate.now();
+			    
+			    
+			    
+			    try {
+                    if (fechaI.isAfter(fechaActual) || fechaF.isAfter(fechaActual)) {
+                        throw new FechaNoValida();
+                    }
+                } catch (FechaNoValida e) {
+                    request.setAttribute("fechaError", e.getMessage());
+                    request.setAttribute("fechaInicio", fechaInicioStr);
+                    request.setAttribute("fechaFin", fechaFinStr);
+                    request.getRequestDispatcher("/PrestamosPorFecha.jsp").forward(request, response);
+                    return;
+                }
+			    
 			    
 			    for (Prestamos item : listaPrestamo) {
 			        
