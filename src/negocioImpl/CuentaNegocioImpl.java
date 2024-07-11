@@ -66,14 +66,11 @@ public class CuentaNegocioImpl implements CuentaNegocio {
 	}
 
 	@Override
-	public ArrayList<Cuenta> listaCuentasResumen() {
-		return cuentaDao.listaCuentasResumen();}
-
-	@Override
-	public ArrayList<Cuenta> listaTipoCuentasResumenNeg() {
-		return cuentaDao.listaTipoCuentasResumen();
+	public ArrayList<Cuenta> listaCuentasResumen(Date fecha1, Date fecha2, int tipo) {
+		return cuentaDao.listaCuentasResumen(fecha1, fecha2, tipo);
 	}
 
+	
 
 	
 }
