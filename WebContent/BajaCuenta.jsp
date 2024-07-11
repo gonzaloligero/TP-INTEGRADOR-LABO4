@@ -24,11 +24,20 @@
 </head>
 <body>
 
-      <jsp:include page="Componentes/NavBar.jsp"></jsp:include>
+     <jsp:include page="Componentes/NavBar.jsp"></jsp:include>
 
     <div class="container">
         <div class="w-100 pt-2 text-center">
             <h1 class="mb-5">Alta / Baja de Cuentas</h1>
+            <%
+		        String errorMensaje = (String) request.getAttribute("errorMensaje");
+		        if (errorMensaje != null) {
+		    %>
+		        <p style="color: red;"><%= errorMensaje %></p>
+		    <%
+		        }
+		    %>
+            
         </div>
         <table id="table_id" class="table table-striped display text-center">
             <thead>
