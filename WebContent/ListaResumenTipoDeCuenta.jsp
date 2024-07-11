@@ -7,17 +7,58 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title></title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
     <jsp:include page="Componentes/head.jsp"></jsp:include>
     
-   
+   <style>
+   		.bank-heading {
+        background-color: #004a80; 
+        color: white; 
+        font-family: 'Roboto Condensed', Arial, sans-serif; 
+        font-weight: bold; 
+        padding: 20px; 
+        margin-bottom: 20px; 
+        border-bottom: 4px solid #002c50; 
+        text-align: center; 
+   		 }
+        body {
+            font-family: 'Roboto Condensed', Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #004a80;
+            border-color: #004a80;
+        }
+        .btn-primary:hover {
+            background-color: #00365c;
+            border-color: #00365c;
+        }
+        .table th, .table td {
+            border-color: #dee2e6;
+        }
+        .table th {
+            background-color: #004a80;
+            color: #ffffff;
+        }
+    </style>
 </head>
 
 <body>
  <jsp:include page="Componentes/NavBar.jsp"></jsp:include> 
     <div class="container mt-5">
         <div class="row mb-3">
-            <div class="col">
-                <h1>Selecciona las Fechas</h1>
+            <div class="col bank-heading">
+                <h1>RESUMEN TIPO DE CUENTAS</h1>
             </div>
         </div>     
         <form action="ServletCuentas" method="get">

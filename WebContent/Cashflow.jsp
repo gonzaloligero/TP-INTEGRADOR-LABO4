@@ -17,6 +17,16 @@
 	</script>
     
     <style>
+   		 .bank-heading {
+        background-color: #004a80; 
+        color: white; 
+        font-family: 'Roboto Condensed', Arial, sans-serif; 
+        font-weight: bold; 
+        padding: 20px; 
+        margin-bottom: 20px; 
+        border-bottom: 4px solid #002c50; 
+        text-align: center; 
+   		 }
         body {
             font-family: 'Roboto Condensed', Arial, sans-serif;
             background-color: #f0f0f0;
@@ -49,6 +59,11 @@
 </head>
 <body>
     <div class="container mt-5">
+    <div class="row mb-3">
+            <div class="col bank-heading">
+   			 	<h1>CASHFLOW</h1>
+			</div>
+        </div>   
     <div class="row mb-3">
         <div class="col">
             <form id="selectClienteForm" action="ServletMovimientos" method="post">

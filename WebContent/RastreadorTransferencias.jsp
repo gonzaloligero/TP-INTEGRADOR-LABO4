@@ -8,6 +8,16 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
     <style>
+    	.bank-heading {
+        background-color: #004a80; 
+        color: white; 
+        font-family: 'Roboto Condensed', Arial, sans-serif; 
+        font-weight: bold; 
+        padding: 20px; 
+        margin-bottom: 20px; 
+        border-bottom: 4px solid #002c50; 
+        text-align: center; 
+   		 }
         body {
             font-family: 'Roboto Condensed', sans-serif;
             background-color: #f0f0f0;
@@ -46,8 +56,8 @@
 <body>
     <div class="container mt-5">
         <div class="row mb-3">
-            <div class="col">
-                <h1>Rastrear Transferencias por monto</h1>
+            <div class="col bank-heading">
+                <h1>RASTREADOR DE TRANSFERENCIAS POR MONTO</h1>
             </div>
         </div>
         

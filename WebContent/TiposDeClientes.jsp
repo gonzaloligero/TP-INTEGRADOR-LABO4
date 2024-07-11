@@ -9,6 +9,16 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
     <style>
+    	.bank-heading {
+        background-color: #004a80; 
+        color: white; 
+        font-family: 'Roboto Condensed', Arial, sans-serif; 
+        font-weight: bold; 
+        padding: 20px; 
+        margin-bottom: 20px; 
+        border-bottom: 4px solid #002c50; 
+        text-align: center; 
+   		 }
         body {
             font-family: 'Roboto Condensed', Arial, sans-serif;
             background-color: #f0f0f0;
@@ -42,8 +52,8 @@
 <body>
     <jsp:include page="Componentes/NavBar.jsp"></jsp:include>
     <div class="container mt-5">
-        <div class="w-100 pt-2 text-center">
-            <h1 class="mb-5">Tipos de Clientes</h1>
+        <div class="col bank-heading">
+            <h1>TIPOS DE CLIENTES</h1>
         </div>
         <form method="get" action="ServletCuentas">
             <div class="form-group">
@@ -55,11 +65,11 @@
                     <option value="Oro">Oro</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary fw-bold bi bi-search fs-5 mb-3">Buscar</button>
+            <button type="submit" class="btn btn-primary  bi bi-search ">Buscar</button>
             <input type="hidden" name="action" value="listarPorCategoria">
         </form>
         <div class="text-center mt-3">
-			<a class="btn btn-primary fw-bold fs-5 mb-3" href="InformesAdministrador.jsp">Volver</a>
+			<a class="btn btn-primary" href="InformesAdministrador.jsp">Volver</a>
         </div>
         <div class="mt-5">
             <h2>Resultado:</h2>

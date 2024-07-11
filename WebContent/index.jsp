@@ -525,22 +525,22 @@
           <div class="item">
             <div class="box">
               <div class="img-box">
-                <img src="images/client2.jpg" alt="" class="box-img">
+                <img src="https://www.clarin.com/img/2024/03/27/3NmJkWINw_600x600__1.jpg" alt="" class="box-img">
               </div>
               <div class="detail-box">
                 <div class="client_id">
                   <div class="client_info">
                     <h6>
-                      Carlos Javier
+                      Guillermo Francella
                     </h6>
                     <p>
-                      Profesor de Laboratorio 4
+                      Actor argentino
                     </p>
                   </div>
                   <i class="fa fa-quote-left" aria-hidden="true"></i>
                 </div>
                 <p>
-                  Desde que empezamos a usar el software de ITBank, la gestión de nuestras cuentas bancarias ha sido mucho más eficiente y segura. Nos encanta la facilidad de uso y la atención personalizada que recibimos. </p>
+                  Conocí IT Bank luego de un partido de Racing. Estaba deprimido porque perdimos 3 a 1 contra Excursionistas, y este software me alegró de inmediato. Le agradezco mucho a los chicos y claramente merecen aprobar </p>
               </div>
             </div>
           </div>
