@@ -93,11 +93,9 @@ public class ServletCuentas extends HttpServlet {
                     break;
                     
                 case "editar":
-                    Cuenta cuentaEditar = new Cuenta();
-              
-                    ArrayList<Cuenta> listaDeCuentas = cuentaNegocio.listarCuentasGral();
-                    request.setAttribute("listaCuentas", listaDeCuentas);
-                    request.setAttribute("cuenta", cuentaEditar);
+                	
+                	String idCuenta2 = request.getParameter("IDCuenta");                             
+                    request.setAttribute("idcuenta", idCuenta2);
                     request.getRequestDispatcher("ModificarCuenta.jsp").forward(request, response);
  
                     break;
@@ -107,6 +105,7 @@ public class ServletCuentas extends HttpServlet {
                     request.setAttribute("listaFondos", listaFondos);
                     request.getRequestDispatcher("SumarFondos.jsp").forward(request, response);
                     break;
+                    
                 case "inyectar":
                 	ArrayList<Cuenta> listaFondosInyectar = cuentaNegocio.listarCuentasGral();
                     request.setAttribute("listaFondos", listaFondosInyectar);
