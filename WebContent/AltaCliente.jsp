@@ -32,8 +32,11 @@ label {
 
 		<div class="col-lg-9 d-flex flex-column justify-content-between">
 			<div class="w-100 pt-2 text-center">
-				<h1 class="mb-5">DAR DE ALTA CLIENTE</h1>
+				<h1 class="mb-5">DAR DE ALTA CLIENTE</h1>				
 			</div>
+			<div id="dni" class="text-danger">
+        		<%= request.getAttribute("mensaje") != null ? request.getAttribute("mensaje") : "" %>
+    		</div>
 			<div>
 
 				<form action="ServletClientes" method="post">

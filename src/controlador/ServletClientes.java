@@ -263,7 +263,7 @@ public class ServletClientes extends HttpServlet {
             
             
             
-            
+            //Validacion de contraseñas repetidas
             if(!contraseña.equals(contraseñaRepetida)) {
                 try {
                     throw new ContraseñaDiferente();
@@ -280,11 +280,6 @@ public class ServletClientes extends HttpServlet {
             Cliente nuevo = clienteNeg.obtenerUnCliente(dni2);
             
             UsuarioDaoImpl ud = new UsuarioDaoImpl();
-            
-            
-            
-            
-            
             
             String dnistr = String.valueOf(nuevo.getDNI());
             
@@ -360,10 +355,10 @@ public class ServletClientes extends HttpServlet {
 
             
             clienteNegocio.insertarCliente(clienteInsertar);           	
-            
+            request.setAttribute("mensaje", "Cliente agregada exitosamente.");
 
            
-            response.sendRedirect("AltaCliente.jsp");	
+            request.getRequestDispatcher("AltaCliente.jsp").forward(request, response); 	
 	
         	
         }
