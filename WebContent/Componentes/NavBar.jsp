@@ -1,4 +1,5 @@
 <!-- Nav Bar -->
+<%@page import="entidad.Usuario"%>
 <nav class="navbar navbar-expand-lg bg-azul py-0 fw-bold">
     <a class="navbar-brand ms-3 py-0" href="#">
         <i class="bi bi-bank fs-1"></i> ITBank
@@ -15,10 +16,21 @@
                 </li>
             <% } else { %>
                 <!-- Si hay usuario en sesión (logueado) -->
-                <li class="nav-item me-3">
-                    <a class="btn bg-azul fw-bold" href="Login.jsp"> <i class="bi bi-box-arrow-right fs-4"></i> Salir</a>
-                </li>
+                <%
+                Usuario usuario = new Usuario();
+                    usuario = (Usuario)session.getAttribute("sessionLogin");
+                    String nombreUsuario = usuario.getUser();
+                %>
+                
+			        <label class=" fs-4 me-1">Usuario: <%= nombreUsuario %></label>
+			        <li class="nav-item me-3">
+			            <a class="btn bg-azul fw-bold" href="Login.jsp">
+			                <i class="bi bi-box-arrow-right fs-4 me-1"></i> Salir
+			            </a>
+			        </li>
+			    
             <% } %>
         </ul>
     </div>
 </nav>
+
