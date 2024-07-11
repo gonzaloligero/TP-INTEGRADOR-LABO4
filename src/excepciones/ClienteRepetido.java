@@ -11,7 +11,7 @@ public class ClienteRepetido extends Exception{
 	}
 
 	public String getMensajeError() {
-		return MensajeError;
+		return "El DNI ya existe!!!";
 	}
 
 	public void setMensajeError() {

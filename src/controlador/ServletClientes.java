@@ -17,6 +17,7 @@ import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 import negocio.ClienteNegocio;
 import negocioImpl.ClienteNegImpl;
 import entidad.Cliente;
+import excepciones.ClienteRepetido;
 import excepciones.ContraseñaDiferente;
 
 @WebServlet("/ServletClientes")
@@ -229,6 +230,33 @@ public class ServletClientes extends HttpServlet {
             String telefono = request.getParameter("teléfono");
             String contraseñaRepetida = request.getParameter("contraseña2");
             
+            //aca guardo los datos del cliente para poder recuperarlos en casode que se lance la excepcion de cliente repetido
+            Cliente clienteForm = new Cliente();
+            clienteForm.setNombre(nombre);
+            clienteForm.setApellido(apellido);
+            clienteForm.setCUIL(cuil);
+            clienteForm.setTelefono(Integer.parseInt(telefono));
+            clienteForm.setDNI(Integer.parseInt(dni2));
+            clienteForm.setEmail(correo);
+            clienteForm.setSexo(sexo);
+            clienteForm.setNacionalidad(nacionalidad);
+            clienteForm.getDireccion().setProvincia(provincia);
+            clienteForm.getDireccion().setLocalidad(localidad);
+            clienteForm.getDireccion().setCalle(calle);
+            clienteForm.getDireccion().setCodigoPostal(codigoPostal);
+            clienteForm.getDireccion().setNumero(Integer.parseInt(numero));
+            clienteForm.setUser(usuario);
+            clienteForm.setPassword(contraseña);
+            clienteForm.setNumeroTelefonico(telefono);
+
+            try {
+                LocalDate localDate = LocalDate.parse(fechaNacimiento);
+                clienteForm.setFechaNacimiento(java.sql.Date.valueOf(localDate));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+            
             
             
             
@@ -236,11 +264,29 @@ public class ServletClientes extends HttpServlet {
                 try {
                     throw new ContraseñaDiferente();
                 } catch (ContraseñaDiferente e) {
+                	
                     request.setAttribute("contraseñaError", e.getMessage());
                     request.getRequestDispatcher("AltaCliente.jsp").forward(request, response);
                     return;
                 }
             }
+            
+            
+            ClienteNegocio clienteNeg = new ClienteNegImpl();
+            Cliente nuevo = clienteNeg.obtenerUnCliente(dni2);
+            String dnistr = String.valueOf(nuevo.getDNI());
+            
+            try {
+				if(dni2.equals(dnistr)) {
+					throw new ClienteRepetido("El DNI ingresado ya existe");
+				}
+			} catch (ClienteRepetido e) {
+				
+				request.setAttribute("cliente", clienteForm);
+				request.setAttribute("dnirepetido", "El DNI "+ dni2 + " ya esta registrado");
+                request.getRequestDispatcher("AltaCliente.jsp").forward(request, response);   
+			}
+            
 
             
             

@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="entidad.Direccion"%>
+<%@page import="entidad.Cliente"%>
 <%@page import="negocioImpl.ClienteNegImpl"%>
 <!DOCTYPE html>
 <html>
@@ -39,23 +40,26 @@ label {
 					<input type="hidden" name="action" value="alta">
 
 					<div class="row justify-content-center">
+					
+
 
 						<div class="col-md-3">
 							<div class="form-group">
-								<label for="nombre">Nombre</label> <input 
-									type="text" class="form-control" name="nombre" id="nombre"
-									placeholder="Ingrese el nombre" required>
+								<label for="nombre">Nombre</label> 
+								<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese el nombre"
+								value="<%= request.getAttribute("cliente") != null ? ((Cliente)request.getAttribute("cliente")).getNombre() : "" %>" required>								
 							</div>
 							<div class="form-group">
 								<label for="cuil">CUIL</label> <input
 									type="text" class="form-control" name="cuil" id="cuil"
-									placeholder="Ingrese el CUIL" required>
+									placeholder="Ingrese el CUIL" 
+									value="<%= request.getAttribute("cliente") != null ? ((Cliente)request.getAttribute("cliente")).getCUIL() : "" %>" required>	
 							</div>
 							<div class="form-group">
 								<label for="fechaNacimiento">Fecha de Nacimiento</label> <input
 									type="date" class="form-control" name="fechaNacimiento"
-									id="fechaNacimiento"
-									placeholder="Ingrese la fecha de nacimiento" required>
+									id="fechaNacimiento" placeholder="Ingrese la fecha de nacimiento"
+									value="<%= request.getAttribute("clienteForm") != null ? ((Cliente)request.getAttribute("cliente")).getFechaNacimiento() : "" %>" required>
 							</div>
 
 
@@ -63,14 +67,17 @@ label {
 								<label for="localidad">Localidad</label> <input
 									type="text" class="form-control"
 									name="localidad" id="localidad"
-									placeholder="Ingrese su localidad" required>
+									placeholder="Ingrese su localidad" 
+									value="<%= request.getAttribute("cliente") != null ? ((Cliente)request.getAttribute("cliente")).getDireccion().getLocalidad() : "" %>" required>
+
 							</div>
 
 							<div class="form-group">
 								<label for="codigoPostal">Código Postal</label> <input
 									type="number" class="form-control"
 									name="codigoPostal" id="codigoPostal"
-									placeholder="Ingrese el código postal" required>
+									placeholder="Ingrese el código postal"  
+									value="<%= request.getAttribute("cliente") != null ? ((Cliente)request.getAttribute("cliente")).getDireccion().getCodigoPostal() : "" %>" required>
 							</div>
 						</div>
 
@@ -79,24 +86,30 @@ label {
 							<div class="form-group">
 								<label for="apellido">Apellido</label> <input
 									type="text" class="form-control" name="apellido" id="apellido"
-									placeholder="Ingrese el apellido" required>
+									placeholder="Ingrese el apellido"                 
+									value="<%= request.getAttribute("cliente") != null ? ((Cliente)request.getAttribute("cliente")).getApellido() : "" %>" required>
+
 							</div>
 							<div class="form-group">
 								<label for="correo">Correo</label> 
 								<input type="email" class="form-control" id="correo"
-									placeholder="Ingrese el correo" name="correo" required>
+									placeholder="Ingrese el correo" name="correo"                
+									value="<%= request.getAttribute("cliente") != null ? ((Cliente)request.getAttribute("cliente")).getEmail() : "" %>" required>
+
 							</div>
 
 							<div class="form-group">
 								<label for="teléfono">Teléfono</label> <input 
 									type="number" class="form-control" id="correo"
 									placeholder="Ingrese el número telefónico" name="teléfono"
-									required>
+									value="<%= request.getAttribute("cliente") != null ? ((Cliente)request.getAttribute("cliente")).getTelefono() : "" %>" required>
+
 							</div>
 
 							<div class="form-group">
 								<label for="sexo">Género</label> <select class="form-control"
-									id="sexo" required name="sexo">
+									id="sexo" name="sexo" value="<%= request.getAttribute("cliente") != null ? ((Cliente)request.getAttribute("cliente")).getSexo() : "" %>" required>
+									
 									<option value="Masculino">Masculino</option>
 									<option value="Femenino">Femenino</option>
 								</select>
@@ -104,27 +117,33 @@ label {
 							<div class="form-group">
 								<label for="calle">Calle</label> <input
 									type="text" class="form-control" name="calle" id="calle"
-									placeholder="Ingrese la calle" required>
+									placeholder="Ingrese la calle"                 
+									value="<%= request.getAttribute("cliente") != null ? ((Cliente)request.getAttribute("cliente")).getDireccion().getCalle() : "" %>" required>
+
 							</div>
 							<div class="form-group">
 								<label for="usuario">Nombre de Usuario</label> <input
 								    type="text" class="form-control" id="usuario"
 									placeholder="Ingrese el nombre de usuario" name="usuario"
-									required>
+									value="<%= request.getAttribute("cliente") != null ? ((Cliente)request.getAttribute("cliente")).getUser() : "" %>" required>
+
 							</div>
 						</div>
 
 
 						<div class="col-md-3">
 							<div class="form-group">
-								<label for="dni">DNI</label> <input type="number"
-									class="form-control" name="dni" id="dni"
-									placeholder="Ingrese el DNI" required>
+								<label for="dni">DNI</label>
+								<input type="number" class="form-control" name="dni" id="dni" placeholder="Ingrese el DNI" required>
+								<div id="dni" class="text-danger">
+        							<%= request.getAttribute("dnirepetido") != null ? request.getAttribute("dnirepetido") : "" %>
+    							</div>
 							</div>
+
 							<div class="form-group">
 								<label for="nacionalidad">Nacionalidad</label> <select
 									class="form-control" name="nacionalidad" id="nacionalidad"
-									required>
+									value="<%= request.getAttribute("cliente") != null ? ((Cliente)request.getAttribute("cliente")).getNacionalidad() : "" %>" required>
 									<option value="">Seleccione su nacionalidad</option>
 									<option value="Argentina" selected >Argentina</option>
 									<option value="Australia">Australia</option>
@@ -181,7 +200,9 @@ label {
 							<div class="form-group">
 								<label for="provincia">Provincia</label> <select
 									class="form-control" id="provincia"
-									name="provincia" required>
+									name="provincia" 									
+									value="<%= request.getAttribute("cliente") != null ? ((Cliente)request.getAttribute("cliente")).getDireccion().getProvincia() : "" %>" required>
+
 									<option value="" disabled selected>Seleccione una
 										provincia</option>
 									<%
@@ -196,7 +217,9 @@ label {
 							<div class="form-group">
 								<label for="numero">Número</label> <input 
 									type="number" class="form-control" name="numero" id="numero"
-									placeholder="Ingrese el número" required>
+									placeholder="Ingrese el número" 									
+									value="<%= request.getAttribute("cliente") != null ? ((Cliente)request.getAttribute("cliente")).getDireccion().getNumero() : "" %>" required>
+
 							</div>
 							<div class="form-group">
 								<label for="contraseña">Contraseña</label> <input 
