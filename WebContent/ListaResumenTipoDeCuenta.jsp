@@ -19,8 +19,7 @@
             <div class="col">
                 <h1>Selecciona las Fechas</h1>
             </div>
-        </div>
-        
+        </div>     
         <form action="ServletCuentas" method="get">
         <input type="hidden" name="action" value="Resumen">
             <div class="row mb-3">
@@ -55,6 +54,7 @@
         <hr>
         
         <div class="row mb-3">
+        
             <div class="col">
                 <h2>Detalle de Cuentas</h2>
                 <% 
