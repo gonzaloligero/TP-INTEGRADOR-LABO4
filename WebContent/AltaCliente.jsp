@@ -9,12 +9,25 @@
 <head>
 <title>Alta Cliente</title>
 <jsp:include page="Componentes/head.jsp"></jsp:include>
+
+
 <style type="text/css">
 label {
 	font-weight: bold;
 	margin-top: 15px;
 }
 </style>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#table_id').DataTable();
+        <% if (request.getAttribute("mensaje") != null) { %>
+            $('#messageModal').modal('show');
+        <% } %>
+    });
+</script>
+
 </head>
 <body>
 
@@ -34,9 +47,7 @@ label {
 			<div class="w-100 pt-2 text-center">
 				<h1 class="mb-5">DAR DE ALTA CLIENTE</h1>				
 			</div>
-			<div id="dni" class="text-danger">
-        		<%= request.getAttribute("mensaje") != null ? request.getAttribute("mensaje") : "" %>
-    		</div>
+
 			<div>
 
 				<form action="ServletClientes" method="post">
@@ -269,7 +280,25 @@ label {
 	<jsp:include page="Componentes/script_validaciones_front.jsp"></jsp:include>
 
 
-
+<!-- Modal -->
+    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="messageModalLabel">Mensaje</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <%= request.getAttribute("mensaje") != null ? request.getAttribute("mensaje") : "" %>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
