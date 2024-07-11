@@ -126,7 +126,9 @@ label {
 								    type="text" class="form-control" id="usuario"
 									placeholder="Ingrese el nombre de usuario" name="usuario"
 									value="<%= request.getAttribute("cliente") != null ? ((Cliente)request.getAttribute("cliente")).getUser() : "" %>" required>
-
+									<div id="usuarior" class="text-danger">
+        							<%= request.getAttribute("usuariorepetido") != null ? request.getAttribute("usuariorepetido") : "" %>
+    							</div>
 							</div>
 						</div>
 
@@ -134,7 +136,8 @@ label {
 						<div class="col-md-3">
 							<div class="form-group">
 								<label for="dni">DNI</label>
-								<input type="number" class="form-control" name="dni" id="dni" placeholder="Ingrese el DNI" required>
+								<input type="number" class="form-control" name="dni" id="dni" placeholder="Ingrese el DNI" 
+								value="<%= request.getAttribute("cliente") != null ? ((Cliente)request.getAttribute("cliente")).getDNI() : "" %>" required>
 								<div id="dni" class="text-danger">
         							<%= request.getAttribute("dnirepetido") != null ? request.getAttribute("dnirepetido") : "" %>
     							</div>

@@ -14,11 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
+import datosImpl.UsuarioDaoImpl;
 import negocio.ClienteNegocio;
 import negocioImpl.ClienteNegImpl;
+import sun.launcher.resources.launcher;
 import entidad.Cliente;
+import entidad.Usuario;
 import excepciones.ClienteRepetido;
 import excepciones.ContraseñaDiferente;
+import excepciones.UsuarioRepetido;
 
 @WebServlet("/ServletClientes")
 public class ServletClientes extends HttpServlet {
@@ -274,8 +278,18 @@ public class ServletClientes extends HttpServlet {
             
             ClienteNegocio clienteNeg = new ClienteNegImpl();
             Cliente nuevo = clienteNeg.obtenerUnCliente(dni2);
+            
+            UsuarioDaoImpl ud = new UsuarioDaoImpl();
+            
+            
+            
+            
+            
+            
             String dnistr = String.valueOf(nuevo.getDNI());
             
+            
+            //Validacion de dni usando excepcion
             try {
 				if(dni2.equals(dnistr)) {
 					throw new ClienteRepetido("El DNI ingresado ya existe");
@@ -285,6 +299,19 @@ public class ServletClientes extends HttpServlet {
 				request.setAttribute("cliente", clienteForm);
 				request.setAttribute("dnirepetido", "El DNI "+ dni2 + " ya esta registrado");
                 request.getRequestDispatcher("AltaCliente.jsp").forward(request, response);   
+			}
+            
+            
+            //validacion de usuario usando  excepcion
+            try {
+            	if(ud.obtenerUsuarioPorNombre(usuario) != null) {
+            		throw new UsuarioRepetido("El usuario ya existe");
+            	}
+				
+			} catch (UsuarioRepetido e) {
+				request.setAttribute("cliente", clienteForm);
+				request.setAttribute("usuariorepetido", "El Usuario "+ usuario + " ya esta registrado");
+                request.getRequestDispatcher("AltaCliente.jsp").forward(request, response); 
 			}
             
 
@@ -332,7 +359,8 @@ public class ServletClientes extends HttpServlet {
             clienteInsertar.setNumeroTelefonico(telefono);
 
             
-            clienteNegocio.insertarCliente(clienteInsertar);
+            clienteNegocio.insertarCliente(clienteInsertar);           	
+            
 
            
             response.sendRedirect("AltaCliente.jsp");	
