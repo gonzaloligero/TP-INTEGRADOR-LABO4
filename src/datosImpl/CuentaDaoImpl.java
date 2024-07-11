@@ -328,40 +328,43 @@ public class CuentaDaoImpl implements CuentaDao{
 
 	@Override
 	public ArrayList<Cuenta> listaCuentasResumen(Date fecha1, Date fecha2, int tipo) {
-		   
 		Conexion cn = new Conexion();
-		    cn.Open();
+	    cn.Open();
+	    
+	    ArrayList<Cuenta> lista = new ArrayList<>();
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    
+	    String fechaInicio = sdf.format(fecha1);
+	    String fechaFin = sdf.format(fecha2);
 		    
-		    ArrayList<Cuenta> lista = new ArrayList<>();
-		    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		    
-		    String fechaInicio = sdf.format(fecha1);
-		    String fechaFin = sdf.format(fecha2);
-			    
-		    String query = "SELECT C.DNICliente, C.FechaCreacion, C.Saldo, C.Estado, TC.IDTipoCuenta " +
-                    "FROM CUENTAS C " +
-                    "JOIN TIPO_CUENTAS TC ON C.IDTipoCuenta = TC.IDTipoCuenta " +
-                    "WHERE C.FechaCreacion BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "' " +
-                    "AND TC.IDTipoCuenta = " + tipo;
+	    String query = "SELECT C.DNICliente, C.FechaCreacion, C.Saldo, C.Estado, TC.IDTipoCuenta " +
+                "FROM CUENTAS C " +
+                "JOIN TIPO_CUENTAS TC ON C.IDTipoCuenta = TC.IDTipoCuenta " +
+                "WHERE C.FechaCreacion BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "' " +
+                "AND TC.IDTipoCuenta = " + tipo;
 
-		    try {
-		         ResultSet rs = cn.query(query); 
-		        while (rs.next()) {
-		            Cuenta cuentaResumen = new Cuenta();
-		            cuentaResumen.setDNICliente(rs.getInt("DNICliente"));
-		            cuentaResumen.setFechaCreacion(rs.getDate("FechaCreacion"));
-		            cuentaResumen.setSaldo(rs.getDouble("Saldo"));
-		            cuentaResumen.setEstado(rs.getBoolean("Estado"));
-		            cuentaResumen.setIDTipoCuenta(rs.getInt("IDTipoCuenta"));
-		            lista.add(cuentaResumen);
-		        }
-		    } catch (Exception e) {
-		        System.out.println(e.getMessage());
-		    } finally {
-		        cn.close();
-		    }
-		    return lista;
+	    try {
+	         ResultSet rs = cn.query(query); 
+	        while (rs.next()) {
+	            Cuenta cuentaResumen = new Cuenta();
+	            cuentaResumen.setDNICliente(rs.getInt("DNICliente"));
+	            cuentaResumen.setFechaCreacion(rs.getDate("FechaCreacion"));
+	            cuentaResumen.setSaldo(rs.getDouble("Saldo"));
+	            cuentaResumen.setEstado(rs.getBoolean("Estado"));
+	            cuentaResumen.setIDTipoCuenta(rs.getInt("IDTipoCuenta"));
+	            lista.add(cuentaResumen);
+	        }
+	    } catch (Exception e) {
+	        System.out.println(e.getMessage());
+	    } finally {
+	        cn.close();
+	    }
+	    return lista;
 	}
+
+	
+
+	
 
 
 }

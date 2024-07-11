@@ -119,10 +119,10 @@
         </form>
         
         <div class="row mt-3">
-            <div class="col">
-                <a href="InformesAdministrador.jsp" class="btn btn-primary">Volver</a>
-            </div>
+        <div class="col text-center">
+            <a href="InformesAdministrador.jsp" class="btn btn-primary">Volver</a>
         </div>
+    </div>
     </div>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

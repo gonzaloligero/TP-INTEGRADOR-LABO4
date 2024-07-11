@@ -2,14 +2,46 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="entidad.Cuenta"%>
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <title>Tipos de Clientes</title>
     <jsp:include page="Componentes/head.jsp"></jsp:include>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Condensed', Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #004a80;
+            border-color: #004a80;
+        }
+        .btn-primary:hover {
+            background-color: #00365c;
+            border-color: #00365c;
+        }
+        .table th, .table td {
+            border-color: #dee2e6;
+        }
+        .table th {
+            background-color: #004a80;
+            color: #ffffff;
+        }
+    </style>
 </head>
 <body>
     <jsp:include page="Componentes/NavBar.jsp"></jsp:include>
-    <div class="container">
+    <div class="container mt-5">
         <div class="w-100 pt-2 text-center">
             <h1 class="mb-5">Tipos de Clientes</h1>
         </div>
@@ -17,17 +49,17 @@
             <div class="form-group">
                 <label for="categoria">Seleccione Categoría:</label>
                 <select class="form-control" id="categoria" name="categoria">
-                	<option value="">Seleccione el tipo de cuenta</option>
+                    <option value="">Seleccione el tipo de cuenta</option>
                     <option value="Bronce">Bronce</option>
                     <option value="Plata">Plata</option>
                     <option value="Oro">Oro</option>
                 </select>
             </div>
-            <button type="submit" class="btn bg-azul fw-bold bi bi-search fs-5 mb-3">Ver</button>
+            <button type="submit" class="btn btn-primary fw-bold bi bi-search fs-5 mb-3">Buscar</button>
             <input type="hidden" name="action" value="listarPorCategoria">
         </form>
-        <div>
-            <a class="btn bg-azul fw-bold bi bi-person-plus fs-5 mb-3" href="MenuAdministrador.jsp">Volver</a>
+        <div class="text-center mt-3">
+			<a class="btn btn-primary fw-bold fs-5 mb-3" href="InformesAdministrador.jsp">Volver</a>
         </div>
         <div class="mt-5">
             <h2>Resultado:</h2>
@@ -69,5 +101,6 @@
         </div>
     </div>
     <jsp:include page="Componentes/Footer.jsp"></jsp:include>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

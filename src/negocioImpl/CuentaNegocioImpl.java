@@ -70,6 +70,7 @@ public class CuentaNegocioImpl implements CuentaNegocio {
 		return cuentaDao.listaCuentasResumen(fecha1, fecha2, tipo);
 	}
 
+	
 
 	
 }

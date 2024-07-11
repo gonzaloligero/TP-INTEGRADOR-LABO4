@@ -17,6 +17,7 @@ public interface CuentaNegocio {
 	public ArrayList<Cuenta> listarCuentasTransferencia();
 	public ArrayList<Cuenta> listarCuentasPorTipo(double saldoMin, double saldoMax);
 	public ArrayList<Cuenta> listaCuentasResumen(Date fecha1, Date fecha2, int tipo);
+
 }
 	
 	
