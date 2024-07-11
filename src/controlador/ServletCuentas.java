@@ -144,34 +144,15 @@ public class ServletCuentas extends HttpServlet {
                     break;
                     
                 case "Resumen":
-                	
-                    String fechaInicioStr = request.getParameter("fechaInicio");
-                    String fechaFinStr = request.getParameter("fechaFin");
-                    String tipoStr = request.getParameter("categoria");
-                    
-                    Date sqlFecha1 = null;
-            	    Date sqlFecha2 = null;
-            		
-            		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            		java.util.Date utilFecha1;
-            		java.util.Date utilFecha2;
-            		try {
-            			utilFecha1 = dateFormat.parse(fechaInicioStr);
-            			utilFecha2 = dateFormat.parse(fechaFinStr);
-            	        sqlFecha1 = new java.sql.Date(utilFecha1.getTime());
-            	        sqlFecha2 = new java.sql.Date(utilFecha2.getTime());
-            		} catch (ParseException e) {
-            			e.printStackTrace();
-            		}
-                    
-    			    				
-                    int tipo = Integer.parseInt(tipoStr);                   
-                    ArrayList<Cuenta> listaCuenta = cuentaNegocio.listaCuentasResumen(sqlFecha1, sqlFecha2, tipo);
-                   
-                    request.setAttribute("listaPrincipal", listaCuenta);
+                    List<ArrayList<Cuenta>> listaPrincipal = new ArrayList<>();
+                    ArrayList<Cuenta> listaCuentaResumen = cuentaNegocio.listaTipoCuentasResumenNeg();
+                    listaPrincipal.add(listaCuentaResumen);
+
+                    ArrayList<Cuenta> listaCuentasResumen = cuentaNegocio.listaCuentasResumen();
+                    listaPrincipal.add(listaCuentasResumen);
+
+                    request.setAttribute("listaPrincipal", listaPrincipal);
                     request.getRequestDispatcher("ListaResumenTipoDeCuenta.jsp").forward(request, response);
-                	
-                	
                     break;
                     
      

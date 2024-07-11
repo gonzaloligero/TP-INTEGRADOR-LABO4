@@ -141,9 +141,9 @@
                 <div class="card">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSEfn657JB4oDZHKXF3h2Oeg8FaZbogk5rsw&s" class="card-img-top" alt="RESUMEN DE CUENTAS POR TIPO">
                     <div class="card-body">
-                        <h5 class="card-title">REPORTE DE CUENTAS POR FECHA Y TIPO</h5>
-                        <p class="card-text">Establece un rango de fecha e indique el tipo de cuenta que desea listar.</p>
-                        <a href="ListaResumenTipoDeCuenta.jsp" class="btn btn-primary">Ver</a>
+                         <h5 class="card-title">RESUMEN DE CUENTAS POR TIPO</h5>
+                        <p class="card-text">Caja de Ahorro y Cuenta Corriente, junto al saldo total en cada tipo de cuenta.</p>
+                        <a href="ServletCuentas?action=Resumen" class="btn btn-primary">Ver</a>
                     </div>
                 </div>
             </div>

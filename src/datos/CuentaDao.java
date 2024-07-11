@@ -21,8 +21,10 @@ public interface CuentaDao {
 	Cuenta obtenerUnaCuenta(int IDCuenta);
 	public ArrayList<Cuenta> listarCuentasTransferencia();
 	public boolean ValidarCbuYNumeroDeCuenta(int NumeroCuenta, String Cbu);
-	public ArrayList<Cuenta> listarCuentasPorTipo(double saldoMin, double saldoMax);	
-	public ArrayList<Cuenta> listaCuentasResumen(Date fecha1, Date fecha2, int tipo);
+	public ArrayList<Cuenta> listarCuentasPorTipo(double saldoMin, double saldoMax);
+	public ArrayList<Cuenta> listaTipoCuentasResumen();
+	public ArrayList<Cuenta> listaCuentasResumen();
+	
 }
 
 		
