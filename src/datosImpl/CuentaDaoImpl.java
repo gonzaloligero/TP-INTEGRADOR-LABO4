@@ -211,7 +211,7 @@ public class CuentaDaoImpl implements CuentaDao{
 	}
 	
 	
-	//Emma, no toca o te corto los dedos
+	//Emma, no tocar o te corto los dedos
 	
 	@Override
 	public Cuenta obtenerUnaCuenta(int IDCuenta) {

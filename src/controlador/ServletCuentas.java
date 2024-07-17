@@ -44,8 +44,6 @@ public class ServletCuentas extends HttpServlet {
             switch (action) {
                 case "listarCuentasGral":
                     ArrayList<Cuenta> listaCuentas = cuentaNegocio.listarCuentasGral();
-                    Cuenta cuenta1 = new Cuenta();
-                    listaCuentas.add(cuenta1);
                     request.setAttribute("listaCuentas", listaCuentas);
                     request.getRequestDispatcher("ListaCuentas.jsp").forward(request, response);
                     break;
